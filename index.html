@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>정안회계법인 — 사업자를 위한 기장·세무 파트너</title>
+  <meta name="description" content="광주 정안회계법인. 개인사업자·법인 기장 대리, 세무 신고, 절세 컨설팅. 대표 공인회계사 정영민이 직접 관리하는 프리미엄 세무 서비스." />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              950: '#0B1220',
+              900: '#0F172A',
+              800: '#1E293B',
+              700: '#334155',
+              500: '#64748B',
+              400: '#94A3B8',
+            },
+            brand: {
+              700: '#15803D',
+              600: '#16A34A',
+              50: '#F0FDF4',
+              100: '#DCFCE7',
+            },
+          },
+          fontFamily: {
+            sans: ['"Pretendard Variable"', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+          },
+          maxWidth: { content: '72rem' },
+        },
+      },
+    };
+  </script>
+  <style type="text/tailwindcss">
+    html { scroll-behavior: smooth; }
+    body { letter-spacing: -0.01em; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      * { animation: none !important; transition-duration: 0.01ms !important; }
+    }
+
+    :focus-visible {
+      outline: 3px solid #15803D;
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 0.5rem;
+      height: 0.5rem;
+      margin-right: 0.5rem;
+      border-radius: 9999px;
+      background: #A6C83B;
+    }
+
+    details.faq summary::-webkit-details-marker { display: none; }
+    details.faq[open] .faq-icon { transform: rotate(45deg); }
+    .faq-icon { transition: transform 0.2s ease-out; }
+  </style>
+</head>
+<body class="bg-white font-sans text-navy-900 antialiased">
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-brand-700 focus:px-4 focus:py-2 focus:text-white">본문으로 바로가기</a>
+
+  <!-- ===== Header ===== -->
+  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md">
+    <div class="mx-auto flex h-16 max-w-content items-center justify-between px-5 lg:px-8">
+      <a href="#" class="flex items-center gap-3" aria-label="정안회계법인 홈">
+        <img src="assets/logo.png" alt="" class="h-9 w-auto" onerror="this.nextElementSibling.classList.remove('border-l','pl-3');this.remove()" />
+        <span class="flex flex-col border-l border-slate-300 pl-3 leading-tight">
+          <span class="text-[17px] font-bold tracking-tight">정안회계법인</span>
+          <span class="text-[10px] font-medium uppercase tracking-wider text-navy-400">JungAhn Accounting Corp.</span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-8 md:flex" aria-label="주요 메뉴">
+        <a href="#services" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">서비스</a>
+        <a href="#about" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">대표 소개</a>
+        <a href="#process" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">진행 절차</a>
+        <a href="#pricing" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">요금 안내</a>
+        <a href="#faq" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">자주 묻는 질문</a>
+      </nav>
+
+      <a href="#contact" class="hidden rounded-lg bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-600 hover:shadow-md md:inline-block">
+        무료 상담 신청
+      </a>
+
+      <button id="menu-btn" class="flex h-11 w-11 items-center justify-center rounded-lg text-navy-900 md:hidden" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobile-menu">
+        <svg id="icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-5 pb-5 pt-2 md:hidden">
+      <nav class="flex flex-col" aria-label="모바일 메뉴">
+        <a href="#services" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">서비스</a>
+        <a href="#about" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">대표 소개</a>
+        <a href="#process" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">진행 절차</a>
+        <a href="#pricing" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">요금 안내</a>
+        <a href="#faq" class="py-3.5 text-[15px] font-medium">자주 묻는 질문</a>
+        <a href="#contact" class="mt-2 rounded-lg bg-brand-700 py-3.5 text-center text-[15px] font-semibold text-white">무료 상담 신청</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== Hero ===== -->
+    <section class="relative overflow-hidden">
+      <div class="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full bg-brand-50 blur-3xl" aria-hidden="true"></div>
+      <div class="mx-auto grid max-w-content items-center gap-12 px-5 pb-20 pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:pb-28 lg:pt-24">
+        <div>
+          <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-100 bg-brand-50 px-3.5 py-1.5 text-[13px] font-semibold text-brand-700">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            광주 상무지구 · 대표 공인회계사 직접 관리
+          </p>
+          <h1 class="text-4xl font-extrabold leading-[1.15] tracking-tight sm:text-5xl lg:text-[3.5rem]">
+            세무는 맡기고,<br />
+            <span class="text-brand-700">사업에만</span> 집중하세요
+          </h1>
+          <p class="mt-6 max-w-lg text-[17px] leading-relaxed text-navy-500">
+            개인사업자·법인의 기장 대리부터 부가세·종소세·법인세 신고,
+            절세 전략까지. 담당 회계사가 처음부터 끝까지 직접 책임집니다.
+          </p>
+          <div class="mt-9 flex flex-wrap items-center gap-4">
+            <a href="#contact" class="rounded-lg bg-brand-700 px-7 py-3.5 text-[15px] font-semibold text-white shadow-lg shadow-brand-700/20 transition-all hover:bg-brand-600 hover:shadow-xl hover:shadow-brand-700/25">
+              무료 상담 신청하기
+            </a>
+            <a href="#services" class="inline-flex items-center gap-2 rounded-lg px-4 py-3.5 text-[15px] font-semibold text-navy-900 transition-colors hover:text-brand-700">
+              서비스 살펴보기
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </a>
+          </div>
+          <p class="mt-5 text-[13px] text-navy-400">상담은 무료이며, 영업일 기준 24시간 이내에 연락드립니다.</p>
+        </div>
+
+        <!-- Hero visual: report card mock -->
+        <div class="relative hidden lg:block" aria-hidden="true">
+          <div class="absolute inset-0 -rotate-2 rounded-3xl bg-navy-900"></div>
+          <div class="relative rotate-1 rounded-3xl border border-slate-200 bg-white p-8 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-5">
+              <div>
+                <p class="text-[13px] font-medium text-navy-400">월간 세무 리포트</p>
+                <p class="mt-1 text-lg font-bold">2026년 7월</p>
+              </div>
+              <span class="rounded-full bg-emerald-50 px-3 py-1 text-[12px] font-semibold text-emerald-700">신고 완료</span>
+            </div>
+            <dl class="mt-5 space-y-4">
+              <div class="flex items-center justify-between">
+                <dt class="text-sm text-navy-500">매출</dt>
+                <dd class="text-sm font-bold tabular-nums">84,200,000원</dd>
+              </div>
+              <div class="flex items-center justify-between">
+                <dt class="text-sm text-navy-500">매입·경비</dt>
+                <dd class="text-sm font-bold tabular-nums">51,760,000원</dd>
+              </div>
+              <div class="flex items-center justify-between">
+                <dt class="text-sm text-navy-500">예상 부가세</dt>
+                <dd class="text-sm font-bold tabular-nums text-brand-700">3,244,000원</dd>
+              </div>
+            </dl>
+            <div class="mt-6 flex items-end gap-2" style="height:72px">
+              <div class="w-full rounded-t bg-slate-100" style="height:40%"></div>
+              <div class="w-full rounded-t bg-slate-100" style="height:55%"></div>
+              <div class="w-full rounded-t bg-slate-200" style="height:48%"></div>
+              <div class="w-full rounded-t bg-brand-100" style="height:70%"></div>
+              <div class="w-full rounded-t bg-brand-600" style="height:100%"></div>
+            </div>
+            <div class="mt-6 flex items-center gap-3 rounded-xl bg-slate-50 p-4">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy-900 text-[13px] font-bold text-white">丁</span>
+              <p class="text-[13px] leading-snug text-navy-700">담당 회계사가 이번 분기 <strong class="text-navy-900">절세 포인트 3건</strong>을 정리해 드렸습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Trust bar ===== -->
+    <section class="border-y border-slate-200 bg-slate-50">
+      <div class="mx-auto grid max-w-content grid-cols-1 gap-6 px-5 py-10 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+        <div class="flex items-center gap-3.5">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-brand-700 shadow-sm">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          </span>
+          <p class="text-[15px] font-semibold leading-snug">대표 공인회계사<br class="hidden lg:block" /> 직접 상담·관리</p>
+        </div>
+        <div class="flex items-center gap-3.5">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-brand-700 shadow-sm">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8m8 4H8m2-8H8"/></svg>
+          </span>
+          <p class="text-[15px] font-semibold leading-snug">기장부터 세무조사<br class="hidden lg:block" /> 대응까지 원스톱</p>
+        </div>
+        <div class="flex items-center gap-3.5">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-brand-700 shadow-sm">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <p class="text-[15px] font-semibold leading-snug">광주 상무지구<br class="hidden lg:block" /> 정안빌딩 3층</p>
+        </div>
+        <div class="flex items-center gap-3.5">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-brand-700 shadow-sm">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </span>
+          <p class="text-[15px] font-semibold leading-snug">전화·이메일 상담<br class="hidden lg:block" /> 062-385-8328</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Services ===== -->
+    <section id="services" class="scroll-mt-20 py-20 lg:py-28">
+      <div class="mx-auto max-w-content px-5 lg:px-8">
+        <div class="reveal max-w-2xl">
+          <p class="section-label text-sm font-bold uppercase tracking-widest text-brand-700">Services</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">사업 단계에 맞는<br />세무 서비스를 제공합니다</h2>
+          <p class="mt-4 text-[16px] leading-relaxed text-navy-500">창업 초기부터 법인 전환, 성장 이후까지. 필요한 순간마다 곁에서 숫자를 관리합니다.</p>
+        </div>
+
+        <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="reveal group rounded-2xl border border-slate-200 bg-white p-7 transition-all hover:-translate-y-1 hover:border-brand-100 hover:shadow-xl hover:shadow-navy-900/5">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8m8 4H8m2-8H8"/></svg>
+            </span>
+            <h3 class="mt-5 text-lg font-bold">기장 대리</h3>
+            <p class="mt-2.5 text-[15px] leading-relaxed text-navy-500">증빙 수집부터 장부 작성, 월별 결산까지. 매월 정리된 리포트로 사업의 숫자를 한눈에 확인하세요.</p>
+          </div>
+
+          <div class="reveal group rounded-2xl border border-slate-200 bg-white p-7 transition-all hover:-translate-y-1 hover:border-brand-100 hover:shadow-xl hover:shadow-navy-900/5">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m9 16 2 2 4-4"/></svg>
+            </span>
+            <h3 class="mt-5 text-lg font-bold">세무 신고</h3>
+            <p class="mt-2.5 text-[15px] leading-relaxed text-navy-500">부가가치세·종합소득세·법인세·원천세. 신고 기한을 놓치지 않도록 일정 관리부터 신고까지 대행합니다.</p>
+          </div>
+
+          <div class="reveal group rounded-2xl border border-slate-200 bg-white p-7 transition-all hover:-translate-y-1 hover:border-brand-100 hover:shadow-xl hover:shadow-navy-900/5">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </span>
+            <h3 class="mt-5 text-lg font-bold">절세 컨설팅</h3>
+            <p class="mt-2.5 text-[15px] leading-relaxed text-navy-500">법인 전환, 대표 급여 설계, 경비 처리 기준까지. 합법적인 절세 전략을 사업 구조에 맞게 설계합니다.</p>
+          </div>
+
+          <div class="reveal group rounded-2xl border border-slate-200 bg-white p-7 transition-all hover:-translate-y-1 hover:border-brand-100 hover:shadow-xl hover:shadow-navy-900/5">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <h3 class="mt-5 text-lg font-bold">급여·4대보험</h3>
+            <p class="mt-2.5 text-[15px] leading-relaxed text-navy-500">직원 급여 계산, 4대보험 취득·상실 신고, 연말정산까지. 인사·노무 실무 부담을 덜어드립니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Industries ===== -->
+    <section aria-label="주요 대응 업종" class="pb-20 lg:pb-24">
+      <div class="mx-auto max-w-content px-5 lg:px-8">
+        <div class="reveal rounded-2xl bg-slate-50 px-8 py-9">
+          <p class="text-center text-[15px] font-semibold text-navy-700">업종마다 다른 회계·세무 특성에 맞춰 관리합니다</p>
+          <ul class="mt-6 flex flex-wrap items-center justify-center gap-2.5">
+            <li class="rounded-full border border-slate-200 bg-white px-4 py-2 text-[13.5px] font-medium text-navy-700">도소매 · 온라인셀러</li>
+            <li class="rounded-full border border-slate-200 bg-white px-4 py-2 text-[13.5px] font-medium text-navy-700">음식 · 숙박</li>
+            <li class="rounded-full border border-slate-200 bg-white px-4 py-2 text-[13.5px] font-medium text-navy-700">병의원 · 약국</li>
+            <li class="rounded-full border border-slate-200 bg-white px-4 py-2 text-[13.5px] font-medium text-navy-700">학원 · 교육</li>
+            <li class="rounded-full border border-slate-200 bg-white px-4 py-2 text-[13.5px] font-medium text-navy-700">제조 · 건설</li>
+            <li class="rounded-full border border-slate-200 bg-white px-4 py-2 text-[13.5px] font-medium text-navy-700">부동산 임대</li>
+            <li class="rounded-full border border-slate-200 bg-white px-4 py-2 text-[13.5px] font-medium text-navy-700">IT · 스타트업</li>
+            <li class="rounded-full border border-slate-200 bg-white px-4 py-2 text-[13.5px] font-medium text-navy-700">프리랜서</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Why us ===== -->
+    <section class="bg-navy-900 py-20 text-white lg:py-28">
+      <div class="mx-auto max-w-content px-5 lg:px-8">
+        <div class="reveal max-w-2xl">
+          <p class="section-label text-sm font-bold uppercase tracking-widest text-brand-100">Why Us</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">사무장이 아닌,<br />회계사가 직접 관리합니다</h2>
+        </div>
+        <div class="mt-14 grid gap-10 md:grid-cols-3">
+          <div class="reveal">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </span>
+            <h3 class="mt-5 text-lg font-bold">담당 회계사 1:1 전담</h3>
+            <p class="mt-2.5 text-[15px] leading-relaxed text-navy-400">계약 후 방치되지 않습니다. 담당 회계사가 사업 내용을 파악하고 처음부터 끝까지 직접 소통합니다.</p>
+          </div>
+          <div class="reveal">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </span>
+            <h3 class="mt-5 text-lg font-bold">선제적 일정 관리</h3>
+            <p class="mt-2.5 text-[15px] leading-relaxed text-navy-400">신고 기한이 임박해서 연락하지 않습니다. 신고·납부 일정과 필요 서류를 미리 안내해 가산세를 예방합니다.</p>
+          </div>
+          <div class="reveal">
+            <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </span>
+            <h3 class="mt-5 text-lg font-bold">쉬운 언어로 설명</h3>
+            <p class="mt-2.5 text-[15px] leading-relaxed text-navy-400">어려운 세법 용어 대신, 대표님이 의사결정에 바로 쓸 수 있는 언어로 설명해 드립니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== About (대표 소개) ===== -->
+    <section id="about" class="scroll-mt-20 border-t border-slate-200 py-20 lg:py-28">
+      <div class="mx-auto grid max-w-content items-center gap-12 px-5 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:px-8">
+        <div class="reveal mx-auto w-full max-w-sm">
+          <img src="assets/ceo.jpg" alt="정안회계법인 대표 공인회계사 정영민" class="w-full rounded-3xl shadow-xl shadow-navy-900/10" />
+        </div>
+        <div class="reveal">
+          <p class="section-label text-sm font-bold uppercase tracking-widest text-brand-700">About</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">대표 공인회계사<br />정영민 <span class="text-xl font-semibold text-navy-400">丁永珉</span></h2>
+          <p class="mt-6 max-w-xl text-[16px] leading-relaxed text-navy-500">
+            숫자 뒤에는 대표님의 밤낮없는 노력이 있습니다.
+            정안회계법인은 장부 한 줄, 신고서 한 장에도 그 무게를 담아
+            대표님의 사업이 더 단단해지도록 돕겠습니다.
+          </p>
+          <ul class="mt-8 space-y-3 text-[15px] text-navy-700">
+            <li class="flex items-center gap-3">
+              <svg class="shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              한국공인회계사회 등록 공인회계사 (KICPA)
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              정안회계법인 대표
+            </li>
+            <!-- TODO: 학력·경력 사항을 여기에 추가하세요. 예)
+            <li class="flex items-center gap-3">
+              <svg class="shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              前 OO회계법인 근무
+            </li>
+            -->
+          </ul>
+          <a href="#contact" class="mt-9 inline-flex items-center gap-2 rounded-lg bg-navy-900 px-6 py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-navy-800">
+            대표 회계사와 상담하기
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Process ===== -->
+    <section id="process" class="scroll-mt-20 py-20 lg:py-28">
+      <div class="mx-auto max-w-content px-5 lg:px-8">
+        <div class="reveal max-w-2xl">
+          <p class="section-label text-sm font-bold uppercase tracking-widest text-brand-700">Process</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">계약부터 신고까지,<br />4단계면 충분합니다</h2>
+        </div>
+        <ol class="mt-14 grid gap-6 md:grid-cols-4">
+          <li class="reveal relative rounded-2xl bg-slate-50 p-7">
+            <span class="text-[13px] font-bold text-brand-700">STEP 1</span>
+            <h3 class="mt-2 text-lg font-bold">무료 상담</h3>
+            <p class="mt-2 text-[14.5px] leading-relaxed text-navy-500">사업 형태와 현황을 듣고 필요한 서비스 범위와 예상 비용을 안내합니다.</p>
+          </li>
+          <li class="reveal relative rounded-2xl bg-slate-50 p-7">
+            <span class="text-[13px] font-bold text-brand-700">STEP 2</span>
+            <h3 class="mt-2 text-lg font-bold">계약 및 인수인계</h3>
+            <p class="mt-2 text-[14.5px] leading-relaxed text-navy-500">기존 세무사무소 자료 인수까지 대행합니다. 대표님이 직접 챙길 일은 없습니다.</p>
+          </li>
+          <li class="reveal relative rounded-2xl bg-slate-50 p-7">
+            <span class="text-[13px] font-bold text-brand-700">STEP 3</span>
+            <h3 class="mt-2 text-lg font-bold">월별 기장·결산</h3>
+            <p class="mt-2 text-[14.5px] leading-relaxed text-navy-500">홈택스·카드·은행 자료를 수집해 매월 장부를 정리하고 리포트를 보내드립니다.</p>
+          </li>
+          <li class="reveal relative rounded-2xl bg-slate-50 p-7">
+            <span class="text-[13px] font-bold text-brand-700">STEP 4</span>
+            <h3 class="mt-2 text-lg font-bold">신고 및 절세 검토</h3>
+            <p class="mt-2 text-[14.5px] leading-relaxed text-navy-500">신고 전 절세 항목을 검토해 반영하고, 신고 결과를 알기 쉽게 보고합니다.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== Pricing ===== -->
+    <section id="pricing" class="scroll-mt-20 border-t border-slate-200 bg-slate-50 py-20 lg:py-28">
+      <div class="mx-auto max-w-content px-5 lg:px-8">
+        <div class="reveal mx-auto max-w-2xl text-center">
+          <p class="section-label text-sm font-bold uppercase tracking-widest text-brand-700">Pricing</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">투명한 요금 안내</h2>
+          <p class="mt-4 text-[16px] leading-relaxed text-navy-500">요금은 사업 형태·업종·거래 규모에 따라 달라지므로, 상담 시 연간 총비용 기준으로 미리 안내해 드립니다. 계약 후 예상치 못한 추가 청구는 없습니다.</p>
+        </div>
+
+        <div class="mt-14 grid gap-6 lg:grid-cols-3">
+          <div class="reveal flex flex-col rounded-2xl border border-slate-200 bg-white p-8">
+            <h3 class="text-lg font-bold">개인사업자 · 간이</h3>
+            <p class="mt-1.5 text-[14.5px] text-navy-500">소규모 사업자, 프리랜서</p>
+            <p class="mt-6 text-2xl font-extrabold tracking-tight">맞춤 견적</p>
+            <p class="mt-1 text-[13px] text-navy-400">상담 시 규모에 맞게 안내</p>
+            <ul class="mt-7 space-y-3.5 text-[15px] text-navy-700">
+              <li class="flex items-start gap-2.5"><svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>월별 기장 및 증빙 관리</li>
+              <li class="flex items-start gap-2.5"><svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>부가세·종합소득세 신고</li>
+              <li class="flex items-start gap-2.5"><svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>신고 일정 사전 안내</li>
+            </ul>
+            <a href="#contact" class="mt-8 rounded-lg border border-slate-300 py-3 text-center text-[15px] font-semibold text-navy-900 transition-colors hover:border-brand-700 hover:text-brand-700">견적 문의</a>
+          </div>
+
+          <div class="reveal relative flex flex-col rounded-2xl border-2 border-brand-700 bg-white p-8 shadow-xl shadow-brand-700/10">
+            <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-brand-700 px-4 py-1 text-[12px] font-bold text-white">가장 많이 선택</span>
+            <h3 class="text-lg font-bold">개인사업자 · 일반</h3>
+            <p class="mt-1.5 text-[14.5px] text-navy-500">일반과세자, 직원 보유 사업장</p>
+            <p class="mt-6 text-2xl font-extrabold tracking-tight">맞춤 견적</p>
+            <p class="mt-1 text-[13px] text-navy-400">상담 시 규모에 맞게 안내</p>
+            <ul class="mt-7 space-y-3.5 text-[15px] text-navy-700">
+              <li class="flex items-start gap-2.5"><svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>간이 플랜 전체 포함</li>
+              <li class="flex items-start gap-2.5"><svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>급여·4대보험 신고 대행</li>
+              <li class="flex items-start gap-2.5"><svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>월간 손익 리포트 제공</li>
+              <li class="flex items-start gap-2.5"><svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>연 1회 절세 정기 검토</li>
+            </ul>
+            <a href="#contact" class="mt-8 rounded-lg bg-brand-700 py-3 text-center text-[15px] font-semibold text-white shadow-sm transition-colors hover:bg-brand-600">견적 문의</a>
+          </div>
+
+          <div class="reveal flex flex-col rounded-2xl border border-slate-200 bg-white p-8">
+            <h3 class="text-lg font-bold">법인</h3>
+            <p class="mt-1.5 text-[14.5px] text-navy-500">법인사업자, 법인 전환 검토 기업</p>
+            <p class="mt-6 text-2xl font-extrabold tracking-tight">맞춤 견적</p>
+            <p class="mt-1 text-[13px] text-navy-400">상담 시 규모에 맞게 안내</p>
+            <ul class="mt-7 space-y-3.5 text-[15px] text-navy-700">
+              <li class="flex items-start gap-2.5"><svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>일반 플랜 전체 포함</li>
+              <li class="flex items-start gap-2.5"><svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>법인세 신고·결산 공시</li>
+              <li class="flex items-start gap-2.5"><svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>대표 급여·배당 설계</li>
+              <li class="flex items-start gap-2.5"><svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>세무조사 대응 지원</li>
+            </ul>
+            <a href="#contact" class="mt-8 rounded-lg border border-slate-300 py-3 text-center text-[15px] font-semibold text-navy-900 transition-colors hover:border-brand-700 hover:text-brand-700">견적 문의</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq" class="scroll-mt-20 border-t border-slate-200 bg-slate-50 py-20 lg:py-28">
+      <div class="mx-auto max-w-3xl px-5 lg:px-8">
+        <div class="reveal text-center">
+          <p class="section-label text-sm font-bold uppercase tracking-widest text-brand-700">FAQ</p>
+          <h2 class="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">자주 묻는 질문</h2>
+        </div>
+        <div class="mt-12 space-y-4">
+          <details class="faq reveal group rounded-2xl border border-slate-200 bg-white">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 p-6 text-[15.5px] font-bold">
+              기존 세무사무소에서 옮기려면 복잡하지 않나요?
+              <svg class="faq-icon shrink-0 text-navy-400" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <p class="px-6 pb-6 text-[15px] leading-relaxed text-navy-500">아닙니다. 위임장만 작성해 주시면 기존 사무소와의 자료 인수인계를 저희가 직접 진행합니다. 대표님이 별도로 준비하실 서류는 거의 없습니다.</p>
+          </details>
+          <details class="faq reveal group rounded-2xl border border-slate-200 bg-white">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 p-6 text-[15.5px] font-bold">
+              기장료 외에 추가 비용이 있나요?
+              <svg class="faq-icon shrink-0 text-navy-400" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <p class="px-6 pb-6 text-[15px] leading-relaxed text-navy-500">종합소득세·법인세 신고 시 조정료가 별도로 발생하며, 이는 업계 공통입니다. 계약 전에 예상 조정료를 포함한 연간 총비용을 미리 안내해 드리므로 예상치 못한 청구는 없습니다.</p>
+          </details>
+          <details class="faq reveal group rounded-2xl border border-slate-200 bg-white">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 p-6 text-[15.5px] font-bold">
+              지방에 있는데 계약이 가능한가요?
+              <svg class="faq-icon shrink-0 text-navy-400" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <p class="px-6 pb-6 text-[15px] leading-relaxed text-navy-500">가능합니다. 자료 수집은 홈택스·카드사 연동으로 이루어지고, 상담은 전화·화상으로 진행되므로 전국 어디서든 동일한 서비스를 받으실 수 있습니다.</p>
+          </details>
+          <details class="faq reveal group rounded-2xl border border-slate-200 bg-white">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 p-6 text-[15.5px] font-bold">
+              세무조사가 나오면 도와주시나요?
+              <svg class="faq-icon shrink-0 text-navy-400" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <p class="px-6 pb-6 text-[15px] leading-relaxed text-navy-500">네. 기장 고객의 세무조사·소명 요청 대응은 담당 회계사가 직접 지원합니다. 평소 증빙 관리를 원칙대로 해두는 것이 최선의 대비이며, 그 부분을 저희가 책임집니다.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Contact CTA ===== -->
+    <section id="contact" class="scroll-mt-20 py-20 lg:py-28">
+      <div class="mx-auto max-w-content px-5 lg:px-8">
+        <div class="grid overflow-hidden rounded-3xl bg-navy-900 lg:grid-cols-2">
+          <div class="p-10 text-white lg:p-14">
+            <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">지금 무료로<br />상담받아 보세요</h2>
+            <p class="mt-5 max-w-md text-[15.5px] leading-relaxed text-navy-400">현재 세무 관리 상태를 점검하고, 예상 비용과 절세 가능성을 알려드립니다. 상담 후 계약 여부는 편하게 결정하세요.</p>
+            <ul class="mt-9 space-y-4 text-[15px]">
+              <li class="flex items-center gap-3">
+                <svg class="shrink-0 text-brand-100" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Tel. 062-385-8328 &nbsp;·&nbsp; Mobile. 010-4446-0321
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="shrink-0 text-brand-100" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                kicpajym@gmail.com
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="shrink-0 text-brand-100" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                광주광역시 서구 상무화원로 12번길 4, 정안빌딩 3층
+              </li>
+            </ul>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="https://map.kakao.com/link/search/광주광역시%20서구%20상무화원로12번길%204" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2.5 text-[13.5px] font-semibold text-white transition-colors hover:bg-white/20">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                카카오맵으로 보기
+              </a>
+              <a href="https://map.naver.com/p/search/광주광역시%20서구%20상무화원로12번길%204" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2.5 text-[13.5px] font-semibold text-white transition-colors hover:bg-white/20">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                네이버 지도로 보기
+              </a>
+            </div>
+          </div>
+
+          <form name="consult" method="POST" data-netlify="true" class="bg-white p-10 lg:p-14">
+            <input type="hidden" name="form-name" value="consult" />
+            <div class="space-y-5">
+              <div>
+                <label for="name" class="mb-1.5 block text-sm font-semibold">성함 <span class="text-red-600" aria-hidden="true">*</span></label>
+                <input id="name" name="name" type="text" required autocomplete="name" class="h-12 w-full rounded-lg border border-slate-300 px-4 text-[15px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="홍길동" />
+              </div>
+              <div>
+                <label for="phone" class="mb-1.5 block text-sm font-semibold">연락처 <span class="text-red-600" aria-hidden="true">*</span></label>
+                <input id="phone" name="phone" type="tel" required autocomplete="tel" class="h-12 w-full rounded-lg border border-slate-300 px-4 text-[15px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="010-0000-0000" />
+              </div>
+              <div>
+                <label for="biztype" class="mb-1.5 block text-sm font-semibold">사업 형태</label>
+                <select id="biztype" name="biztype" class="h-12 w-full rounded-lg border border-slate-300 bg-white px-4 text-[15px] transition-colors focus:border-brand-700">
+                  <option>예비 창업자</option>
+                  <option>개인사업자 (간이)</option>
+                  <option>개인사업자 (일반)</option>
+                  <option>법인</option>
+                </select>
+              </div>
+              <div>
+                <label for="message" class="mb-1.5 block text-sm font-semibold">문의 내용</label>
+                <textarea id="message" name="message" rows="4" class="w-full rounded-lg border border-slate-300 px-4 py-3 text-[15px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="업종, 연 매출 규모, 궁금하신 점을 편하게 적어주세요."></textarea>
+              </div>
+              <button type="submit" class="h-13 w-full rounded-lg bg-brand-700 py-3.5 text-[15px] font-semibold text-white shadow-sm transition-colors hover:bg-brand-600">
+                무료 상담 신청하기
+              </button>
+              <p class="text-center text-[12.5px] text-navy-400">제출하신 정보는 상담 목적으로만 사용됩니다.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="border-t border-slate-200 py-12">
+    <div class="mx-auto flex max-w-content flex-col items-start justify-between gap-8 px-5 md:flex-row md:items-center lg:px-8">
+      <div>
+        <p class="text-[15px] font-bold">정안회계법인 <span class="text-[12px] font-medium text-navy-400">JungAhn Accounting Corporation</span></p>
+        <p class="mt-2 text-[13px] leading-relaxed text-navy-400">
+          대표 공인회계사 정영민(丁永珉)<br />
+          광주광역시 서구 상무화원로 12번길 4, 정안빌딩 3층<br />
+          Tel. 062-385-8328 · Fax. 062-385-8352 · Mobile. 010-4446-0321 · kicpajym@gmail.com
+        </p>
+      </div>
+      <p class="text-[13px] text-navy-400">&copy; 2026 정안회계법인. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+    menuBtn.addEventListener('click', () => {
+      const isOpen = !mobileMenu.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden', isOpen);
+      iconClose.classList.toggle('hidden', !isOpen);
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+      menuBtn.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
+    });
+    mobileMenu.querySelectorAll('a').forEach((a) =>
+      a.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      })
+    );
+
+    // Scroll reveal (respects prefers-reduced-motion via CSS)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -10,77 +10,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            navy: {
-              950: '#0B1220',
-              900: '#0F172A',
-              800: '#1E293B',
-              700: '#334155',
-              600: '#475569',
-              500: '#64748B',
-              400: '#94A3B8',
-            },
-            brand: {
-              700: '#15803D',
-              600: '#16A34A',
-              50: '#F0FDF4',
-              100: '#DCFCE7',
-            },
-          },
-          fontFamily: {
-            sans: ['Inter', '"Pretendard Variable"', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
-          },
-          maxWidth: { content: '72rem' },
-        },
-      },
-    };
-  </script>
-  <style type="text/tailwindcss">
-    html { scroll-behavior: smooth; }
-    body {
-      letter-spacing: -0.01em;
-      word-break: keep-all;
-      overflow-wrap: break-word;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.is-visible { opacity: 1; transform: none; }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .reveal { opacity: 1; transform: none; transition: none; }
-      * { animation: none !important; transition-duration: 0.01ms !important; }
-    }
-
-    :focus-visible {
-      outline: 3px solid #15803D;
-      outline-offset: 2px;
-      border-radius: 4px;
-    }
-
-    .section-label::before {
-      content: '';
-      display: inline-block;
-      width: 0.5rem;
-      height: 0.5rem;
-      margin-right: 0.5rem;
-      border-radius: 9999px;
-      background: #A6C83B;
-    }
-
-    details.faq summary::-webkit-details-marker { display: none; }
-    details.faq[open] .faq-icon { transform: rotate(45deg); }
-    .faq-icon { transition: transform 0.2s ease-out; }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="canonical" href="https://jungahn-accounting.netlify.app/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="정안회계법인 — 의류 쇼핑몰 전문 세무회계" />
+  <meta property="og:description" content="에이블리·지그재그·자사몰 정산 구조부터 사입 장끼(영수증) 관리까지 꿰뚫고 있는 의류 쇼핑몰 전문 회계법인" />
+  <meta property="og:url" content="https://jungahn-accounting.netlify.app/" />
+  <meta property="og:image" content="https://jungahn-accounting.netlify.app/assets/logo.png" />
+  <meta name="twitter:card" content="summary" />
 </head>
 <body class="bg-white font-sans text-navy-900 antialiased">
 
@@ -90,7 +28,7 @@
   <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md">
     <div class="mx-auto flex h-16 max-w-content items-center justify-between px-5 lg:px-8">
       <a href="#" class="flex items-center gap-3" aria-label="정안회계법인 홈">
-        <img src="assets/logo.png" alt="" class="h-9 w-auto" onerror="this.nextElementSibling.classList.remove('border-l','pl-3');this.remove()" />
+        <img src="assets/logo.png" alt="" width="314" height="136" class="h-9 w-auto" onerror="this.nextElementSibling.classList.remove('border-l','pl-3');this.remove()" />
         <span class="flex flex-col border-l border-slate-300 pl-3 leading-tight">
           <span class="text-[17px] font-bold tracking-tight">정안회계법인</span>
           <span class="text-[10px] font-medium uppercase tracking-wider text-navy-500">JungAhn Accounting Corp.</span>
@@ -314,7 +252,7 @@
     <section id="about" class="scroll-mt-20 border-t border-slate-200 py-20 lg:py-28">
       <div class="mx-auto grid max-w-content items-center gap-12 px-5 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:px-8">
         <div class="reveal mx-auto w-full max-w-sm">
-          <img src="assets/ceo.jpg" alt="정안회계법인 대표 공인회계사 정영민" class="w-full rounded-3xl shadow-xl shadow-navy-900/10" />
+          <img src="assets/ceo.jpg" alt="정안회계법인 대표 공인회계사 정영민" width="354" height="465" loading="lazy" class="h-auto w-full rounded-3xl shadow-xl shadow-navy-900/10" />
         </div>
         <div class="reveal">
           <p class="section-label text-sm font-bold uppercase tracking-widest text-brand-700">About</p>
@@ -507,11 +445,11 @@
               </li>
             </ul>
             <div class="mt-6 flex flex-wrap gap-3">
-              <a href="https://map.kakao.com/link/search/광주광역시%20서구%20상무화원로12번길%204" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2.5 text-[13.5px] font-semibold text-white transition-colors hover:bg-white/20">
+              <a href="https://map.kakao.com/link/search/광주광역시%20서구%20상무화원로12번길%204" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-3 text-[13.5px] font-semibold text-white transition-colors hover:bg-white/20">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 카카오맵으로 보기
               </a>
-              <a href="https://map.naver.com/p/search/광주광역시%20서구%20상무화원로12번길%204" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2.5 text-[13.5px] font-semibold text-white transition-colors hover:bg-white/20">
+              <a href="https://map.naver.com/p/search/광주광역시%20서구%20상무화원로12번길%204" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-lg bg-white/10 px-4 py-3 text-[13.5px] font-semibold text-white transition-colors hover:bg-white/20">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 네이버 지도로 보기
               </a>
@@ -523,15 +461,15 @@
             <div class="space-y-5">
               <div>
                 <label for="name" class="mb-1.5 block text-sm font-semibold">성함 <span class="text-red-600" aria-hidden="true">*</span></label>
-                <input id="name" name="name" type="text" required autocomplete="name" class="h-12 w-full rounded-lg border border-slate-300 px-4 text-[15px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="홍길동" />
+                <input id="name" name="name" type="text" required autocomplete="name" class="h-12 w-full rounded-lg border border-slate-300 px-4 text-[16px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="홍길동" />
               </div>
               <div>
                 <label for="phone" class="mb-1.5 block text-sm font-semibold">연락처 <span class="text-red-600" aria-hidden="true">*</span></label>
-                <input id="phone" name="phone" type="tel" required autocomplete="tel" class="h-12 w-full rounded-lg border border-slate-300 px-4 text-[15px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="010-0000-0000" />
+                <input id="phone" name="phone" type="tel" required autocomplete="tel" class="h-12 w-full rounded-lg border border-slate-300 px-4 text-[16px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="010-0000-0000" />
               </div>
               <div>
                 <label for="biztype" class="mb-1.5 block text-sm font-semibold">사업 형태</label>
-                <select id="biztype" name="biztype" class="h-12 w-full rounded-lg border border-slate-300 bg-white px-4 text-[15px] transition-colors focus:border-brand-700">
+                <select id="biztype" name="biztype" class="h-12 w-full rounded-lg border border-slate-300 bg-white px-4 text-[16px] transition-colors focus:border-brand-700">
                   <option>의류 쇼핑몰 · 온라인셀러</option>
                   <option>예비 창업자</option>
                   <option>개인사업자 (간이)</option>
@@ -541,7 +479,7 @@
               </div>
               <div>
                 <label for="message" class="mb-1.5 block text-sm font-semibold">문의 내용</label>
-                <textarea id="message" name="message" rows="4" class="w-full rounded-lg border border-slate-300 px-4 py-3 text-[15px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="판매 채널(에이블리·지그재그 등), 월 매출 규모 궁금하신 점을 편하게 적어주세요."></textarea>
+                <textarea id="message" name="message" rows="4" class="w-full rounded-lg border border-slate-300 px-4 py-3 text-[16px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="판매 채널(에이블리·지그재그 등), 월 매출 규모 궁금하신 점을 편하게 적어주세요."></textarea>
               </div>
               <button type="submit" class="h-13 w-full rounded-lg bg-brand-700 py-3.5 text-[15px] font-semibold text-white shadow-sm transition-colors hover:bg-brand-600">
                 무료 상담 신청하기

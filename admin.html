@@ -16,7 +16,7 @@
 <body class="min-h-screen bg-slate-50 font-sans text-navy-900 antialiased">
 
   <header class="border-b border-slate-200 bg-white">
-    <div class="mx-auto flex h-16 max-w-content items-center justify-between px-5 lg:px-8">
+    <div class="mx-auto flex h-16 max-w-[100rem] items-center justify-between px-5 lg:px-8">
       <div class="flex items-center gap-3">
         <img src="assets/logo.png" alt="" width="314" height="136" class="h-8 w-auto" onerror="this.remove()" />
         <span class="text-[16px] font-bold tracking-tight">상담 접수 관리</span>
@@ -25,7 +25,7 @@
     </div>
   </header>
 
-  <main class="mx-auto max-w-content px-5 py-10 lg:px-8">
+  <main class="mx-auto max-w-[100rem] px-5 py-10 lg:px-8">
 
     <!-- 로그인 -->
     <section id="login-view" class="hidden">
@@ -78,7 +78,7 @@
                   <option value="거절">거절</option>
                 </select>
               </th>
-              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">전화일시</th>
+              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">전화일</th>
               <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">판매채널</th>
               <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">
                 <select id="biz-filter" aria-label="사업 형태 필터" class="cursor-pointer border-0 bg-transparent p-0 text-[12.5px] font-semibold text-navy-600 focus:outline-none">
@@ -133,7 +133,7 @@
             <dd id="detail-call-status" class="mt-1"></dd>
           </div>
           <div>
-            <dt class="text-[12.5px] font-semibold text-navy-500">전화일시</dt>
+            <dt class="text-[12.5px] font-semibold text-navy-500">전화일</dt>
             <dd id="detail-call-at" class="mt-1"></dd>
           </div>
           <div>
@@ -278,7 +278,7 @@
             </select>
           </td>
           <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5">
-            <input data-id="${r.id}" data-param="p_call_at" type="datetime-local" value="${esc(r.call_at)}" class="w-[168px] rounded-md border-0 bg-transparent px-1 py-1 text-[12.5px] text-navy-700 focus:bg-slate-50 focus:outline-none" />
+            <input data-id="${r.id}" data-param="p_call_at" type="date" value="${esc((r.call_at || '').split('T')[0])}" class="w-[130px] rounded-md border-0 bg-transparent px-1 py-1 text-[12.5px] text-navy-700 focus:bg-slate-50 focus:outline-none" />
           </td>
           <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5">
             <input data-id="${r.id}" data-param="p_channel" type="text" value="${esc(r.channel)}" placeholder="입력" class="w-24 rounded-md border-0 bg-transparent px-1 py-1 text-[13px] text-navy-700 placeholder:text-navy-400 focus:bg-slate-50 focus:outline-none" />
@@ -311,7 +311,7 @@
       el('detail-created').textContent = '접수일시: ' + new Date(r.created_at).toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short' });
       el('detail-phone').innerHTML = `<a class="text-brand-700 hover:underline" href="tel:${esc(r.phone)}">${esc(r.phone)}</a>`;
       el('detail-call-status').innerHTML = badge(r.call_status || '미발신', CALL_STATUS_STYLE);
-      el('detail-call-at').textContent = r.call_at ? r.call_at.replace('T', ' ') : '—';
+      el('detail-call-at').textContent = r.call_at ? r.call_at.split('T')[0] : '—';
       el('detail-channel').textContent = r.channel || '—';
       el('detail-biztype').textContent = r.biztype || '—';
       el('detail-revenue').textContent = r.revenue || '—';
@@ -458,7 +458,7 @@
     });
 
     el('csv-btn').addEventListener('click', () => {
-      const header = ['접수일시', '이름', '연락처', '통화상태', '전화일시', '판매채널', '사업형태', '평균매출', '문의내용', '담당자', '메모', '상태'];
+      const header = ['접수일시', '이름', '연락처', '통화상태', '전화일', '판매채널', '사업형태', '평균매출', '문의내용', '담당자', '메모', '상태'];
       const csvRows = rows.map((r) => [
         new Date(r.created_at).toLocaleString('ko-KR'),
         r.name, r.phone, r.call_status, r.call_at, r.channel, r.biztype, r.revenue, r.message,

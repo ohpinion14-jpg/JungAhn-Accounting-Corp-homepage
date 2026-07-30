@@ -476,6 +476,15 @@
                 </select>
               </div>
               <div>
+                <label for="revenue" class="mb-1.5 block text-sm font-semibold">평균 매출</label>
+                <select id="revenue" name="revenue" class="h-12 w-full rounded-lg border border-slate-300 bg-white px-4 text-[16px] transition-colors focus:border-brand-700">
+                  <option>월 1천만원 미만</option>
+                  <option>월 1천만원 ~ 5천만원</option>
+                  <option>월 5천만원 ~ 1억원</option>
+                  <option>월 1억원 이상</option>
+                </select>
+              </div>
+              <div>
                 <label for="message" class="mb-1.5 block text-sm font-semibold">문의 내용</label>
                 <textarea id="message" name="message" rows="4" class="w-full rounded-lg border border-slate-300 px-4 py-3 text-[16px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="판매 채널(에이블리·지그재그 등), 월 매출 규모 궁금하신 점을 편하게 적어주세요."></textarea>
               </div>
@@ -565,6 +574,7 @@
             name: fd.get('name'),
             phone: fd.get('phone'),
             biztype: fd.get('biztype'),
+            revenue: fd.get('revenue'),
             message: fd.get('message'),
           }),
         });

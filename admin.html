@@ -64,6 +64,7 @@
               <th class="whitespace-nowrap px-5 py-3.5 font-semibold">성함</th>
               <th class="whitespace-nowrap px-5 py-3.5 font-semibold">연락처</th>
               <th class="whitespace-nowrap px-5 py-3.5 font-semibold">사업 형태</th>
+              <th class="whitespace-nowrap px-5 py-3.5 font-semibold">평균 매출</th>
               <th class="px-5 py-3.5 font-semibold">문의 내용</th>
             </tr>
           </thead>
@@ -115,6 +116,7 @@
           <td class="whitespace-nowrap px-5 py-4 font-semibold">${esc(r.name)}</td>
           <td class="whitespace-nowrap px-5 py-4"><a class="text-brand-700 hover:underline" href="tel:${esc(r.phone)}">${esc(r.phone)}</a></td>
           <td class="whitespace-nowrap px-5 py-4 text-navy-600">${esc(r.biztype)}</td>
+          <td class="whitespace-nowrap px-5 py-4 text-navy-600">${esc(r.revenue)}</td>
           <td class="min-w-[240px] px-5 py-4 leading-[1.6] text-navy-700">${esc(r.message)}</td>
         </tr>`).join('');
     }
@@ -152,10 +154,10 @@
     });
 
     el('csv-btn').addEventListener('click', () => {
-      const header = ['접수일시', '성함', '연락처', '사업형태', '문의내용'];
+      const header = ['접수일시', '성함', '연락처', '사업형태', '평균매출', '문의내용'];
       const csvRows = rows.map((r) => [
         new Date(r.created_at).toLocaleString('ko-KR'),
-        r.name, r.phone, r.biztype, r.message,
+        r.name, r.phone, r.biztype, r.revenue, r.message,
       ].map((v) => '"' + String(v ?? '').replace(/"/g, '""') + '"').join(','));
       const csv = '﻿' + [header.join(','), ...csvRows].join('\n');
       const a = document.createElement('a');

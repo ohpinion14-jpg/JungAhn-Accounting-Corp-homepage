@@ -61,15 +61,6 @@
           <button id="tab-new" role="tab" class="rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors">신규 상담 <span id="count-new"></span></button>
           <button id="tab-done" role="tab" class="rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors">완료 상담 <span id="count-done"></span></button>
         </div>
-        <label class="flex items-center gap-2 text-sm font-semibold text-navy-700">
-          사업 형태
-          <select id="biz-filter" class="h-11 rounded-lg border border-slate-300 bg-white px-3 text-[14px] font-medium transition-colors focus:border-brand-700">
-            <option value="전체">전체</option>
-            <option value="간이">간이</option>
-            <option value="일반">일반</option>
-            <option value="법인">법인</option>
-          </select>
-        </label>
       </div>
 
       <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -79,7 +70,14 @@
               <th class="whitespace-nowrap px-5 py-3.5 font-semibold">접수일시</th>
               <th class="whitespace-nowrap px-5 py-3.5 font-semibold">성함</th>
               <th class="whitespace-nowrap px-5 py-3.5 font-semibold">연락처</th>
-              <th class="whitespace-nowrap px-5 py-3.5 font-semibold">사업 형태</th>
+              <th class="whitespace-nowrap px-5 py-3.5 font-semibold">
+                <select id="biz-filter" aria-label="사업 형태 필터" class="cursor-pointer border-0 bg-transparent p-0 text-[13px] font-semibold uppercase tracking-wider text-navy-500 focus:outline-none">
+                  <option value="전체">사업 형태: 전체</option>
+                  <option value="간이">사업 형태: 간이</option>
+                  <option value="일반">사업 형태: 일반</option>
+                  <option value="법인">사업 형태: 법인</option>
+                </select>
+              </th>
               <th class="whitespace-nowrap px-5 py-3.5 font-semibold">평균 매출</th>
               <th class="px-5 py-3.5 font-semibold">문의 내용</th>
               <th class="whitespace-nowrap px-5 py-3.5 font-semibold">처리</th>

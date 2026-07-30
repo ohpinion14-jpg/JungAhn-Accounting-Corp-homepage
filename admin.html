@@ -131,7 +131,15 @@
           </div>
           <div class="flex items-center justify-between gap-4 border-b border-slate-100 py-3">
             <dt class="shrink-0 text-[13px] font-semibold text-navy-500">통화상태</dt>
-            <dd id="detail-call-status" class="text-right"></dd>
+            <dd class="text-right">
+              <select id="detail-call-select" data-dparam="p_call_status" class="cursor-pointer rounded-md border-0 px-2.5 py-1.5 text-[12.5px] font-semibold focus:outline-none">
+                <option value="미발신">미발신</option>
+                <option value="통화완료">통화완료</option>
+                <option value="부재중">부재중</option>
+                <option value="재통화예정">재통화예정</option>
+                <option value="거절">거절</option>
+              </select>
+            </dd>
           </div>
           <div class="flex items-center justify-between gap-4 border-b border-slate-100 py-3">
             <dt class="shrink-0 text-[13px] font-semibold text-navy-500">전화일</dt>
@@ -151,11 +159,19 @@
           </div>
           <div class="flex items-center justify-between gap-4 border-b border-slate-100 py-3">
             <dt class="shrink-0 text-[13px] font-semibold text-navy-500">담당자</dt>
-            <dd id="detail-assignee" class="text-right"></dd>
+            <dd class="text-right">
+              <input id="detail-assignee-input" data-dparam="p_assignee" type="text" placeholder="담당자 입력" class="w-32 rounded-lg border border-slate-300 px-3 py-1.5 text-right text-[14px] transition-colors placeholder:text-navy-400 focus:border-brand-700 focus:outline-none" />
+            </dd>
           </div>
           <div class="flex items-center justify-between gap-4 py-3">
             <dt class="shrink-0 text-[13px] font-semibold text-navy-500">상태</dt>
-            <dd id="detail-status" class="text-right"></dd>
+            <dd class="text-right">
+              <select id="detail-status-select" data-dparam="p_status" class="cursor-pointer rounded-md border-0 px-2.5 py-1.5 text-[12.5px] font-semibold focus:outline-none">
+                <option value="신규">신규</option>
+                <option value="보류">보류</option>
+                <option value="등록">등록</option>
+              </select>
+            </dd>
           </div>
         </dl>
 
@@ -297,9 +313,16 @@
     }
 
     // ===== 상세 팝업 =====
-    function badge(text, styleMap) {
-      const cls = styleMap[text] || 'bg-slate-100 text-navy-500';
-      return `<span class="inline-block rounded-md px-2.5 py-1 text-[12.5px] font-semibold ${cls}">${esc(text)}</span>`;
+    const SELECT_BASE = 'cursor-pointer rounded-md border-0 px-2.5 py-1.5 text-[12.5px] font-semibold focus:outline-none';
+    function syncDetailControls(r) {
+      const cs = r.call_status || '미발신';
+      const st = normStatus(r.status);
+      const callSel = el('detail-call-select');
+      callSel.value = cs;
+      callSel.className = SELECT_BASE + ' ' + (CALL_STATUS_STYLE[cs] || CALL_STATUS_STYLE['미발신']);
+      const stSel = el('detail-status-select');
+      stSel.value = st;
+      stSel.className = SELECT_BASE + ' ' + STATUS_STYLE[st];
     }
 
     function openDetail(id) {
@@ -309,13 +332,12 @@
       el('detail-name').textContent = r.name || '';
       el('detail-created').textContent = '접수일시: ' + new Date(r.created_at).toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short' });
       el('detail-phone').textContent = r.phone || '—';
-      el('detail-call-status').innerHTML = badge(r.call_status || '미발신', CALL_STATUS_STYLE);
       el('detail-call-at').textContent = r.call_at ? r.call_at.split('T')[0] : '—';
       el('detail-channel').textContent = r.channel || '—';
       el('detail-biztype').textContent = r.biztype || '—';
       el('detail-revenue').textContent = r.revenue || '—';
-      el('detail-assignee').textContent = r.assignee || '—';
-      el('detail-status').innerHTML = badge(normStatus(r.status), STATUS_STYLE);
+      el('detail-assignee-input').value = r.assignee || '';
+      syncDetailControls(r);
       el('detail-message').textContent = r.message || '(작성된 문의 내용이 없습니다)';
       el('detail-memo').value = r.memo || '';
       el('memo-saved').classList.add('hidden');
@@ -334,6 +356,23 @@
     el('detail-close').addEventListener('click', closeDetail);
     el('detail-modal').addEventListener('click', (e) => { if (e.target === el('detail-modal')) closeDetail(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDetail(); });
+
+    el('detail-modal').addEventListener('change', async (e) => {
+      const ctl = e.target.closest('[data-dparam]');
+      if (!ctl || !detailId) return;
+      const password = getPass();
+      if (!password) return show('login');
+      const param = ctl.dataset.dparam;
+      try {
+        await rpc('jungahn_update_consultation', { p_password: password, p_id: detailId, [param]: ctl.value });
+        const row = rows.find((r) => r.id === detailId);
+        if (row) row[FIELD_MAP[param]] = ctl.value;
+        if (row) syncDetailControls(row);
+        render();
+      } catch (err) {
+        alert('저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      }
+    });
 
     el('detail-memo').addEventListener('change', async () => {
       if (!detailId) return;

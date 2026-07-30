@@ -52,6 +52,8 @@
         </div>
         <div class="flex gap-2.5">
           <button id="refresh-btn" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-navy-700 transition-colors hover:border-navy-500">새로고침</button>
+          <button id="edit-btn" class="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-navy-700 transition-colors hover:border-navy-500">편집</button>
+          <button id="delete-btn" class="hidden rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-50">선택 삭제</button>
           <button id="csv-btn" class="rounded-lg bg-navy-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-navy-800">CSV 다운로드</button>
         </div>
       </div>
@@ -60,7 +62,10 @@
         <table class="w-full min-w-[1560px] text-left text-[13px]">
           <thead>
             <tr class="border-b border-slate-300 bg-slate-100 text-[12.5px] font-semibold text-navy-600">
-              <th class="sticky left-0 z-20 w-12 min-w-[3rem] border-r border-slate-200 bg-slate-100 px-3 py-2.5 text-center">No</th>
+              <th class="sticky left-0 z-20 w-12 min-w-[3rem] border-r border-slate-200 bg-slate-100 px-3 py-2.5 text-center">
+                <span id="no-head">No</span>
+                <input id="select-all" type="checkbox" class="hidden h-4 w-4 cursor-pointer accent-red-600" aria-label="전체 선택" />
+              </th>
               <th class="sticky left-12 z-20 min-w-[110px] whitespace-nowrap border-r border-slate-300 bg-slate-100 px-3 py-2.5">이름</th>
               <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">연락처</th>
               <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">
@@ -85,16 +90,16 @@
               </th>
               <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">평균 매출</th>
               <th class="min-w-[220px] border-r border-slate-200 px-3 py-2.5">문의 내용</th>
-              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">
+              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">담당자</th>
+              <th class="min-w-[200px] border-r border-slate-200 px-3 py-2.5">메모</th>
+              <th class="whitespace-nowrap px-3 py-2.5">
                 <select id="status-filter" aria-label="상태 필터" class="cursor-pointer border-0 bg-transparent p-0 text-[12.5px] font-semibold text-navy-600 focus:outline-none">
                   <option value="전체">상태 (전체)</option>
-                  <option value="new">신규</option>
-                  <option value="done">완료</option>
+                  <option value="신규">신규</option>
+                  <option value="보류">보류</option>
+                  <option value="등록">등록</option>
                 </select>
               </th>
-              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5 text-center">등록전환</th>
-              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">담당자</th>
-              <th class="min-w-[200px] px-3 py-2.5">메모</th>
             </tr>
           </thead>
           <tbody id="list-body"></tbody>
@@ -118,6 +123,11 @@
       '재통화예정': 'bg-sky-50 text-sky-700',
       '거절': 'bg-red-50 text-red-700',
     };
+    const STATUS_STYLE = {
+      '신규': 'bg-sky-50 text-sky-700',
+      '보류': 'bg-amber-50 text-amber-700',
+      '등록': 'bg-brand-50 text-brand-700',
+    };
     const FIELD_MAP = {
       p_status: 'status',
       p_memo: 'memo',
@@ -125,7 +135,6 @@
       p_call_at: 'call_at',
       p_channel: 'channel',
       p_assignee: 'assignee',
-      p_converted: 'converted',
     };
 
     const el = (id) => document.getElementById(id);
@@ -133,6 +142,10 @@
     let bizFilter = '전체';
     let statusFilter = '전체';
     let callFilter = '전체';
+    let editMode = false;
+    let selected = new Set();
+
+    const normStatus = (s) => (STATUS_STYLE[s] ? s : '신규');
 
     function show(view) {
       el('loading').classList.add('hidden');
@@ -163,23 +176,39 @@
     function visibleRows() {
       return rows.filter((r) =>
         (bizFilter === '전체' || String(r.biztype || '').includes(bizFilter)) &&
-        (statusFilter === '전체' || (r.status || 'new') === statusFilter) &&
+        (statusFilter === '전체' || normStatus(r.status) === statusFilter) &&
         (callFilter === '전체' || (r.call_status || '미발신') === callFilter)
       );
     }
 
+    function updateDeleteBtn() {
+      const btn = el('delete-btn');
+      btn.textContent = '선택 삭제' + (selected.size ? ' (' + selected.size + ')' : '');
+      btn.disabled = selected.size === 0;
+    }
+
     function render() {
-      const newCount = rows.filter((r) => (r.status || 'new') === 'new').length;
-      const convCount = rows.filter((r) => r.converted).length;
-      el('list-count').textContent = '전체 ' + rows.length + '건 · 신규 ' + newCount + '건 · 완료 ' + (rows.length - newCount) + '건 · 등록전환 ' + convCount + '건';
+      const count = (s) => rows.filter((r) => normStatus(r.status) === s).length;
+      el('list-count').textContent = '전체 ' + rows.length + '건 · 신규 ' + count('신규') + '건 · 보류 ' + count('보류') + '건 · 등록 ' + count('등록') + '건';
+
+      el('no-head').classList.toggle('hidden', editMode);
+      el('select-all').classList.toggle('hidden', !editMode);
+      el('delete-btn').classList.toggle('hidden', !editMode);
+      el('edit-btn').textContent = editMode ? '편집 취소' : '편집';
+      updateDeleteBtn();
 
       const list = visibleRows();
       el('list-empty').classList.toggle('hidden', list.length > 0);
       el('list-body').innerHTML = list.map((r, i) => {
         const cs = r.call_status || '미발신';
+        const st = normStatus(r.status);
         return `
         <tr class="group border-b border-slate-100 align-top transition-colors hover:bg-slate-50">
-          <td class="sticky left-0 z-10 w-12 min-w-[3rem] border-r border-slate-100 bg-white px-3 py-2.5 text-center text-navy-500 group-hover:bg-slate-50">${list.length - i}</td>
+          <td class="sticky left-0 z-10 w-12 min-w-[3rem] border-r border-slate-100 bg-white px-3 py-2.5 text-center text-navy-500 group-hover:bg-slate-50">
+            ${editMode
+              ? `<input data-select="${r.id}" type="checkbox" ${selected.has(r.id) ? 'checked' : ''} class="h-4 w-4 cursor-pointer accent-red-600" aria-label="선택" />`
+              : String(list.length - i)}
+          </td>
           <td class="sticky left-12 z-10 min-w-[110px] cursor-default whitespace-nowrap border-r border-slate-300 bg-white px-3 py-2.5 font-semibold group-hover:bg-slate-50" title="접수일시: ${new Date(r.created_at).toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short' })}">${esc(r.name)}</td>
           <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5"><a class="text-brand-700 hover:underline" href="tel:${esc(r.phone)}">${esc(r.phone)}</a></td>
           <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5">
@@ -197,39 +226,74 @@
           <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5 text-navy-600">${esc(r.revenue)}</td>
           <td class="min-w-[220px] border-r border-slate-100 px-3 py-2.5 leading-[1.6] text-navy-700">${esc(r.message)}</td>
           <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5">
-            <select data-id="${r.id}" data-param="p_status" class="cursor-pointer rounded-md border-0 px-2.5 py-1.5 text-[12.5px] font-semibold focus:outline-none ${(r.status || 'new') === 'new' ? 'bg-brand-50 text-brand-700' : 'bg-slate-100 text-navy-500'}">
-              <option value="new" ${(r.status || 'new') === 'new' ? 'selected' : ''}>신규</option>
-              <option value="done" ${r.status === 'done' ? 'selected' : ''}>완료</option>
-            </select>
-          </td>
-          <td class="border-r border-slate-100 px-3 py-2.5 text-center">
-            <input data-id="${r.id}" data-param="p_converted" type="checkbox" ${r.converted ? 'checked' : ''} class="h-4 w-4 cursor-pointer accent-brand-700" aria-label="등록전환" />
-          </td>
-          <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5">
             <input data-id="${r.id}" data-param="p_assignee" type="text" value="${esc(r.assignee)}" placeholder="입력" class="w-20 rounded-md border-0 bg-transparent px-1 py-1 text-[13px] text-navy-700 placeholder:text-navy-400 focus:bg-slate-50 focus:outline-none" />
           </td>
-          <td class="min-w-[200px] px-3 py-2.5">
+          <td class="min-w-[200px] border-r border-slate-100 px-3 py-2.5">
             <input data-id="${r.id}" data-param="p_memo" type="text" value="${esc(r.memo)}" placeholder="메모 입력" class="w-full rounded-md border-0 bg-transparent px-1 py-1 text-[13px] text-navy-700 placeholder:text-navy-400 focus:bg-slate-50 focus:outline-none" />
+          </td>
+          <td class="whitespace-nowrap px-3 py-2.5">
+            <select data-id="${r.id}" data-param="p_status" class="cursor-pointer rounded-md border-0 px-2.5 py-1.5 text-[12.5px] font-semibold focus:outline-none ${STATUS_STYLE[st]}">
+              ${Object.keys(STATUS_STYLE).map((s) => `<option value="${s}" ${st === s ? 'selected' : ''}>${s}</option>`).join('')}
+            </select>
           </td>
         </tr>`;
       }).join('');
     }
 
     el('list-body').addEventListener('change', async (e) => {
+      const sel = e.target.closest('[data-select]');
+      if (sel) {
+        if (sel.checked) selected.add(sel.dataset.select); else selected.delete(sel.dataset.select);
+        updateDeleteBtn();
+        return;
+      }
       const ctl = e.target.closest('[data-param]');
       if (!ctl) return;
       const password = getPass();
       if (!password) return show('login');
       const param = ctl.dataset.param;
-      const value = ctl.type === 'checkbox' ? ctl.checked : ctl.value;
+      const value = ctl.value;
       try {
         await rpc('jungahn_update_consultation', { p_password: password, p_id: ctl.dataset.id, [param]: value });
         const row = rows.find((r) => r.id === ctl.dataset.id);
         if (row) row[FIELD_MAP[param]] = value;
-        if (param === 'p_status' || param === 'p_call_status' || param === 'p_converted') render();
+        if (param === 'p_status' || param === 'p_call_status') render();
       } catch (err) {
         alert('저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
         render();
+      }
+    });
+
+    el('edit-btn').addEventListener('click', () => {
+      editMode = !editMode;
+      selected.clear();
+      el('select-all').checked = false;
+      render();
+    });
+
+    el('select-all').addEventListener('change', (e) => {
+      selected.clear();
+      if (e.target.checked) visibleRows().forEach((r) => selected.add(r.id));
+      render();
+    });
+
+    el('delete-btn').addEventListener('click', async () => {
+      if (!selected.size) return;
+      const password = getPass();
+      if (!password) return show('login');
+      if (!confirm('선택한 ' + selected.size + '건을 삭제할까요?\n삭제된 데이터는 되돌릴 수 없습니다.')) return;
+      const btn = el('delete-btn');
+      btn.disabled = true; btn.textContent = '삭제 중...';
+      try {
+        await rpc('jungahn_delete_consultations', { p_password: password, p_ids: Array.from(selected) });
+        rows = rows.filter((r) => !selected.has(r.id));
+        selected.clear();
+        editMode = false;
+        el('select-all').checked = false;
+        render();
+      } catch (err) {
+        alert('삭제에 실패했습니다. 잠시 후 다시 시도해주세요.');
+        updateDeleteBtn();
       }
     });
 
@@ -270,13 +334,11 @@
     });
 
     el('csv-btn').addEventListener('click', () => {
-      const header = ['접수일시', '이름', '연락처', '통화상태', '전화일시', '판매채널', '사업형태', '평균매출', '문의내용', '상태', '등록전환', '담당자', '메모'];
+      const header = ['접수일시', '이름', '연락처', '통화상태', '전화일시', '판매채널', '사업형태', '평균매출', '문의내용', '담당자', '메모', '상태'];
       const csvRows = rows.map((r) => [
         new Date(r.created_at).toLocaleString('ko-KR'),
         r.name, r.phone, r.call_status, r.call_at, r.channel, r.biztype, r.revenue, r.message,
-        (r.status || 'new') === 'new' ? '신규' : '완료',
-        r.converted ? 'O' : '',
-        r.assignee, r.memo,
+        r.assignee, r.memo, normStatus(r.status),
       ].map((v) => '"' + String(v ?? '').replace(/"/g, '""') + '"').join(','));
       const csv = '﻿' + [header.join(','), ...csvRows].join('\n');
       const a = document.createElement('a');

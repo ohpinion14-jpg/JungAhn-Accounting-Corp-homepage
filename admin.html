@@ -57,12 +57,24 @@
       </div>
 
       <div class="mt-5 overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
-        <table class="w-full min-w-[1080px] text-left text-[13px]">
+        <table class="w-full min-w-[1560px] text-left text-[13px]">
           <thead>
             <tr class="border-b border-slate-300 bg-slate-100 text-[12.5px] font-semibold text-navy-600">
               <th class="sticky left-0 z-20 w-12 min-w-[3rem] border-r border-slate-200 bg-slate-100 px-3 py-2.5 text-center">No</th>
               <th class="sticky left-12 z-20 min-w-[110px] whitespace-nowrap border-r border-slate-300 bg-slate-100 px-3 py-2.5">이름</th>
               <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">연락처</th>
+              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">
+                <select id="call-filter" aria-label="통화상태 필터" class="cursor-pointer border-0 bg-transparent p-0 text-[12.5px] font-semibold text-navy-600 focus:outline-none">
+                  <option value="전체">통화상태 (전체)</option>
+                  <option value="미발신">미발신</option>
+                  <option value="통화완료">통화완료</option>
+                  <option value="부재중">부재중</option>
+                  <option value="재통화예정">재통화예정</option>
+                  <option value="거절">거절</option>
+                </select>
+              </th>
+              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">전화일시</th>
+              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">판매채널</th>
               <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">
                 <select id="biz-filter" aria-label="사업 형태 필터" class="cursor-pointer border-0 bg-transparent p-0 text-[12.5px] font-semibold text-navy-600 focus:outline-none">
                   <option value="전체">사업 형태 (전체)</option>
@@ -72,7 +84,7 @@
                 </select>
               </th>
               <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">평균 매출</th>
-              <th class="min-w-[240px] border-r border-slate-200 px-3 py-2.5">문의 내용</th>
+              <th class="min-w-[220px] border-r border-slate-200 px-3 py-2.5">문의 내용</th>
               <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">
                 <select id="status-filter" aria-label="상태 필터" class="cursor-pointer border-0 bg-transparent p-0 text-[12.5px] font-semibold text-navy-600 focus:outline-none">
                   <option value="전체">상태 (전체)</option>
@@ -80,7 +92,9 @@
                   <option value="done">완료</option>
                 </select>
               </th>
-              <th class="min-w-[220px] px-3 py-2.5">메모</th>
+              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5 text-center">등록전환</th>
+              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">담당자</th>
+              <th class="min-w-[200px] px-3 py-2.5">메모</th>
             </tr>
           </thead>
           <tbody id="list-body"></tbody>
@@ -97,10 +111,28 @@
     const SUPABASE_KEY = 'sb_publishable_uSn4HeobiyAU4CkKDZY2Pw_lwyX4qq4';
     const PASS_KEY = 'jungahn_admin_pass';
 
+    const CALL_STATUS_STYLE = {
+      '미발신': 'bg-slate-100 text-navy-500',
+      '통화완료': 'bg-brand-50 text-brand-700',
+      '부재중': 'bg-amber-50 text-amber-700',
+      '재통화예정': 'bg-sky-50 text-sky-700',
+      '거절': 'bg-red-50 text-red-700',
+    };
+    const FIELD_MAP = {
+      p_status: 'status',
+      p_memo: 'memo',
+      p_call_status: 'call_status',
+      p_call_at: 'call_at',
+      p_channel: 'channel',
+      p_assignee: 'assignee',
+      p_converted: 'converted',
+    };
+
     const el = (id) => document.getElementById(id);
     let rows = [];
     let bizFilter = '전체';
     let statusFilter = '전체';
+    let callFilter = '전체';
 
     function show(view) {
       el('loading').classList.add('hidden');
@@ -131,69 +163,79 @@
     function visibleRows() {
       return rows.filter((r) =>
         (bizFilter === '전체' || String(r.biztype || '').includes(bizFilter)) &&
-        (statusFilter === '전체' || (r.status || 'new') === statusFilter)
+        (statusFilter === '전체' || (r.status || 'new') === statusFilter) &&
+        (callFilter === '전체' || (r.call_status || '미발신') === callFilter)
       );
     }
 
     function render() {
       const newCount = rows.filter((r) => (r.status || 'new') === 'new').length;
-      el('list-count').textContent = '전체 ' + rows.length + '건 · 신규 ' + newCount + '건 · 완료 ' + (rows.length - newCount) + '건';
+      const convCount = rows.filter((r) => r.converted).length;
+      el('list-count').textContent = '전체 ' + rows.length + '건 · 신규 ' + newCount + '건 · 완료 ' + (rows.length - newCount) + '건 · 등록전환 ' + convCount + '건';
 
       const list = visibleRows();
       el('list-empty').classList.toggle('hidden', list.length > 0);
-      el('list-body').innerHTML = list.map((r, i) => `
+      el('list-body').innerHTML = list.map((r, i) => {
+        const cs = r.call_status || '미발신';
+        return `
         <tr class="group border-b border-slate-100 align-top transition-colors hover:bg-slate-50">
           <td class="sticky left-0 z-10 w-12 min-w-[3rem] border-r border-slate-100 bg-white px-3 py-2.5 text-center text-navy-500 group-hover:bg-slate-50">${list.length - i}</td>
           <td class="sticky left-12 z-10 min-w-[110px] cursor-default whitespace-nowrap border-r border-slate-300 bg-white px-3 py-2.5 font-semibold group-hover:bg-slate-50" title="접수일시: ${new Date(r.created_at).toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short' })}">${esc(r.name)}</td>
           <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5"><a class="text-brand-700 hover:underline" href="tel:${esc(r.phone)}">${esc(r.phone)}</a></td>
+          <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5">
+            <select data-id="${r.id}" data-param="p_call_status" class="cursor-pointer rounded-md border-0 px-2.5 py-1.5 text-[12.5px] font-semibold focus:outline-none ${CALL_STATUS_STYLE[cs] || CALL_STATUS_STYLE['미발신']}">
+              ${Object.keys(CALL_STATUS_STYLE).map((s) => `<option value="${s}" ${cs === s ? 'selected' : ''}>${s}</option>`).join('')}
+            </select>
+          </td>
+          <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5">
+            <input data-id="${r.id}" data-param="p_call_at" type="datetime-local" value="${esc(r.call_at)}" class="w-[172px] rounded-md border-0 bg-transparent px-1 py-1 text-[12.5px] text-navy-700 focus:bg-slate-50 focus:outline-none" />
+          </td>
+          <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5">
+            <input data-id="${r.id}" data-param="p_channel" type="text" value="${esc(r.channel)}" placeholder="입력" class="w-28 rounded-md border-0 bg-transparent px-1 py-1 text-[13px] text-navy-700 placeholder:text-navy-400 focus:bg-slate-50 focus:outline-none" />
+          </td>
           <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5 text-navy-600">${esc(r.biztype)}</td>
           <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5 text-navy-600">${esc(r.revenue)}</td>
-          <td class="min-w-[240px] border-r border-slate-100 px-3 py-2.5 leading-[1.6] text-navy-700">${esc(r.message)}</td>
+          <td class="min-w-[220px] border-r border-slate-100 px-3 py-2.5 leading-[1.6] text-navy-700">${esc(r.message)}</td>
           <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5">
-            <select data-id="${r.id}" class="status-select cursor-pointer rounded-md border-0 px-2.5 py-1.5 text-[12.5px] font-semibold focus:outline-none ${(r.status || 'new') === 'new' ? 'bg-brand-50 text-brand-700' : 'bg-slate-100 text-navy-500'}">
+            <select data-id="${r.id}" data-param="p_status" class="cursor-pointer rounded-md border-0 px-2.5 py-1.5 text-[12.5px] font-semibold focus:outline-none ${(r.status || 'new') === 'new' ? 'bg-brand-50 text-brand-700' : 'bg-slate-100 text-navy-500'}">
               <option value="new" ${(r.status || 'new') === 'new' ? 'selected' : ''}>신규</option>
               <option value="done" ${r.status === 'done' ? 'selected' : ''}>완료</option>
             </select>
           </td>
-          <td class="min-w-[220px] px-3 py-2.5">
-            <input data-id="${r.id}" type="text" value="${esc(r.memo)}" placeholder="메모 입력" class="memo-input w-full rounded-md border-0 bg-transparent px-1 py-1 text-[13px] text-navy-700 placeholder:text-navy-400 focus:bg-slate-50 focus:outline-none" />
+          <td class="border-r border-slate-100 px-3 py-2.5 text-center">
+            <input data-id="${r.id}" data-param="p_converted" type="checkbox" ${r.converted ? 'checked' : ''} class="h-4 w-4 cursor-pointer accent-brand-700" aria-label="등록전환" />
           </td>
-        </tr>`).join('');
+          <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5">
+            <input data-id="${r.id}" data-param="p_assignee" type="text" value="${esc(r.assignee)}" placeholder="입력" class="w-20 rounded-md border-0 bg-transparent px-1 py-1 text-[13px] text-navy-700 placeholder:text-navy-400 focus:bg-slate-50 focus:outline-none" />
+          </td>
+          <td class="min-w-[200px] px-3 py-2.5">
+            <input data-id="${r.id}" data-param="p_memo" type="text" value="${esc(r.memo)}" placeholder="메모 입력" class="w-full rounded-md border-0 bg-transparent px-1 py-1 text-[13px] text-navy-700 placeholder:text-navy-400 focus:bg-slate-50 focus:outline-none" />
+          </td>
+        </tr>`;
+      }).join('');
     }
 
     el('list-body').addEventListener('change', async (e) => {
+      const ctl = e.target.closest('[data-param]');
+      if (!ctl) return;
       const password = getPass();
       if (!password) return show('login');
-
-      const statusSel = e.target.closest('.status-select');
-      if (statusSel) {
-        const next = statusSel.value;
-        try {
-          await rpc('jungahn_set_consultation_status', { p_password: password, p_id: statusSel.dataset.id, p_status: next });
-          const row = rows.find((r) => r.id === statusSel.dataset.id);
-          if (row) row.status = next;
-          render();
-        } catch (err) {
-          alert('상태 변경에 실패했습니다. 잠시 후 다시 시도해주세요.');
-          render();
-        }
-        return;
-      }
-
-      const memoInput = e.target.closest('.memo-input');
-      if (memoInput) {
-        try {
-          await rpc('jungahn_set_consultation_memo', { p_password: password, p_id: memoInput.dataset.id, p_memo: memoInput.value });
-          const row = rows.find((r) => r.id === memoInput.dataset.id);
-          if (row) row.memo = memoInput.value;
-        } catch (err) {
-          alert('메모 저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
-        }
+      const param = ctl.dataset.param;
+      const value = ctl.type === 'checkbox' ? ctl.checked : ctl.value;
+      try {
+        await rpc('jungahn_update_consultation', { p_password: password, p_id: ctl.dataset.id, [param]: value });
+        const row = rows.find((r) => r.id === ctl.dataset.id);
+        if (row) row[FIELD_MAP[param]] = value;
+        if (param === 'p_status' || param === 'p_call_status' || param === 'p_converted') render();
+      } catch (err) {
+        alert('저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+        render();
       }
     });
 
     el('biz-filter').addEventListener('change', (e) => { bizFilter = e.target.value; render(); });
     el('status-filter').addEventListener('change', (e) => { statusFilter = e.target.value; render(); });
+    el('call-filter').addEventListener('change', (e) => { callFilter = e.target.value; render(); });
 
     el('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -228,12 +270,13 @@
     });
 
     el('csv-btn').addEventListener('click', () => {
-      const header = ['접수일시', '성함', '연락처', '사업형태', '평균매출', '문의내용', '상태', '메모'];
+      const header = ['접수일시', '이름', '연락처', '통화상태', '전화일시', '판매채널', '사업형태', '평균매출', '문의내용', '상태', '등록전환', '담당자', '메모'];
       const csvRows = rows.map((r) => [
         new Date(r.created_at).toLocaleString('ko-KR'),
-        r.name, r.phone, r.biztype, r.revenue, r.message,
+        r.name, r.phone, r.call_status, r.call_at, r.channel, r.biztype, r.revenue, r.message,
         (r.status || 'new') === 'new' ? '신규' : '완료',
-        r.memo,
+        r.converted ? 'O' : '',
+        r.assignee, r.memo,
       ].map((v) => '"' + String(v ?? '').replace(/"/g, '""') + '"').join(','));
       const csv = '﻿' + [header.join(','), ...csvRows].join('\n');
       const a = document.createElement('a');

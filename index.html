@@ -458,13 +458,6 @@
 
           <form name="consult" method="POST" data-netlify="true" class="bg-white p-7 sm:p-10 lg:p-14">
             <input type="hidden" name="form-name" value="consult" />
-            <div id="consult-success" class="hidden py-16 text-center">
-              <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand-50 text-brand-700">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-              </span>
-              <p class="mt-5 text-lg font-bold text-navy-900">상담 신청이 접수되었습니다</p>
-              <p class="mt-2 text-[15px] leading-[1.6] text-navy-600">영업일 기준 24시간 이내에 연락드리겠습니다.</p>
-            </div>
             <div id="consult-fields" class="space-y-5">
               <div>
                 <label for="name" class="mb-1.5 block text-sm font-semibold">성함 <span class="text-red-600" aria-hidden="true">*</span></label>
@@ -477,8 +470,6 @@
               <div>
                 <label for="biztype" class="mb-1.5 block text-sm font-semibold">사업 형태</label>
                 <select id="biztype" name="biztype" class="h-12 w-full rounded-lg border border-slate-300 bg-white px-4 text-[16px] transition-colors focus:border-brand-700">
-                  <option>의류 쇼핑몰 · 온라인셀러</option>
-                  <option>예비 창업자</option>
                   <option>개인사업자 (간이)</option>
                   <option>개인사업자 (일반)</option>
                   <option>법인</option>
@@ -513,6 +504,18 @@
       <p class="text-[13px] text-navy-500">&copy; 2026 정안회계법인. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- 상담 신청 완료 팝업 -->
+  <div id="success-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-navy-950/60 p-5" role="dialog" aria-modal="true" aria-labelledby="success-title">
+    <div class="w-full max-w-sm rounded-2xl bg-white p-8 text-center shadow-2xl">
+      <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand-50 text-brand-700">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      </span>
+      <p id="success-title" class="mt-5 text-xl font-bold text-navy-900">감사합니다!</p>
+      <p class="mt-2.5 text-[15px] leading-[1.6] text-navy-600">24시간 이내에 고객님께 전화로<br />1:1 상담 도와드리겠습니다.</p>
+      <button id="success-close" type="button" class="mt-7 w-full rounded-lg bg-brand-700 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-brand-600">확인</button>
+    </div>
+  </div>
 
   <script>
     // Mobile menu toggle
@@ -575,15 +578,27 @@
         });
         saved = saved || res.ok;
       } catch (err) {}
+      btn.disabled = false;
+      btn.textContent = prevLabel;
       if (saved) {
-        document.getElementById('consult-fields').classList.add('hidden');
-        document.getElementById('consult-success').classList.remove('hidden');
+        consultForm.reset();
+        const modal = document.getElementById('success-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.getElementById('success-close').focus();
       } else {
         errorBox.classList.remove('hidden');
-        btn.disabled = false;
-        btn.textContent = prevLabel;
       }
     });
+
+    const successModal = document.getElementById('success-modal');
+    function closeSuccessModal() {
+      successModal.classList.add('hidden');
+      successModal.classList.remove('flex');
+    }
+    document.getElementById('success-close').addEventListener('click', closeSuccessModal);
+    successModal.addEventListener('click', (e) => { if (e.target === successModal) closeSuccessModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSuccessModal(); });
 
     // Scroll reveal (respects prefers-reduced-motion via CSS)
     const observer = new IntersectionObserver(

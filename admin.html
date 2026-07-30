@@ -112,60 +112,59 @@
 
   <!-- 상세 팝업 -->
   <div id="detail-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-navy-950/60 p-5">
-    <div class="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="detail-name">
-      <div class="flex items-start justify-between border-b border-slate-200 p-6">
+    <div class="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="detail-name">
+      <div class="flex items-start justify-between border-b border-slate-200 px-7 py-5">
         <div>
-          <p id="detail-name" class="text-lg font-bold"></p>
+          <p id="detail-name" class="text-xl font-bold"></p>
           <p id="detail-created" class="mt-1 text-[13px] text-navy-500"></p>
         </div>
         <button id="detail-close" class="flex h-9 w-9 items-center justify-center rounded-lg text-navy-500 transition-colors hover:bg-slate-100" aria-label="닫기">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
         </button>
       </div>
-      <div class="p-6">
-        <dl class="grid grid-cols-2 gap-x-4 gap-y-4 text-[14px]">
-          <div>
-            <dt class="text-[12.5px] font-semibold text-navy-500">연락처</dt>
-            <dd id="detail-phone" class="mt-1 font-semibold"></dd>
+      <div class="grid gap-8 p-7 md:grid-cols-[0.85fr_1.15fr]">
+        <!-- 좌: 세부 정보 -->
+        <dl class="text-[14.5px]">
+          <div class="flex items-center justify-between gap-4 border-b border-slate-100 py-3">
+            <dt class="shrink-0 text-[13px] font-semibold text-navy-500">연락처</dt>
+            <dd id="detail-phone" class="text-right font-semibold"></dd>
           </div>
-          <div>
-            <dt class="text-[12.5px] font-semibold text-navy-500">통화상태</dt>
-            <dd id="detail-call-status" class="mt-1"></dd>
+          <div class="flex items-center justify-between gap-4 border-b border-slate-100 py-3">
+            <dt class="shrink-0 text-[13px] font-semibold text-navy-500">통화상태</dt>
+            <dd id="detail-call-status" class="text-right"></dd>
           </div>
-          <div>
-            <dt class="text-[12.5px] font-semibold text-navy-500">전화일</dt>
-            <dd id="detail-call-at" class="mt-1"></dd>
+          <div class="flex items-center justify-between gap-4 border-b border-slate-100 py-3">
+            <dt class="shrink-0 text-[13px] font-semibold text-navy-500">전화일</dt>
+            <dd id="detail-call-at" class="text-right"></dd>
           </div>
-          <div>
-            <dt class="text-[12.5px] font-semibold text-navy-500">판매채널</dt>
-            <dd id="detail-channel" class="mt-1"></dd>
+          <div class="flex items-center justify-between gap-4 border-b border-slate-100 py-3">
+            <dt class="shrink-0 text-[13px] font-semibold text-navy-500">판매채널</dt>
+            <dd id="detail-channel" class="text-right"></dd>
           </div>
-          <div>
-            <dt class="text-[12.5px] font-semibold text-navy-500">사업 형태</dt>
-            <dd id="detail-biztype" class="mt-1"></dd>
+          <div class="flex items-center justify-between gap-4 border-b border-slate-100 py-3">
+            <dt class="shrink-0 text-[13px] font-semibold text-navy-500">사업 형태</dt>
+            <dd id="detail-biztype" class="text-right"></dd>
           </div>
-          <div>
-            <dt class="text-[12.5px] font-semibold text-navy-500">평균 매출</dt>
-            <dd id="detail-revenue" class="mt-1"></dd>
+          <div class="flex items-center justify-between gap-4 border-b border-slate-100 py-3">
+            <dt class="shrink-0 text-[13px] font-semibold text-navy-500">평균 매출</dt>
+            <dd id="detail-revenue" class="text-right"></dd>
           </div>
-          <div>
-            <dt class="text-[12.5px] font-semibold text-navy-500">담당자</dt>
-            <dd id="detail-assignee" class="mt-1"></dd>
+          <div class="flex items-center justify-between gap-4 border-b border-slate-100 py-3">
+            <dt class="shrink-0 text-[13px] font-semibold text-navy-500">담당자</dt>
+            <dd id="detail-assignee" class="text-right"></dd>
           </div>
-          <div>
-            <dt class="text-[12.5px] font-semibold text-navy-500">상태</dt>
-            <dd id="detail-status" class="mt-1"></dd>
+          <div class="flex items-center justify-between gap-4 py-3">
+            <dt class="shrink-0 text-[13px] font-semibold text-navy-500">상태</dt>
+            <dd id="detail-status" class="text-right"></dd>
           </div>
         </dl>
 
-        <div class="mt-6">
-          <p class="text-[12.5px] font-semibold text-navy-500">문의 내용</p>
-          <p id="detail-message" class="mt-1.5 whitespace-pre-wrap rounded-lg bg-slate-50 p-4 text-[14px] leading-[1.7] text-navy-700"></p>
-        </div>
-
-        <div class="mt-5">
-          <label for="detail-memo" class="text-[12.5px] font-semibold text-navy-500">메모 <span id="memo-saved" class="ml-1 hidden font-medium text-brand-700">저장됨 ✓</span></label>
-          <textarea id="detail-memo" rows="3" placeholder="메모를 입력하세요. 입력 후 바깥을 클릭하면 자동 저장됩니다." class="mt-1.5 w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-[14px] leading-[1.6] transition-colors placeholder:text-navy-400 focus:border-brand-700 focus:outline-none"></textarea>
+        <!-- 우: 문의 내용 + 메모 -->
+        <div class="flex flex-col">
+          <p class="text-[13px] font-semibold text-navy-500">문의 내용</p>
+          <p id="detail-message" class="mt-2 min-h-[140px] flex-1 whitespace-pre-wrap rounded-xl bg-slate-50 p-4 text-[14.5px] leading-[1.7] text-navy-700"></p>
+          <label for="detail-memo" class="mt-5 text-[13px] font-semibold text-navy-500">메모 <span id="memo-saved" class="ml-1 hidden font-medium text-brand-700">저장됨 ✓</span></label>
+          <textarea id="detail-memo" rows="4" placeholder="메모를 입력하세요. 입력 후 바깥을 클릭하면 자동 저장됩니다." class="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-[14.5px] leading-[1.6] transition-colors placeholder:text-navy-400 focus:border-brand-700 focus:outline-none"></textarea>
         </div>
       </div>
     </div>
@@ -271,7 +270,7 @@
               : String(list.length - i)}
           </td>
           <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5 font-semibold group-hover:text-brand-700" title="접수일시: ${new Date(r.created_at).toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short' })}">${esc(r.name)}</td>
-          <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5"><a class="text-brand-700 hover:underline" href="tel:${esc(r.phone)}">${esc(r.phone)}</a></td>
+          <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5 text-navy-700">${esc(r.phone)}</td>
           <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5">
             <select data-id="${r.id}" data-param="p_call_status" class="cursor-pointer rounded-md border-0 px-2.5 py-1.5 text-[12.5px] font-semibold focus:outline-none ${CALL_STATUS_STYLE[cs] || CALL_STATUS_STYLE['미발신']}">
               ${Object.keys(CALL_STATUS_STYLE).map((s) => `<option value="${s}" ${cs === s ? 'selected' : ''}>${s}</option>`).join('')}
@@ -309,7 +308,7 @@
       detailId = id;
       el('detail-name').textContent = r.name || '';
       el('detail-created').textContent = '접수일시: ' + new Date(r.created_at).toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short' });
-      el('detail-phone').innerHTML = `<a class="text-brand-700 hover:underline" href="tel:${esc(r.phone)}">${esc(r.phone)}</a>`;
+      el('detail-phone').textContent = r.phone || '—';
       el('detail-call-status').innerHTML = badge(r.call_status || '미발신', CALL_STATUS_STYLE);
       el('detail-call-at').textContent = r.call_at ? r.call_at.split('T')[0] : '—';
       el('detail-channel').textContent = r.channel || '—';

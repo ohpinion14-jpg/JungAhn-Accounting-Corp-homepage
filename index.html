@@ -716,6 +716,29 @@
     // Consultation form: save to Supabase DB + Netlify Forms (backup)
     const SUPABASE_URL = 'https://ikypbbziryufryzavubm.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_uSn4HeobiyAU4CkKDZY2Pw_lwyX4qq4';
+
+    // 접수 알림 수신 이메일 (추가 시 NOTIFY_CC 배열에 넣기)
+    const NOTIFY_EMAIL = 'ohpinion14@gmail.com';
+    const NOTIFY_CC = [];
+
+    function sendNotifyEmail(fd) {
+      const payload = {
+        _subject: '[정안회계법인] 새 상담 신청: ' + fd.get('name'),
+        _template: 'table',
+        '성함': fd.get('name'),
+        '연락처': fd.get('phone'),
+        '사업 형태': fd.get('biztype'),
+        '평균 매출': fd.get('revenue'),
+        '판매 채널': fd.get('channel'),
+        '문의 내용': fd.get('message') || '(없음)',
+      };
+      if (NOTIFY_CC.length) payload._cc = NOTIFY_CC.join(',');
+      fetch('https://formsubmit.co/ajax/' + NOTIFY_EMAIL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      }).catch(() => {});
+    }
     const consultForm = document.querySelector('form[name="consult"]');
     consultForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -777,6 +800,7 @@
       btn.disabled = false;
       btn.textContent = prevLabel;
       if (saved) {
+        sendNotifyEmail(fd);
         consultForm.reset();
         const modal = document.getElementById('success-modal');
         modal.classList.remove('hidden');

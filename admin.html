@@ -52,15 +52,33 @@
     <!-- 대시보드 -->
     <section id="dash-view" class="hidden">
       <h1 class="text-xl font-bold">대시보드</h1>
-      <div class="mt-5 max-w-3xl rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <p class="text-[15px] font-bold">월별 접수 · 등록 현황</p>
-          <div class="flex items-center gap-4 text-[12.5px] font-medium text-navy-600">
-            <span class="flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-sm bg-sky-500"></span>접수</span>
-            <span class="flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-sm bg-brand-600"></span>등록</span>
-          </div>
+      <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p class="text-[13px] font-semibold text-navy-500">전체 접수</p>
+          <p id="dash-total" class="mt-2 text-3xl font-extrabold tracking-tight">0</p>
         </div>
-        <ul id="dash-monthly" class="mt-6 space-y-5"></ul>
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p class="text-[13px] font-semibold text-sky-700">신규</p>
+          <p id="dash-new" class="mt-2 text-3xl font-extrabold tracking-tight text-sky-700">0</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p class="text-[13px] font-semibold text-amber-700">보류</p>
+          <p id="dash-hold" class="mt-2 text-3xl font-extrabold tracking-tight text-amber-700">0</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p class="text-[13px] font-semibold text-brand-700">등록</p>
+          <p id="dash-reg" class="mt-2 text-3xl font-extrabold tracking-tight text-brand-700">0</p>
+        </div>
+      </div>
+      <div class="mt-4 grid gap-4 lg:grid-cols-2">
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p class="text-[14px] font-bold">통화 현황</p>
+          <ul id="dash-calls" class="mt-4 space-y-2.5 text-[14px]"></ul>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <p class="text-[14px] font-bold">판매 채널 분포</p>
+          <ul id="dash-channels" class="mt-4 space-y-2.5 text-[14px]"></ul>
+        </div>
       </div>
     </section>
 
@@ -262,37 +280,24 @@
     }
 
     function renderDash() {
-      if (!rows.length) {
-        el('dash-monthly').innerHTML = '<li class="text-[14px] text-navy-500">아직 접수된 상담이 없습니다.</li>';
-        return;
-      }
-      const months = {};
-      rows.forEach((r) => {
-        const d = new Date(r.created_at);
-        const key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
-        if (!months[key]) months[key] = { total: 0, reg: 0 };
-        months[key].total += 1;
-        if (normStatus(r.status) === '등록') months[key].reg += 1;
-      });
-      const keys = Object.keys(months).sort();
-      const max = Math.max(...keys.map((k) => months[k].total));
-      el('dash-monthly').innerHTML = keys.map((k) => {
-        const m = months[k];
-        const [y, mo] = k.split('-');
-        return `
-        <li>
-          <div class="flex items-center justify-between text-[13.5px]">
-            <span class="font-bold">${y}년 ${Number(mo)}월</span>
-            <span class="text-navy-600">접수 <strong class="text-navy-900">${m.total}건</strong> · 등록 <strong class="text-brand-700">${m.reg}건</strong></span>
-          </div>
-          <div class="mt-2 h-3 w-full overflow-hidden rounded bg-slate-100">
-            <div class="h-3 rounded bg-sky-500" style="width:${(m.total / max) * 100}%"></div>
-          </div>
-          <div class="mt-1 h-3 w-full overflow-hidden rounded bg-slate-100">
-            <div class="h-3 rounded bg-brand-600" style="width:${(m.reg / max) * 100}%"></div>
-          </div>
-        </li>`;
-      }).join('');
+      const count = (s) => rows.filter((r) => normStatus(r.status) === s).length;
+      el('dash-total').textContent = rows.length;
+      el('dash-new').textContent = count('신규');
+      el('dash-hold').textContent = count('보류');
+      el('dash-reg').textContent = count('등록');
+
+      const dist = (getKey, keys) => {
+        const map = {};
+        rows.forEach((r) => { const k = getKey(r) || '미입력'; map[k] = (map[k] || 0) + 1; });
+        const entries = keys ? keys.map((k) => [k, map[k] || 0]) : Object.entries(map).sort((a, b) => b[1] - a[1]);
+        return entries.map(([k, v]) => `
+          <li class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+            <span class="text-navy-600">${esc(k)}</span>
+            <span class="font-bold">${v}건</span>
+          </li>`).join('');
+      };
+      el('dash-calls').innerHTML = dist((r) => r.call_status || '미발신', Object.keys(CALL_STATUS_STYLE));
+      el('dash-channels').innerHTML = rows.length ? dist((r) => r.channel) : '<li class="text-navy-500">데이터가 없습니다.</li>';
     }
 
     const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

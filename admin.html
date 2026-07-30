@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 </head>
 <body class="min-h-screen bg-slate-50 font-sans text-navy-900 antialiased">
 
@@ -30,30 +29,18 @@
 
     <!-- 로그인 -->
     <section id="login-view" class="hidden">
-      <div class="mx-auto max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+      <form id="login-form" class="mx-auto max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
         <h1 class="text-xl font-bold">관리자 로그인</h1>
-        <p class="mt-2 text-[14.5px] leading-[1.6] text-navy-600">등록된 관리자 이메일로 인증 코드를 받아 로그인합니다.</p>
-
-        <div id="email-step" class="mt-6 space-y-4">
+        <p class="mt-2 text-[14.5px] leading-[1.6] text-navy-600">관리자 비밀번호를 입력해주세요.</p>
+        <div class="mt-6 space-y-4">
           <div>
-            <label for="admin-email" class="mb-1.5 block text-sm font-semibold">이메일</label>
-            <input id="admin-email" type="email" autocomplete="email" class="h-12 w-full rounded-lg border border-slate-300 px-4 text-[16px] transition-colors focus:border-brand-700" placeholder="admin@example.com" />
+            <label for="admin-pass" class="mb-1.5 block text-sm font-semibold">비밀번호</label>
+            <input id="admin-pass" type="password" autocomplete="current-password" class="h-12 w-full rounded-lg border border-slate-300 px-4 text-[16px] tracking-widest transition-colors focus:border-brand-700" placeholder="••••" />
           </div>
-          <button id="send-code-btn" class="w-full rounded-lg bg-brand-700 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-60">인증 코드 받기</button>
+          <button type="submit" id="login-btn" class="w-full rounded-lg bg-brand-700 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-60">로그인</button>
         </div>
-
-        <div id="code-step" class="mt-6 hidden space-y-4">
-          <p class="rounded-lg bg-brand-50 px-4 py-3 text-[14px] text-brand-700">이메일로 6자리 인증 코드를 보냈습니다. 메일함을 확인해주세요.</p>
-          <div>
-            <label for="admin-code" class="mb-1.5 block text-sm font-semibold">인증 코드</label>
-            <input id="admin-code" type="text" inputmode="numeric" autocomplete="one-time-code" class="h-12 w-full rounded-lg border border-slate-300 px-4 text-[16px] tracking-widest transition-colors focus:border-brand-700" placeholder="000000" />
-          </div>
-          <button id="verify-btn" class="w-full rounded-lg bg-brand-700 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-60">로그인</button>
-          <button id="back-btn" class="w-full rounded-lg border border-slate-300 py-3 text-[15px] font-semibold text-navy-700 transition-colors hover:border-navy-500">이메일 다시 입력</button>
-        </div>
-
         <p id="login-error" class="mt-4 hidden rounded-lg bg-red-50 px-4 py-3 text-[14px] font-medium text-red-700" role="alert"></p>
-      </div>
+      </form>
     </section>
 
     <!-- 접수 목록 -->
@@ -82,7 +69,7 @@
           </thead>
           <tbody id="list-body"></tbody>
         </table>
-        <p id="list-empty" class="hidden px-5 py-12 text-center text-[14.5px] text-navy-500">접수 내역이 없습니다. (권한이 없는 계정이면 목록이 비어 보입니다)</p>
+        <p id="list-empty" class="hidden px-5 py-12 text-center text-[14.5px] text-navy-500">아직 접수된 상담이 없습니다.</p>
       </div>
     </section>
 
@@ -92,7 +79,7 @@
   <script>
     const SUPABASE_URL = 'https://ikypbbziryufryzavubm.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_uSn4HeobiyAU4CkKDZY2Pw_lwyX4qq4';
-    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const PASS_KEY = 'jungahn_admin_pass';
 
     const el = (id) => document.getElementById(id);
     let rows = [];
@@ -104,24 +91,22 @@
       el('logout-btn').classList.toggle('hidden', view !== 'list');
     }
 
-    function loginError(msg) {
-      const box = el('login-error');
-      box.textContent = msg;
-      box.classList.remove('hidden');
-    }
-
     const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-    async function loadList() {
-      const { data, error } = await sb
-        .from('jungahn_consultations')
-        .select('*')
-        .order('created_at', { ascending: false });
-      if (error) {
-        el('list-count').textContent = '목록을 불러오지 못했습니다: ' + error.message;
-        return;
+    async function fetchList(password) {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/rpc/jungahn_get_consultations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', apikey: SUPABASE_KEY },
+        body: JSON.stringify({ p_password: password }),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.message === 'INVALID_PASSWORD' ? 'INVALID_PASSWORD' : 'FETCH_FAILED');
       }
-      rows = data || [];
+      return res.json();
+    }
+
+    function render() {
       el('list-count').textContent = '총 ' + rows.length + '건';
       el('list-empty').classList.toggle('hidden', rows.length > 0);
       el('list-body').innerHTML = rows.map((r) => `
@@ -134,45 +119,37 @@
         </tr>`).join('');
     }
 
-    el('send-code-btn').addEventListener('click', async () => {
+    el('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
       el('login-error').classList.add('hidden');
-      const email = el('admin-email').value.trim();
-      if (!email) return loginError('이메일을 입력해주세요.');
-      const btn = el('send-code-btn');
-      btn.disabled = true; btn.textContent = '전송 중...';
-      const { error } = await sb.auth.signInWithOtp({ email, options: { shouldCreateUser: true } });
-      btn.disabled = false; btn.textContent = '인증 코드 받기';
-      if (error) return loginError('코드 전송 실패: ' + error.message);
-      el('email-step').classList.add('hidden');
-      el('code-step').classList.remove('hidden');
-      el('admin-code').focus();
-    });
-
-    el('verify-btn').addEventListener('click', async () => {
-      el('login-error').classList.add('hidden');
-      const email = el('admin-email').value.trim();
-      const token = el('admin-code').value.trim();
-      if (!token) return loginError('인증 코드를 입력해주세요.');
-      const btn = el('verify-btn');
+      const password = el('admin-pass').value;
+      if (!password) return;
+      const btn = el('login-btn');
       btn.disabled = true; btn.textContent = '확인 중...';
-      const { error } = await sb.auth.verifyOtp({ email, token, type: 'email' });
+      try {
+        rows = await fetchList(password);
+        sessionStorage.setItem(PASS_KEY, password);
+        show('list');
+        render();
+      } catch (err) {
+        const box = el('login-error');
+        box.textContent = err.message === 'INVALID_PASSWORD' ? '비밀번호가 올바르지 않습니다.' : '목록을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.';
+        box.classList.remove('hidden');
+      }
       btn.disabled = false; btn.textContent = '로그인';
-      if (error) return loginError('로그인 실패: ' + error.message);
-      show('list');
-      loadList();
     });
 
-    el('back-btn').addEventListener('click', () => {
-      el('code-step').classList.add('hidden');
-      el('email-step').classList.remove('hidden');
-    });
-
-    el('logout-btn').addEventListener('click', async () => {
-      await sb.auth.signOut();
+    el('logout-btn').addEventListener('click', () => {
+      sessionStorage.removeItem(PASS_KEY);
+      el('admin-pass').value = '';
       show('login');
     });
 
-    el('refresh-btn').addEventListener('click', loadList);
+    el('refresh-btn').addEventListener('click', async () => {
+      const password = sessionStorage.getItem(PASS_KEY);
+      if (!password) return show('login');
+      try { rows = await fetchList(password); render(); } catch (err) { show('login'); }
+    });
 
     el('csv-btn').addEventListener('click', () => {
       const header = ['접수일시', '성함', '연락처', '사업형태', '문의내용'];
@@ -189,8 +166,16 @@
     });
 
     (async () => {
-      const { data: { session } } = await sb.auth.getSession();
-      if (session) { show('list'); loadList(); } else { show('login'); }
+      const password = sessionStorage.getItem(PASS_KEY);
+      if (password) {
+        try {
+          rows = await fetchList(password);
+          show('list');
+          render();
+          return;
+        } catch (err) { sessionStorage.removeItem(PASS_KEY); }
+      }
+      show('login');
     })();
   </script>
 </body>

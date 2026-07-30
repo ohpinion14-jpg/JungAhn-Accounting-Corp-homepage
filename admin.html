@@ -135,7 +135,32 @@
         </div>
       </div>
 
-      <div class="mt-5 overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+      <!-- 모바일: 필터 + 카드 목록 -->
+      <div class="mt-4 grid grid-cols-3 gap-2 md:hidden">
+        <select id="m-call-filter" aria-label="통화상태 필터" class="h-10 cursor-pointer rounded-lg border border-slate-200 bg-white px-2 text-[12.5px] font-medium text-navy-700 focus:border-brand-700 focus:outline-none">
+          <option value="전체">통화 전체</option>
+          <option value="미발신">미발신</option>
+          <option value="통화완료">통화완료</option>
+          <option value="부재중">부재중</option>
+          <option value="재통화예정">재통화예정</option>
+          <option value="거절">거절</option>
+        </select>
+        <select id="m-biz-filter" aria-label="사업 형태 필터" class="h-10 cursor-pointer rounded-lg border border-slate-200 bg-white px-2 text-[12.5px] font-medium text-navy-700 focus:border-brand-700 focus:outline-none">
+          <option value="전체">형태 전체</option>
+          <option value="간이">간이</option>
+          <option value="일반">일반</option>
+          <option value="법인">법인</option>
+        </select>
+        <select id="m-status-filter" aria-label="상태 필터" class="h-10 cursor-pointer rounded-lg border border-slate-200 bg-white px-2 text-[12.5px] font-medium text-navy-700 focus:border-brand-700 focus:outline-none">
+          <option value="전체">상태 전체</option>
+          <option value="신규">신규</option>
+          <option value="보류">보류</option>
+          <option value="등록">등록</option>
+        </select>
+      </div>
+      <div id="card-list" class="mt-4 space-y-3 md:hidden"></div>
+
+      <div class="mt-5 hidden overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm md:block">
         <table class="w-full text-left text-[13px]">
           <thead>
             <tr class="border-b border-slate-300 bg-slate-100 text-[12.5px] font-semibold text-navy-600">
@@ -219,11 +244,15 @@
           </div>
           <div class="flex items-center justify-between gap-4 border-b border-slate-100 py-3">
             <dt class="shrink-0 text-[13px] font-semibold text-navy-500">전화일</dt>
-            <dd id="detail-call-at" class="text-right"></dd>
+            <dd class="text-right">
+              <input id="detail-call-at-input" data-dparam="p_call_at" type="date" class="rounded-lg border border-slate-300 px-2.5 py-1.5 text-[13.5px] transition-colors focus:border-brand-700 focus:outline-none" />
+            </dd>
           </div>
           <div class="flex items-center justify-between gap-4 border-b border-slate-100 py-3">
             <dt class="shrink-0 text-[13px] font-semibold text-navy-500">판매채널</dt>
-            <dd id="detail-channel" class="text-right"></dd>
+            <dd class="text-right">
+              <input id="detail-channel-input" data-dparam="p_channel" type="text" placeholder="입력" class="w-32 rounded-lg border border-slate-300 px-3 py-1.5 text-right text-[14px] transition-colors placeholder:text-navy-400 focus:border-brand-700 focus:outline-none" />
+            </dd>
           </div>
           <div class="flex items-center justify-between gap-4 border-b border-slate-100 py-3">
             <dt class="shrink-0 text-[13px] font-semibold text-navy-500">사업 형태</dt>
@@ -441,6 +470,30 @@
           </td>
         </tr>`;
       }).join('');
+
+      // 모바일 카드 목록
+      el('card-list').innerHTML = list.length ? list.map((r) => {
+        const cs = r.call_status || '미발신';
+        const st = normStatus(r.status);
+        return `
+        <div data-row="${r.id}" class="cursor-pointer rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex min-w-0 items-center gap-2.5">
+              ${editMode ? `<input data-select="${r.id}" type="checkbox" ${selected.has(r.id) ? 'checked' : ''} class="h-4 w-4 shrink-0 cursor-pointer accent-red-600" aria-label="선택" />` : ''}
+              <span class="truncate text-[15px] font-bold">${esc(r.name)}</span>
+              <span class="shrink-0 rounded-md px-2 py-0.5 text-[11.5px] font-semibold ${CALL_STATUS_STYLE[cs] || CALL_STATUS_STYLE['미발신']}">${esc(cs)}</span>
+            </div>
+            <span class="shrink-0 rounded-md px-2 py-0.5 text-[11.5px] font-semibold ${STATUS_STYLE[st]}">${st}</span>
+          </div>
+          <p class="mt-2 text-[13px] text-navy-600">${esc(r.phone)} · ${esc(r.biztype || '—')} · ${esc(r.revenue || '—')}</p>
+          <p class="mt-1 text-[12.5px] text-navy-500">${new Date(r.created_at).toLocaleDateString('ko-KR')}${r.assignee ? ' · 담당 ' + esc(r.assignee) : ''}</p>
+        </div>`;
+      }).join('') : '<p class="rounded-xl border border-slate-200 bg-white p-6 text-center text-[14px] text-navy-500">해당하는 상담이 없습니다.</p>';
+
+      // 필터 선택값 동기화 (데스크톱 ↔ 모바일)
+      el('call-filter').value = callFilter; el('m-call-filter').value = callFilter;
+      el('biz-filter').value = bizFilter; el('m-biz-filter').value = bizFilter;
+      el('status-filter').value = statusFilter; el('m-status-filter').value = statusFilter;
     }
 
     // ===== 상세 팝업 =====
@@ -463,8 +516,8 @@
       el('detail-name').textContent = r.name || '';
       el('detail-created').textContent = '접수일시: ' + new Date(r.created_at).toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short' });
       el('detail-phone').textContent = r.phone || '—';
-      el('detail-call-at').textContent = r.call_at ? r.call_at.split('T')[0] : '—';
-      el('detail-channel').textContent = r.channel || '—';
+      el('detail-call-at-input').value = (r.call_at || '').split('T')[0];
+      el('detail-channel-input').value = r.channel || '';
       el('detail-biztype').textContent = r.biztype || '—';
       el('detail-revenue').textContent = r.revenue || '—';
       el('detail-assignee-input').value = r.assignee || '';
@@ -520,17 +573,26 @@
       }
     });
 
-    // 행 클릭 → 상세 팝업 (입력 요소 클릭은 제외, 편집 모드에선 선택 토글)
-    el('list-body').addEventListener('click', (e) => {
+    // 행/카드 클릭 → 상세 팝업 (입력 요소 클릭은 제외, 편집 모드에선 선택 토글)
+    function rowClickHandler(e) {
       if (e.target.closest('[data-param], [data-select], a, input, select')) return;
-      const tr = e.target.closest('[data-row]');
-      if (!tr) return;
+      const item = e.target.closest('[data-row]');
+      if (!item) return;
       if (editMode) {
-        const cb = tr.querySelector('[data-select]');
+        const cb = item.querySelector('[data-select]');
         if (cb) { cb.checked = !cb.checked; cb.dispatchEvent(new Event('change', { bubbles: true })); }
         return;
       }
-      openDetail(tr.dataset.row);
+      openDetail(item.dataset.row);
+    }
+    el('list-body').addEventListener('click', rowClickHandler);
+    el('card-list').addEventListener('click', rowClickHandler);
+
+    el('card-list').addEventListener('change', (e) => {
+      const sel = e.target.closest('[data-select]');
+      if (!sel) return;
+      if (sel.checked) selected.add(sel.dataset.select); else selected.delete(sel.dataset.select);
+      updateDeleteBtn();
     });
 
     el('list-body').addEventListener('change', async (e) => {
@@ -594,9 +656,9 @@
     el('nav-dash').addEventListener('click', () => { show('dash'); renderDash(); });
     el('nav-list').addEventListener('click', () => { show('list'); render(); });
 
-    el('biz-filter').addEventListener('change', (e) => { bizFilter = e.target.value; render(); });
-    el('status-filter').addEventListener('change', (e) => { statusFilter = e.target.value; render(); });
-    el('call-filter').addEventListener('change', (e) => { callFilter = e.target.value; render(); });
+    ['biz-filter', 'm-biz-filter'].forEach((id) => el(id).addEventListener('change', (e) => { bizFilter = e.target.value; render(); }));
+    ['status-filter', 'm-status-filter'].forEach((id) => el(id).addEventListener('change', (e) => { statusFilter = e.target.value; render(); }));
+    ['call-filter', 'm-call-filter'].forEach((id) => el(id).addEventListener('change', (e) => { callFilter = e.target.value; render(); }));
 
     el('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();

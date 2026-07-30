@@ -36,7 +36,7 @@
       </a>
 
       <nav class="hidden items-center gap-8 md:flex" aria-label="주요 메뉴">
-        <a href="#services" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">서비스</a>
+        <a href="#core" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">서비스</a>
         <a href="#about" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">대표 소개</a>
         <a href="#process" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">진행 절차</a>
         <a href="#pricing" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">요금 안내</a>
@@ -55,7 +55,7 @@
 
     <div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-5 pb-5 pt-2 md:hidden">
       <nav class="flex flex-col" aria-label="모바일 메뉴">
-        <a href="#services" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">서비스</a>
+        <a href="#core" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">서비스</a>
         <a href="#about" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">대표 소개</a>
         <a href="#process" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">진행 절차</a>
         <a href="#pricing" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">요금 안내</a>
@@ -88,7 +88,7 @@
             <a href="#contact" class="rounded-lg bg-brand-700 px-7 py-3.5 text-[15px] font-semibold text-white shadow-lg shadow-brand-700/20 transition-all hover:bg-brand-600 hover:shadow-xl hover:shadow-brand-700/25">
               무료 상담 신청하기
             </a>
-            <a href="#services" class="inline-flex items-center gap-2 rounded-lg px-4 py-3.5 text-[15px] font-semibold text-navy-900 transition-colors hover:text-brand-700">
+            <a href="#core" class="inline-flex items-center gap-2 rounded-lg px-4 py-3.5 text-[15px] font-semibold text-navy-900 transition-colors hover:text-brand-700">
               서비스 살펴보기
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
             </a>
@@ -141,7 +141,7 @@
     </section>
 
     <!-- ===== Core hooks (3대 특화 서비스) ===== -->
-    <section class="py-20 lg:py-28">
+    <section id="core" class="scroll-mt-20 py-20 lg:py-28">
       <div class="mx-auto max-w-content px-5 lg:px-8">
         <div class="reveal max-w-2xl">
           <p class="section-label text-sm font-bold uppercase tracking-widest text-brand-700">Core Service</p>
@@ -456,8 +456,9 @@
             </div>
           </div>
 
-          <form name="consult" method="POST" data-netlify="true" class="bg-white p-7 sm:p-10 lg:p-14">
+          <form name="consult" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" class="bg-white p-7 sm:p-10 lg:p-14">
             <input type="hidden" name="form-name" value="consult" />
+            <p class="hidden" aria-hidden="true"><label>회사명 <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
             <div id="consult-fields" class="space-y-4">
               <div class="grid gap-4 sm:grid-cols-2">
                 <div>
@@ -588,6 +589,26 @@
       const btn = consultForm.querySelector('button[type="submit"]');
       const errorBox = document.getElementById('consult-error');
       errorBox.classList.add('hidden');
+
+      // 연락처 유효성 검증 (최소 10자리)
+      const phoneDigits = phoneInput.value.replace(/\D/g, '');
+      if (phoneDigits.length < 10) {
+        errorBox.textContent = '연락처를 정확히 입력해주세요. (예: 010-1234-5678)';
+        errorBox.classList.remove('hidden');
+        phoneInput.focus();
+        return;
+      }
+      errorBox.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해주세요.';
+
+      // 스팸 봇 차단 (허니팟): 숨은 칸이 채워져 있으면 저장 없이 성공 화면만 표시
+      if (consultForm.elements['bot-field'] && consultForm.elements['bot-field'].value) {
+        consultForm.reset();
+        const modal = document.getElementById('success-modal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        return;
+      }
+
       btn.disabled = true;
       const prevLabel = btn.textContent;
       btn.textContent = '전송 중...';

@@ -458,31 +458,35 @@
 
           <form name="consult" method="POST" data-netlify="true" class="bg-white p-7 sm:p-10 lg:p-14">
             <input type="hidden" name="form-name" value="consult" />
-            <div id="consult-fields" class="space-y-5">
-              <div>
-                <label for="name" class="mb-1.5 block text-sm font-semibold">성함 <span class="text-red-600" aria-hidden="true">*</span></label>
-                <input id="name" name="name" type="text" required autocomplete="name" class="h-12 w-full rounded-lg border border-slate-300 px-4 text-[16px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="홍길동" />
+            <div id="consult-fields" class="space-y-4">
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label for="name" class="mb-1.5 block text-sm font-semibold">성함 <span class="text-red-600" aria-hidden="true">*</span></label>
+                  <input id="name" name="name" type="text" required autocomplete="name" class="h-12 w-full rounded-lg border border-slate-300 px-4 text-[16px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="홍길동" />
+                </div>
+                <div>
+                  <label for="phone" class="mb-1.5 block text-sm font-semibold">연락처 <span class="text-red-600" aria-hidden="true">*</span></label>
+                  <input id="phone" name="phone" type="tel" required autocomplete="tel" maxlength="13" inputmode="numeric" class="h-12 w-full rounded-lg border border-slate-300 px-4 text-[16px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="010-0000-0000" />
+                </div>
               </div>
-              <div>
-                <label for="phone" class="mb-1.5 block text-sm font-semibold">연락처 <span class="text-red-600" aria-hidden="true">*</span></label>
-                <input id="phone" name="phone" type="tel" required autocomplete="tel" maxlength="13" inputmode="numeric" class="h-12 w-full rounded-lg border border-slate-300 px-4 text-[16px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="010-0000-0000" />
-              </div>
-              <div>
-                <label for="biztype" class="mb-1.5 block text-sm font-semibold">사업 형태</label>
-                <select id="biztype" name="biztype" class="h-12 w-full rounded-lg border border-slate-300 bg-white px-4 text-[16px] transition-colors focus:border-brand-700">
-                  <option>개인사업자 (간이)</option>
-                  <option>개인사업자 (일반)</option>
-                  <option>법인</option>
-                </select>
-              </div>
-              <div>
-                <label for="revenue" class="mb-1.5 block text-sm font-semibold">평균 매출</label>
-                <select id="revenue" name="revenue" class="h-12 w-full rounded-lg border border-slate-300 bg-white px-4 text-[16px] transition-colors focus:border-brand-700">
-                  <option>월 1천만원 미만</option>
-                  <option>월 1천만원 ~ 5천만원</option>
-                  <option>월 5천만원 ~ 1억원</option>
-                  <option>월 1억원 이상</option>
-                </select>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label for="biztype" class="mb-1.5 block text-sm font-semibold">사업 형태</label>
+                  <select id="biztype" name="biztype" class="h-12 w-full rounded-lg border border-slate-300 bg-white px-4 text-[16px] transition-colors focus:border-brand-700">
+                    <option>개인사업자 (간이)</option>
+                    <option>개인사업자 (일반)</option>
+                    <option>법인</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="revenue" class="mb-1.5 block text-sm font-semibold">평균 매출</label>
+                  <select id="revenue" name="revenue" class="h-12 w-full rounded-lg border border-slate-300 bg-white px-4 text-[16px] transition-colors focus:border-brand-700">
+                    <option>월 1천만원 미만</option>
+                    <option>월 1천만원 ~ 5천만원</option>
+                    <option>월 5천만원 ~ 1억원</option>
+                    <option>월 1억원 이상</option>
+                  </select>
+                </div>
               </div>
               <div>
                 <label for="channel" class="mb-1.5 block text-sm font-semibold">판매 채널</label>
@@ -494,7 +498,7 @@
               </div>
               <div>
                 <label for="message" class="mb-1.5 block text-sm font-semibold">문의 내용</label>
-                <textarea id="message" name="message" rows="4" class="w-full rounded-lg border border-slate-300 px-4 py-3 text-[16px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="궁금하신 점을 편하게 적어주세요."></textarea>
+                <textarea id="message" name="message" rows="3" class="w-full rounded-lg border border-slate-300 px-4 py-3 text-[16px] transition-colors placeholder:text-navy-400 focus:border-brand-700" placeholder="궁금하신 점을 편하게 적어주세요."></textarea>
               </div>
               <button type="submit" class="h-13 w-full rounded-lg bg-brand-700 py-3.5 text-[15px] font-semibold text-white shadow-sm transition-colors hover:bg-brand-600 disabled:cursor-not-allowed disabled:opacity-60">
                 무료 상담 신청하기

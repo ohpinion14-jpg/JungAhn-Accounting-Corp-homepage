@@ -16,7 +16,7 @@
 <body class="min-h-screen bg-slate-50 font-sans text-navy-900 antialiased">
 
   <header class="border-b border-slate-200 bg-white">
-    <div class="mx-auto flex h-16 max-w-content items-center justify-between px-5 lg:px-8">
+    <div class="mx-auto flex h-16 max-w-[100rem] items-center justify-between px-5 lg:px-8">
       <div class="flex items-center gap-3">
         <img src="assets/logo.png" alt="" width="314" height="136" class="h-8 w-auto" onerror="this.remove()" />
         <span class="text-[16px] font-bold tracking-tight">상담 접수 관리</span>
@@ -25,7 +25,7 @@
     </div>
   </header>
 
-  <main class="mx-auto max-w-content px-5 py-10 lg:px-8">
+  <main class="mx-auto max-w-[100rem] px-5 py-10 lg:px-8">
 
     <!-- 로그인 -->
     <section id="login-view" class="hidden">
@@ -56,31 +56,32 @@
         </div>
       </div>
 
-      <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
-        <div class="flex rounded-xl border border-slate-200 bg-white p-1 shadow-sm" role="tablist" aria-label="상담 상태">
-          <button id="tab-new" role="tab" class="rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors">신규 상담 <span id="count-new"></span></button>
-          <button id="tab-done" role="tab" class="rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors">완료 상담 <span id="count-done"></span></button>
-        </div>
-      </div>
-
-      <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <table class="w-full text-left text-[14px]">
+      <div class="mt-5 overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+        <table class="w-full text-left text-[13px]">
           <thead>
-            <tr class="border-b border-slate-200 bg-slate-50 text-[13px] uppercase tracking-wider text-navy-500">
-              <th class="whitespace-nowrap px-5 py-3.5 font-semibold">접수일시</th>
-              <th class="whitespace-nowrap px-5 py-3.5 font-semibold">성함</th>
-              <th class="whitespace-nowrap px-5 py-3.5 font-semibold">연락처</th>
-              <th class="whitespace-nowrap px-5 py-3.5 font-semibold">
-                <select id="biz-filter" aria-label="사업 형태 필터" class="cursor-pointer border-0 bg-transparent p-0 text-[13px] font-semibold uppercase tracking-wider text-navy-500 focus:outline-none">
-                  <option value="전체">사업 형태: 전체</option>
-                  <option value="간이">사업 형태: 간이</option>
-                  <option value="일반">사업 형태: 일반</option>
-                  <option value="법인">사업 형태: 법인</option>
+            <tr class="border-b border-slate-300 bg-slate-100 text-[12.5px] font-semibold text-navy-600">
+              <th class="w-12 border-r border-slate-200 px-3 py-2.5 text-center">No</th>
+              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">접수일시</th>
+              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">성함</th>
+              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">연락처</th>
+              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">
+                <select id="biz-filter" aria-label="사업 형태 필터" class="cursor-pointer border-0 bg-transparent p-0 text-[12.5px] font-semibold text-navy-600 focus:outline-none">
+                  <option value="전체">사업 형태 (전체)</option>
+                  <option value="간이">간이</option>
+                  <option value="일반">일반</option>
+                  <option value="법인">법인</option>
                 </select>
               </th>
-              <th class="whitespace-nowrap px-5 py-3.5 font-semibold">평균 매출</th>
-              <th class="px-5 py-3.5 font-semibold">문의 내용</th>
-              <th class="whitespace-nowrap px-5 py-3.5 font-semibold">처리</th>
+              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">평균 매출</th>
+              <th class="min-w-[240px] border-r border-slate-200 px-3 py-2.5">문의 내용</th>
+              <th class="whitespace-nowrap border-r border-slate-200 px-3 py-2.5">
+                <select id="status-filter" aria-label="상태 필터" class="cursor-pointer border-0 bg-transparent p-0 text-[12.5px] font-semibold text-navy-600 focus:outline-none">
+                  <option value="전체">상태 (전체)</option>
+                  <option value="new">신규</option>
+                  <option value="done">완료</option>
+                </select>
+              </th>
+              <th class="min-w-[220px] px-3 py-2.5">메모</th>
             </tr>
           </thead>
           <tbody id="list-body"></tbody>
@@ -97,13 +98,10 @@
     const SUPABASE_KEY = 'sb_publishable_uSn4HeobiyAU4CkKDZY2Pw_lwyX4qq4';
     const PASS_KEY = 'jungahn_admin_pass';
 
-    const TAB_ACTIVE = ['bg-navy-900', 'text-white'];
-    const TAB_INACTIVE = ['text-navy-600'];
-
     const el = (id) => document.getElementById(id);
     let rows = [];
-    let currentTab = 'new';
-    let currentFilter = '전체';
+    let bizFilter = '전체';
+    let statusFilter = '전체';
 
     function show(view) {
       el('loading').classList.add('hidden');
@@ -129,68 +127,75 @@
     }
 
     const fetchList = (password) => rpc('jungahn_get_consultations', { p_password: password });
+    const getPass = () => sessionStorage.getItem(PASS_KEY);
 
     function visibleRows() {
       return rows.filter((r) =>
-        (r.status || 'new') === currentTab &&
-        (currentFilter === '전체' || String(r.biztype || '').includes(currentFilter))
+        (bizFilter === '전체' || String(r.biztype || '').includes(bizFilter)) &&
+        (statusFilter === '전체' || (r.status || 'new') === statusFilter)
       );
     }
 
     function render() {
       const newCount = rows.filter((r) => (r.status || 'new') === 'new').length;
-      const doneCount = rows.length - newCount;
-      el('count-new').textContent = '(' + newCount + ')';
-      el('count-done').textContent = '(' + doneCount + ')';
-      el('list-count').textContent = '전체 ' + rows.length + '건';
-
-      [el('tab-new'), el('tab-done')].forEach((tab, i) => {
-        const active = (i === 0) === (currentTab === 'new');
-        tab.classList.remove(...TAB_ACTIVE, ...TAB_INACTIVE);
-        tab.classList.add(...(active ? TAB_ACTIVE : TAB_INACTIVE));
-        tab.setAttribute('aria-selected', String(active));
-      });
+      el('list-count').textContent = '전체 ' + rows.length + '건 · 신규 ' + newCount + '건 · 완료 ' + (rows.length - newCount) + '건';
 
       const list = visibleRows();
       el('list-empty').classList.toggle('hidden', list.length > 0);
-      el('list-body').innerHTML = list.map((r) => `
-        <tr class="border-b border-slate-100 align-top">
-          <td class="whitespace-nowrap px-5 py-4 text-navy-600">${new Date(r.created_at).toLocaleString('ko-KR', { dateStyle: 'short', timeStyle: 'short' })}</td>
-          <td class="whitespace-nowrap px-5 py-4 font-semibold">${esc(r.name)}</td>
-          <td class="whitespace-nowrap px-5 py-4"><a class="text-brand-700 hover:underline" href="tel:${esc(r.phone)}">${esc(r.phone)}</a></td>
-          <td class="whitespace-nowrap px-5 py-4 text-navy-600">${esc(r.biztype)}</td>
-          <td class="whitespace-nowrap px-5 py-4 text-navy-600">${esc(r.revenue)}</td>
-          <td class="min-w-[240px] px-5 py-4 leading-[1.6] text-navy-700">${esc(r.message)}</td>
-          <td class="whitespace-nowrap px-5 py-4">
-            ${currentTab === 'new'
-              ? `<button data-id="${r.id}" data-next="done" class="status-btn rounded-lg bg-brand-700 px-3.5 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-brand-600">완료 처리</button>`
-              : `<button data-id="${r.id}" data-next="new" class="status-btn rounded-lg border border-slate-300 px-3.5 py-2 text-[13px] font-semibold text-navy-700 transition-colors hover:border-navy-500">신규로 되돌리기</button>`}
+      el('list-body').innerHTML = list.map((r, i) => `
+        <tr class="border-b border-slate-100 align-top transition-colors hover:bg-slate-50">
+          <td class="border-r border-slate-100 px-3 py-2.5 text-center text-navy-500">${list.length - i}</td>
+          <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5 text-navy-600">${new Date(r.created_at).toLocaleString('ko-KR', { dateStyle: 'short', timeStyle: 'short' })}</td>
+          <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5 font-semibold">${esc(r.name)}</td>
+          <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5"><a class="text-brand-700 hover:underline" href="tel:${esc(r.phone)}">${esc(r.phone)}</a></td>
+          <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5 text-navy-600">${esc(r.biztype)}</td>
+          <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5 text-navy-600">${esc(r.revenue)}</td>
+          <td class="min-w-[240px] border-r border-slate-100 px-3 py-2.5 leading-[1.6] text-navy-700">${esc(r.message)}</td>
+          <td class="whitespace-nowrap border-r border-slate-100 px-3 py-2.5">
+            <select data-id="${r.id}" class="status-select cursor-pointer rounded-md border-0 px-2.5 py-1.5 text-[12.5px] font-semibold focus:outline-none ${(r.status || 'new') === 'new' ? 'bg-brand-50 text-brand-700' : 'bg-slate-100 text-navy-500'}">
+              <option value="new" ${(r.status || 'new') === 'new' ? 'selected' : ''}>신규</option>
+              <option value="done" ${r.status === 'done' ? 'selected' : ''}>완료</option>
+            </select>
+          </td>
+          <td class="min-w-[220px] px-3 py-2.5">
+            <input data-id="${r.id}" type="text" value="${esc(r.memo)}" placeholder="메모 입력" class="memo-input w-full rounded-md border-0 bg-transparent px-1 py-1 text-[13px] text-navy-700 placeholder:text-navy-400 focus:bg-slate-50 focus:outline-none" />
           </td>
         </tr>`).join('');
     }
 
-    el('list-body').addEventListener('click', async (e) => {
-      const btn = e.target.closest('.status-btn');
-      if (!btn) return;
-      const password = sessionStorage.getItem(PASS_KEY);
+    el('list-body').addEventListener('change', async (e) => {
+      const password = getPass();
       if (!password) return show('login');
-      btn.disabled = true;
-      btn.textContent = '처리 중...';
-      try {
-        await rpc('jungahn_set_consultation_status', { p_password: password, p_id: btn.dataset.id, p_status: btn.dataset.next });
-        const row = rows.find((r) => r.id === btn.dataset.id);
-        if (row) row.status = btn.dataset.next;
-        render();
-      } catch (err) {
-        btn.disabled = false;
-        btn.textContent = btn.dataset.next === 'done' ? '완료 처리' : '신규로 되돌리기';
-        alert('처리에 실패했습니다. 잠시 후 다시 시도해주세요.');
+
+      const statusSel = e.target.closest('.status-select');
+      if (statusSel) {
+        const next = statusSel.value;
+        try {
+          await rpc('jungahn_set_consultation_status', { p_password: password, p_id: statusSel.dataset.id, p_status: next });
+          const row = rows.find((r) => r.id === statusSel.dataset.id);
+          if (row) row.status = next;
+          render();
+        } catch (err) {
+          alert('상태 변경에 실패했습니다. 잠시 후 다시 시도해주세요.');
+          render();
+        }
+        return;
+      }
+
+      const memoInput = e.target.closest('.memo-input');
+      if (memoInput) {
+        try {
+          await rpc('jungahn_set_consultation_memo', { p_password: password, p_id: memoInput.dataset.id, p_memo: memoInput.value });
+          const row = rows.find((r) => r.id === memoInput.dataset.id);
+          if (row) row.memo = memoInput.value;
+        } catch (err) {
+          alert('메모 저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+        }
       }
     });
 
-    el('tab-new').addEventListener('click', () => { currentTab = 'new'; render(); });
-    el('tab-done').addEventListener('click', () => { currentTab = 'done'; render(); });
-    el('biz-filter').addEventListener('change', (e) => { currentFilter = e.target.value; render(); });
+    el('biz-filter').addEventListener('change', (e) => { bizFilter = e.target.value; render(); });
+    el('status-filter').addEventListener('change', (e) => { statusFilter = e.target.value; render(); });
 
     el('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -219,17 +224,18 @@
     });
 
     el('refresh-btn').addEventListener('click', async () => {
-      const password = sessionStorage.getItem(PASS_KEY);
+      const password = getPass();
       if (!password) return show('login');
       try { rows = await fetchList(password); render(); } catch (err) { show('login'); }
     });
 
     el('csv-btn').addEventListener('click', () => {
-      const header = ['접수일시', '성함', '연락처', '사업형태', '평균매출', '문의내용', '상태'];
+      const header = ['접수일시', '성함', '연락처', '사업형태', '평균매출', '문의내용', '상태', '메모'];
       const csvRows = rows.map((r) => [
         new Date(r.created_at).toLocaleString('ko-KR'),
         r.name, r.phone, r.biztype, r.revenue, r.message,
         (r.status || 'new') === 'new' ? '신규' : '완료',
+        r.memo,
       ].map((v) => '"' + String(v ?? '').replace(/"/g, '""') + '"').join(','));
       const csv = '﻿' + [header.join(','), ...csvRows].join('\n');
       const a = document.createElement('a');
@@ -240,7 +246,7 @@
     });
 
     (async () => {
-      const password = sessionStorage.getItem(PASS_KEY);
+      const password = getPass();
       if (password) {
         try {
           rows = await fetchList(password);

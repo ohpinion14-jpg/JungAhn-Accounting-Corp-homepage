@@ -20,8 +20,6 @@ a, button, summary, input, select, textarea { touch-action: manipulation; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; transition: none; }
-  * { animation: none !important; transition-duration: 0.01ms !important; }
 }
 
 :focus-visible {

@@ -12,6 +12,97 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- 글감 카드 전용 스타일 (Tailwind 빌드 불필요) -->
+  <style>
+    #content-view{--t-bg:#F2F4F6;--t-card:#FFF;--t-ink:#191F28;--t-sub:#4E5968;--t-faint:#8B95A1;
+      --t-line:#E5E8EB;--t-soft:#F9FAFB;--t-blue:#3182F6;--t-blue-d:#1B64DA;--t-blue-s:#E8F3FF;
+      --t-amber:#A05E00;--t-amber-s:#FFF7E6;--t-amber-l:#FFE0A3;
+      font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;
+      color:var(--t-ink);letter-spacing:-.01em;word-break:keep-all}
+    #content-view *{box-sizing:border-box}
+    #content-view .tw{max-width:52rem;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+
+    #content-view .thead{display:flex;flex-direction:column;gap:10px}
+    #content-view .tkick{margin:0;font-size:13px;font-weight:800;color:var(--t-blue);letter-spacing:.01em}
+    #content-view .tt{margin:0;font-size:28px;font-weight:800;line-height:1.34;letter-spacing:-.032em}
+    #content-view .tsub{margin:0;font-size:15px;line-height:1.6;color:var(--t-sub)}
+    #content-view .tstats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:4px}
+    #content-view .tstat{background:var(--t-card);border-radius:14px;padding:13px 15px;display:flex;
+      flex-direction:column;gap:3px}
+    #content-view .tstat span{font-size:12px;font-weight:600;color:var(--t-faint)}
+    #content-view .tstat b{font-size:16px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+
+    #content-view .tguide{background:var(--t-blue-s);border-radius:16px;padding:16px 18px;
+      font-size:14.5px;line-height:1.66;color:var(--t-blue-d)}
+    #content-view .tguide b{font-weight:800}
+
+    #content-view .tsearchbar{position:relative;display:flex;align-items:center;gap:10px;background:var(--t-card);
+      border-radius:14px;padding:0 16px;height:52px;border:1.5px solid transparent;transition:border-color .15s}
+    #content-view .tsearchbar:focus-within{border-color:var(--t-blue)}
+    #content-view .tsearchbar svg{width:19px;height:19px;color:var(--t-faint);flex:none}
+    #content-view .tsearchbar input{flex:1;border:0;outline:0;background:transparent;font:inherit;font-size:15.5px;
+      color:var(--t-ink);height:100%}
+    #content-view .tsearchbar input::placeholder{color:var(--t-faint)}
+    #content-view .thit{font-size:13px;font-weight:700;color:var(--t-blue);white-space:nowrap;
+      font-variant-numeric:tabular-nums}
+
+    #content-view .tchips{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;
+      scrollbar-width:none;-ms-overflow-style:none}
+    #content-view .tchips::-webkit-scrollbar{display:none}
+    #content-view .tchip{flex:none;border:0;background:var(--t-card);color:var(--t-sub);font:inherit;
+      font-size:13.5px;font-weight:700;border-radius:10px;padding:9px 13px;cursor:pointer;white-space:nowrap;
+      transition:background-color .15s,color .15s}
+    #content-view .tchip:hover{background:var(--t-blue-s);color:var(--t-blue-d)}
+    #content-view .tchip b{color:var(--t-faint);font-weight:800;margin-left:3px;font-variant-numeric:tabular-nums}
+    #content-view .tchip:hover b{color:var(--t-blue)}
+
+    #content-view .tcards{display:flex;flex-direction:column;gap:12px}
+    #content-view .tcard{background:var(--t-card);border-radius:20px;padding:22px 22px 20px;
+      display:flex;flex-direction:column;gap:13px;scroll-margin-top:76px}
+    #content-view .tcard.is-hidden{display:none}
+    #content-view .tcard-h{display:flex;align-items:center;gap:10px}
+    #content-view .tnum{font-size:12.5px;font-weight:800;color:var(--t-faint);font-variant-numeric:tabular-nums}
+    #content-view .tcard-h h3{margin:0;font-size:20px;font-weight:800;letter-spacing:-.028em;line-height:1.3}
+    #content-view .tpill{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--t-sub);
+      background:var(--t-soft);border-radius:8px;padding:5px 10px;white-space:nowrap;font-variant-numeric:tabular-nums}
+    #content-view .tpill b{color:var(--t-ink);font-weight:800;font-size:14px}
+    #content-view .tfull{margin:-7px 0 0;font-size:13px;font-weight:600;color:var(--t-faint)}
+
+    #content-view .trows{display:flex;flex-direction:column;gap:9px}
+    #content-view .tr{background:var(--t-soft);border-radius:14px;padding:13px 16px}
+    #content-view .tr p{margin:0;font-size:14.5px;line-height:1.66;color:var(--t-sub)}
+    #content-view .tr p b{color:var(--t-ink);font-weight:700}
+    #content-view .tl{display:block;font-size:11.5px;font-weight:800;color:var(--t-faint);margin-bottom:5px;
+      letter-spacing:.01em}
+    #content-view .tr-w{background:var(--t-amber-s);box-shadow:inset 0 0 0 1px var(--t-amber-l)}
+    #content-view .tr-w .tl,#content-view .tr-w p,#content-view .tr-w p b{color:var(--t-amber)}
+    #content-view .tgrid{display:grid;gap:12px}
+    @media(min-width:560px){#content-view .tgrid{grid-template-columns:1fr 1fr}
+      #content-view .tstats{grid-template-columns:repeat(4,1fr)}
+      #content-view .tt{font-size:32px}}
+
+    #content-view .tqbox{border-radius:14px;overflow:hidden;background:var(--t-soft)}
+    #content-view .tqbox summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;
+      padding:13px 16px;font-size:14.5px;font-weight:700;color:var(--t-blue)}
+    #content-view .tqbox summary::-webkit-details-marker{display:none}
+    #content-view .tchev{margin-left:auto;width:8px;height:8px;border-right:2px solid currentColor;
+      border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .2s}
+    #content-view .tqbox[open] .tchev{transform:rotate(-135deg)}
+    #content-view .tqlist{margin:0;padding:0 0 6px;list-style:none;max-height:28rem;overflow-y:auto;counter-reset:tq}
+    #content-view .tq{counter-increment:tq;padding:12px 16px 12px 42px;position:relative;
+      border-top:1px solid var(--t-line);background:var(--t-card)}
+    #content-view .tq.is-hidden{display:none}
+    #content-view .tq::before{content:counter(tq);position:absolute;left:15px;top:12px;font-size:11.5px;
+      font-weight:800;color:var(--t-faint);font-variant-numeric:tabular-nums}
+    #content-view .tq-t{margin:0;font-size:14.5px;line-height:1.6;white-space:pre-wrap}
+    #content-view .tq-w{margin:6px 0 0;font-size:12px;font-weight:700;color:var(--t-faint)}
+    #content-view .tq-w span{margin-left:7px;font-weight:600;opacity:.85;font-variant-numeric:tabular-nums}
+    #content-view mark{background:#FFF2B2;color:inherit;border-radius:3px;padding:0 1px}
+
+    #content-view .tfoot{margin:6px 0 0;text-align:center;font-size:12.5px;line-height:1.85;color:var(--t-faint)}
+    @media (prefers-reduced-motion:reduce){#content-view *{transition:none!important}}
+  </style>
 </head>
 <body class="min-h-screen bg-slate-50 font-sans text-navy-900 antialiased">
 
@@ -25,6 +116,7 @@
         <nav id="admin-nav" class="hidden items-center gap-1.5">
           <button id="nav-dash" class="rounded-lg px-4 py-2 text-sm font-semibold text-navy-600 transition-colors hover:text-navy-900">대시보드</button>
           <button id="nav-list" class="rounded-lg px-4 py-2 text-sm font-semibold text-navy-600 transition-colors hover:text-navy-900">상담 접수 내역</button>
+          <button id="nav-content" class="rounded-lg px-4 py-2 text-sm font-semibold text-navy-600 transition-colors hover:text-navy-900">글감 카드</button>
         </nav>
       </div>
       <button id="logout-btn" class="hidden rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-navy-700 transition-colors hover:border-navy-500">로그아웃</button>
@@ -212,7 +304,905 @@
   </main>
 
   <!-- 상세 팝업 -->
-  <div id="detail-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-navy-950/60 p-5">
+  <!-- ══════════ 글감 카드 (신규) ══════════ -->
+    <section id="content-view" class="hidden">
+      <div class="tw">
+        <header class="thead">
+          <p class="tkick">콘텐츠 글감</p>
+          <h1 class="tt">의류 쇼핑몰 대표들이<br />실제로 묻는 것 14가지</h1>
+          <p class="tsub">쇼핑몰 대표 754명이 모인 커뮤니티의 9개월치 대화를 전부 읽고, 세무·회계 질문만 주제별로 묶었습니다.</p>
+          <div class="tstats">
+            <div class="tstat"><span>기간</span><b>2025.09 ~ 2026.06</b></div>
+            <div class="tstat"><span>읽은 메시지</span><b>58,156건</b></div>
+            <div class="tstat"><span>추린 질문</span><b>366건</b></div>
+            <div class="tstat"><span>질문한 대표</span><b>255명</b></div>
+          </div>
+        </header>
+
+        <div class="tguide">
+          <b>카드 한 장이 글 한 편입니다.</b> 답하실 수 있는 것부터 고르시면 됩니다.
+          「실제 질문 보기」를 펼치면 대표님들이 쓴 문장이 오탈자까지 그대로 나옵니다 —
+          <b>그 문장이 곧 검색어이고 제목 후보입니다.</b>
+        </div>
+
+        <div class="tsearchbar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input id="gc-search" type="search" placeholder="질문 검색 — 예: 장끼, 대납, 청년감면" autocomplete="off" />
+          <span id="gc-hit" class="thit"></span>
+        </div>
+
+        <div class="tchips"><button class="tchip" data-go="gc1">01 사입삼촌 대납 <b>28</b></button><button class="tchip" data-go="gc2">02 장끼 <b>22</b></button><button class="tchip" data-go="gc3">03 간이과세 <b>31</b></button><button class="tchip" data-go="gc4">04 계산서 누락·정정 <b>38</b></button><button class="tchip" data-go="gc5">05 부가세 입금 <b>40</b></button><button class="tchip" data-go="gc6">06 자사몰 매출 신고 <b>15</b></button><button class="tchip" data-go="gc7">07 청년창업 감면 <b>20</b></button><button class="tchip" data-go="gc8">08 종소세 <b>18</b></button><button class="tchip" data-go="gc9">09 세무사 선택 <b>43</b></button><button class="tchip" data-go="gc10">10 법인 전환 <b>37</b></button><button class="tchip" data-go="gc11">11 첫 직원·4대보험 <b>20</b></button><button class="tchip" data-go="gc12">12 비용처리 <b>9</b></button><button class="tchip" data-go="gc13">13 중국 사입·통관 <b>18</b></button><button class="tchip" data-go="gc14">14 진짜 순수익 <b>27</b></button></div>
+
+        <div class="tcards">
+      <article class="tcard" id="gc1" data-topic="사입삼촌 대납" data-n="28">
+        <div class="tcard-h">
+          <span class="tnum">01</span>
+          <h3>사입삼촌 대납</h3>
+          <span class="tpill"><b>28</b>건</span>
+        </div>
+        <p class="tfull">사입삼촌 대납·픽업비 세금</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p>돈은 삼촌 계좌로 가는데 세금계산서는 도매매장이 발행합니다. <b>돈 흐름과 증빙 흐름이 어긋나는 구조 자체</b>를 설명해 주는 곳이 없습니다. 대납 / 직접이체 / 신상배송 중 뭘 골라야 하는지도 모릅니다.</p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p>법조문이 아니라 <b>절차</b>를 원합니다 — "그래서 내가 뭘, 언제, 누구한테 하면 되나." 그리고 삼촌 픽업비·대납비·월급여의 처리 방법.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p>"이체기록만 남아 있으면 문제 되지 않는다" — 8년차 2.5억 대표가 "세무사님께 확인받았다"며 방에 퍼뜨림</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>준비중부터 20억까지 전 구간. 연차와 무관하게 모릅니다.</p></div>
+            <div><span class="tl">언제 몰리나</span><p>매월 1~5일 (계산서 요청 마감)</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 28건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="이번에 삼촌 대납으로 사입했는데 매장에 부가세 따로 입금하고 거래처에 세금계산서 끊어달라구 하면 될까요?!! 삼촌이 간이는 따로 자기들이 안챙긴다고 하셔서요ㅠ"><p class="tq-t">이번에 삼촌 대납으로 사입했는데 매장에 부가세 따로 입금하고 거래처에 세금계산서 끊어달라구 하면 될까요?!! 삼촌이 간이는 따로 자기들이 안챙긴다고 하셔서요ㅠ</p><p class="tq-w">피넛/3개월/350<span>2025-09-30</span></p></li><li class="tq" data-s="안녕하세요 쇼핑공님! 혹시 사입삼촌님 통해 대납처리 한 건들은 세금계산서 당연히 못받겠죠?"><p class="tq-t">안녕하세요 쇼핑공님! 혹시 사입삼촌님 통해 대납처리 한 건들은 세금계산서 당연히 못받겠죠?</p><p class="tq-w">일/2년/1억<span>2025-10-29</span></p></li><li class="tq" data-s="내냔에 간이에서 일반으로 넘어갈거 같기도해서.. 10월부터 자료 발행하려고 각 매장에 요청드렸는데 한곳만 사업자 서면 제출하라하시는데 이런경우 삼촌이 대신 자료제출도 가능한가요?.. 계산서는 또 처음이라.."><p class="tq-t">내냔에 간이에서 일반으로 넘어갈거 같기도해서.. 10월부터 자료 발행하려고 각 매장에 요청드렸는데 한곳만 사업자 서면 제출하라하시는데 이런경우 삼촌이 대신 자료제출도 가능한가요?.. 계산서는 또 처음이라..</p><p class="tq-w">뭉치/3년차/6천<span>2025-11-03</span></p></li><li class="tq" data-s="엇 저도질문있습니다! 1번 방식을 몇년 유지했는데 최근 계산서때문에 대납 대신 입금을 하는데 2-3번으로 사용하는경우에도 입금 방식은 동일할까요?.."><p class="tq-t">엇 저도질문있습니다! 1번 방식을 몇년 유지했는데 최근 계산서때문에 대납 대신 입금을 하는데 2-3번으로 사용하는경우에도 입금 방식은 동일할까요?..</p><p class="tq-w">뭉치/3년차/6천<span>2025-11-05</span></p></li><li class="tq" data-s="초보 사장인데 물건값 지불할때 아예 10프로 한께 입금하고 5일전에 세금계산서 잘행해달라고 거래처에 말씀드리면 되는걸까요? 거래처에서 자료대를 입금하라고 하시는데 애초에 10프로 세금 같이 입금드리면 왜 그게 필요한지 해서요 ㅠㅠ
+
+그리고 이제 삼촌 찾아보려하는데 
+삼촌 건당비랑 삼촌 대납비가 헷갈려서 혹시 아시는 사장님 계신가용? ㅠㅠ"><p class="tq-t">초보 사장인데 물건값 지불할때 아예 10프로 한께 입금하고 5일전에 세금계산서 잘행해달라고 거래처에 말씀드리면 되는걸까요? 거래처에서 자료대를 입금하라고 하시는데 애초에 10프로 세금 같이 입금드리면 왜 그게 필요한지 해서요 ㅠㅠ
+
+그리고 이제 삼촌 찾아보려하는데 
+삼촌 건당비랑 삼촌 대납비가 헷갈려서 혹시 아시는 사장님 계신가용? ㅠㅠ</p><p class="tq-w">하하/준비중/준비중<span>2025-11-27</span></p></li><li class="tq" data-s="궁금한게 있는데요!! 삼촌 대납해도 월초에 세금계산서 발행할때 10% 또 내야하지않나용 ???"><p class="tq-t">궁금한게 있는데요!! 삼촌 대납해도 월초에 세금계산서 발행할때 10% 또 내야하지않나용 ???</p><p class="tq-w">피치/1개월차/0<span>2025-11-27</span></p></li><li class="tq" data-s="세금계산서 발행 불가라서 그 미만까지는 대납하고 발행안해도되지않나요?"><p class="tq-t">세금계산서 발행 불가라서 그 미만까지는 대납하고 발행안해도되지않나요?</p><p class="tq-w">모트/1년차/월2천만<span>2025-11-27</span></p></li><li class="tq" data-s="그런데 저도 삼촌대납으로 물건다 사입하구 매달 5일 전에 거래처들에 연락해서 10% 부가세 따로 송금해서 매입자료만드는데요 ,.! 그럼 다들 처음부터 거래처쪽에 직접이체로 부가세 포함해서 사입해오시는걸까요~??"><p class="tq-t">그런데 저도 삼촌대납으로 물건다 사입하구 매달 5일 전에 거래처들에 연락해서 10% 부가세 따로 송금해서 매입자료만드는데요 ,.! 그럼 다들 처음부터 거래처쪽에 직접이체로 부가세 포함해서 사입해오시는걸까요~??</p><p class="tq-w">이사라/3년차/4천<span>2025-11-27</span></p></li><li class="tq" data-s="이 부분은 그럼 대납 현금하시구 거래처쪽으로 부가세 10프로 월5일에 따로 요청 하시는거죠~?"><p class="tq-t">이 부분은 그럼 대납 현금하시구 거래처쪽으로 부가세 10프로 월5일에 따로 요청 하시는거죠~?</p><p class="tq-w">이사라/3년차/4천<span>2025-11-27</span></p></li><li class="tq" data-s="입금 후 매달 초 자료발행하면 전산에 남는데 왜 대납을 하는지 알 수 있을까요?
+대납 하시는 분들이 이렇게 많은지 몰랐네요"><p class="tq-t">입금 후 매달 초 자료발행하면 전산에 남는데 왜 대납을 하는지 알 수 있을까요?
+대납 하시는 분들이 이렇게 많은지 몰랐네요</p><p class="tq-w">춘식/준비중/준비중<span>2025-11-27</span></p></li><li class="tq" data-s="세금 리스크 + 장기 모으는것도 쉽지 않을것 같은데
+그래도 대납을 하면 좋은 점이 있을까요?"><p class="tq-t">세금 리스크 + 장기 모으는것도 쉽지 않을것 같은데
+그래도 대납을 하면 좋은 점이 있을까요?</p><p class="tq-w">춘식/준비중/준비중<span>2025-11-27</span></p></li><li class="tq" data-s="그런데 아갈님 지금 저랑 똑같은 방식으로 대납 후 +월 5일에 거래처들 10%세액입금 계산서발행요청 + 장끼모아두기 이렇게 하고계신거죠~?"><p class="tq-t">그런데 아갈님 지금 저랑 똑같은 방식으로 대납 후 +월 5일에 거래처들 10%세액입금 계산서발행요청 + 장끼모아두기 이렇게 하고계신거죠~?</p><p class="tq-w">이사라/3년차/4천<span>2025-11-27</span></p></li><li class="tq" data-s="저도 여태 대납하고 월초에 거래처별 부가세 따로 입금해왔는데 여기 대표님들은 다  입금하시길래 번거로워도 각 거래처 입금으로 바꿨거든요 ㅠㅠ 나중에나 문제 생길껄 대비?.. (잘 모르니까) 대납하시는 이유는 단순 편의성 때문일까요?"><p class="tq-t">저도 여태 대납하고 월초에 거래처별 부가세 따로 입금해왔는데 여기 대표님들은 다  입금하시길래 번거로워도 각 거래처 입금으로 바꿨거든요 ㅠㅠ 나중에나 문제 생길껄 대비?.. (잘 모르니까) 대납하시는 이유는 단순 편의성 때문일까요?</p><p class="tq-w">뭉치/3년차/6천<span>2025-11-27</span></p></li><li class="tq" data-s="결론은 이제 막 시작하는 간이 과세자고
+사입건당으로 받아 올꺼면 
+대납 없이 삼촌편으로 물건받고
+장기 다 모아두는게 맞고 
+매달 5일전에 거래처에 부가세 한번에 입금하면 되는거죵?"><p class="tq-t">결론은 이제 막 시작하는 간이 과세자고
+사입건당으로 받아 올꺼면 
+대납 없이 삼촌편으로 물건받고
+장기 다 모아두는게 맞고 
+매달 5일전에 거래처에 부가세 한번에 입금하면 되는거죵?</p><p class="tq-w">하하/준비중/준비중<span>2025-11-27</span></p></li><li class="tq" data-s="네네 저는 얼마전부터 그렇게 하고 있는데 세무적 차이는 사실.. 모르겠어서 질문했어요 삼촌 통해 대납하면 저희는 따로 대납비 천원 받으시긴해서 번거로워도 입금을 각각하고 있긴한데"><p class="tq-t">네네 저는 얼마전부터 그렇게 하고 있는데 세무적 차이는 사실.. 모르겠어서 질문했어요 삼촌 통해 대납하면 저희는 따로 대납비 천원 받으시긴해서 번거로워도 입금을 각각하고 있긴한데</p><p class="tq-w">뭉치/3년차/6천<span>2025-11-27</span></p></li><li class="tq" data-s="선배님들!!
+제가이제 삼촌대납 안하고, 매장마다 계좌이체하고 -&gt; 매월 5일마다 세금계산서 발행 요청하려구 하는데요!
+
+이렇게 도중에 입금으로 변경하게 되면, 세금계산서는 당연히 제가 계좌이체로 진행한 입금에 대해서만 세금계산서가 발행되는거겠죠?ㅎㅎ 이전 대납건은 당연히 안되구요! 혹시나 해서 여쭙니다 바보같은 질문이네요ㅎㅎ.."><p class="tq-t">선배님들!!
+제가이제 삼촌대납 안하고, 매장마다 계좌이체하고 -&gt; 매월 5일마다 세금계산서 발행 요청하려구 하는데요!
+
+이렇게 도중에 입금으로 변경하게 되면, 세금계산서는 당연히 제가 계좌이체로 진행한 입금에 대해서만 세금계산서가 발행되는거겠죠?ㅎㅎ 이전 대납건은 당연히 안되구요! 혹시나 해서 여쭙니다 바보같은 질문이네요ㅎㅎ..</p><p class="tq-w">모트/1년차/월2천만<span>2025-12-02</span></p></li><li class="tq" data-s="앗 이제봣네요 감사합니다ㅜㅜ!! 너무 늦게 여쭤봐서 죄송하지만, 세액 따로입금하고 세금계산서 받는건, 전월 대납건 까지만 가능한거지용? 세금계산서 발행 대상은 다 전월 납부한 건이 맞지요?!"><p class="tq-t">앗 이제봣네요 감사합니다ㅜㅜ!! 너무 늦게 여쭤봐서 죄송하지만, 세액 따로입금하고 세금계산서 받는건, 전월 대납건 까지만 가능한거지용? 세금계산서 발행 대상은 다 전월 납부한 건이 맞지요?!</p><p class="tq-w">모트/1년차/월2천만<span>2025-12-03</span></p></li><li class="tq" data-s="선배님들 삼촌 쓰는 비용은 다로 계산서 이런건 안되죠?"><p class="tq-t">선배님들 삼촌 쓰는 비용은 다로 계산서 이런건 안되죠?</p><p class="tq-w">비하인드/준비중<span>2025-12-05</span></p></li><li class="tq" data-s="궁금한게 있는데 사입 삼촌 픽업비나 물류비 같은건 비용처리 따로 안하시나요?
+규모가 작을땐 큰돈이 아니다보니 괜찮을거 같은데 대형이나 점점 규모가 커지다보면 물류비도 많이 나갈테고 그렇게 쌓이다보면 일년 합하면 천만원은 될 거 같아서요!"><p class="tq-t">궁금한게 있는데 사입 삼촌 픽업비나 물류비 같은건 비용처리 따로 안하시나요?
+규모가 작을땐 큰돈이 아니다보니 괜찮을거 같은데 대형이나 점점 규모가 커지다보면 물류비도 많이 나갈테고 그렇게 쌓이다보면 일년 합하면 천만원은 될 거 같아서요!</p><p class="tq-w">하하하,준비중,준비중<span>2025-12-29</span></p></li><li class="tq" data-s="혹시 질문 하나 드려도 될까요 ㅠㅠ
+12월 세금계산서 발행 요청하려고 하는데 대납으로 진행했어서 부가세를 추가로 입금해야 되는 상황입니다
+비용은 오늘까지 입금이 되어야 하는 상황인데 오늘 입금 먼저 하고 이후 영업일에 연락 후 발행 요청드려도 되는 부분일까요,,"><p class="tq-t">혹시 질문 하나 드려도 될까요 ㅠㅠ
+12월 세금계산서 발행 요청하려고 하는데 대납으로 진행했어서 부가세를 추가로 입금해야 되는 상황입니다
+비용은 오늘까지 입금이 되어야 하는 상황인데 오늘 입금 먼저 하고 이후 영업일에 연락 후 발행 요청드려도 되는 부분일까요,,</p><p class="tq-w">누닌/준비중/준비중<span>2025-12-31</span></p></li><li class="tq" data-s="저는 대납해본적이 없는데
+궁금한게 돈은 삼촌한테 가는데 부가세만 거래처로 입금하고 계산서받으면
+비용처리부분에서 문제가 안생기나여?"><p class="tq-t">저는 대납해본적이 없는데
+궁금한게 돈은 삼촌한테 가는데 부가세만 거래처로 입금하고 계산서받으면
+비용처리부분에서 문제가 안생기나여?</p><p class="tq-w">사과/5년/20억<span>2025-12-31</span></p></li><li class="tq" data-s="저도 지금 계산서 발행 때무네.. 
+잘 아시는분 설명 한번 부탁드립니다 !! 
+저희는 대납으로 하고있는데 
+대납일 경우에 계산서 발행 안해도 되나요?"><p class="tq-t">저도 지금 계산서 발행 때무네.. 
+잘 아시는분 설명 한번 부탁드립니다 !! 
+저희는 대납으로 하고있는데 
+대납일 경우에 계산서 발행 안해도 되나요?</p><p class="tq-w">쀼/4개월/2천<span>2026-01-04</span></p></li><li class="tq" data-s="일반일 경우에 삼촌 대납 하고있는데 
+세금 계산서 해달라고 해야할까요?! 
+
+거래처에 어떻게 말하면 되나요? ㅠㅠ"><p class="tq-t">일반일 경우에 삼촌 대납 하고있는데 
+세금 계산서 해달라고 해야할까요?! 
+
+거래처에 어떻게 말하면 되나요? ㅠㅠ</p><p class="tq-w">쀼/4개월/2천<span>2026-01-04</span></p></li><li class="tq" data-s="대납 맡기면 삼촌한테 세금계산서 발행해야 하나요?"><p class="tq-t">대납 맡기면 삼촌한테 세금계산서 발행해야 하나요?</p><p class="tq-w">ㄱㄱ/준비중/준비중<span>2026-01-21</span></p></li><li class="tq" data-s="삼촌 건별로 쓰고있는데 건별 쓰시는 분들도 계산서 발행하시나여!?"><p class="tq-t">삼촌 건별로 쓰고있는데 건별 쓰시는 분들도 계산서 발행하시나여!?</p><p class="tq-w">피치/1개월차/0<span>2026-01-21</span></p></li><li class="tq" data-s="대표님들 혹시 대납도 부가세포함하는곳도 많나요?"><p class="tq-t">대표님들 혹시 대납도 부가세포함하는곳도 많나요?</p><p class="tq-w">춤추는 어피치/1개월/준비중<span>2026-02-26</span></p></li><li class="tq" data-s="대표님들 혹시 사입삼촌 인건비 어떻게 처리하시나요??ㅠㅠ"><p class="tq-t">대표님들 혹시 사입삼촌 인건비 어떻게 처리하시나요??ㅠㅠ</p><p class="tq-w">또니/5년차/6000<span>2026-05-25</span></p></li><li class="tq" data-s="안녕하세요~세금계산서 관련 문의드립니다.so플러스로 사입중인데,혹시 사용하시는분들 계실까요?이번에 일반과세로 되서 세금계산서를 발급 받아야되는데,어떻게 해야되는지 궁금해서요.
+
+사입삼촌에게 거래했던 매장들 및 사입삼촌 월사입금액 10%해서 보내주면 알아서 세금계산서를 끊어주는건지,,,아니면,,매장들마다 세액 계좌로 금액10%보내야하는건지 ..선배 대표님들은 어떻게 진행하고 계신지 궁금합니다.
+
+조언 미리 감사드립니다.사업 모두 번창하시기 바랍니다."><p class="tq-t">안녕하세요~세금계산서 관련 문의드립니다.so플러스로 사입중인데,혹시 사용하시는분들 계실까요?이번에 일반과세로 되서 세금계산서를 발급 받아야되는데,어떻게 해야되는지 궁금해서요.
+
+사입삼촌에게 거래했던 매장들 및 사입삼촌 월사입금액 10%해서 보내주면 알아서 세금계산서를 끊어주는건지,,,아니면,,매장들마다 세액 계좌로 금액10%보내야하는건지 ..선배 대표님들은 어떻게 진행하고 계신지 궁금합니다.
+
+조언 미리 감사드립니다.사업 모두 번창하시기 바랍니다.</p><p class="tq-w">ㄱㄱ/1년/500<span>2026-06-07</span></p></li></ol>
+        </details>
+      </article>
+      <article class="tcard" id="gc2" data-topic="장끼" data-n="22">
+        <div class="tcard-h">
+          <span class="tnum">02</span>
+          <h3>장끼</h3>
+          <span class="tpill"><b>22</b>건</span>
+        </div>
+        <p class="tfull">장끼(간이영수증) 취급</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p>장끼가 증빙이 되는 건지 아닌지, 언제까지 갖고 있어야 하는지를 모릅니다. 부가세를 냈으면 이제 필요 없다고 생각해 <b>실제로 버린 분이 있습니다.</b></p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p>보관 기간과 폐기 시점. 그리고 세금계산서와의 관계 — 둘 다 있어야 하는지, 하나면 되는지.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p>"부가세 냈으니 장끼는 이제 필요 없다" / "3만원 미만은 장끼만 있으면 된다"</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>준비중~3년차에 집중. 사입 시작 직후 바로 부딪힙니다.</p></div>
+            <div><span class="tl">언제 몰리나</span><p>상시 · 신고 직전 급증</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 22건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="사입삼촌분께서 장끼도 보내주시나요??"><p class="tq-t">사입삼촌분께서 장끼도 보내주시나요??</p><p class="tq-w">머팡/준비중/준비중<span>2025-10-16</span></p></li><li class="tq" data-s="장끼 보관은 다들 어떻게 하시나요??!"><p class="tq-t">장끼 보관은 다들 어떻게 하시나요??!</p><p class="tq-w">무지무지/준비중/준비중<span>2025-10-26</span></p></li><li class="tq" data-s="아 샘플장끼도 보관하시나요? 지출 없이 받았다 보내는거라 상관없다 생각하고 함께 보냇었는데...!"><p class="tq-t">아 샘플장끼도 보관하시나요? 지출 없이 받았다 보내는거라 상관없다 생각하고 함께 보냇었는데...!</p><p class="tq-w">춘식이 / 6개월 / 2000<span>2025-11-17</span></p></li><li class="tq" data-s="3만원 미만은 그럼 세무사분께 장끼 보여드리는걸까요~?"><p class="tq-t">3만원 미만은 그럼 세무사분께 장끼 보여드리는걸까요~?</p><p class="tq-w">이사라/3년차/4천<span>2025-11-27</span></p></li><li class="tq" data-s="장끼 사진찍어서 전달드리나요,,?"><p class="tq-t">장끼 사진찍어서 전달드리나요,,?</p><p class="tq-w">로바니/3년차/6천<span>2025-11-27</span></p></li><li class="tq" data-s="아예 장끼를 보내시는건가요 세무사로?"><p class="tq-t">아예 장끼를 보내시는건가요 세무사로?</p><p class="tq-w">로바니/3년차/6천<span>2025-11-27</span></p></li><li class="tq" data-s="간이여도 장끼 모아야하나요?ㅠ"><p class="tq-t">간이여도 장끼 모아야하나요?ㅠ</p><p class="tq-w">춘식/준비중/준비중<span>2025-11-27</span></p></li><li class="tq" data-s="근데 혹시 장기를 언제까지 모아두어야 하는거에요? ㅠㅠ 사진찍어두고 장끼는 버리는 건 안되나요?"><p class="tq-t">근데 혹시 장기를 언제까지 모아두어야 하는거에요? ㅠㅠ 사진찍어두고 장끼는 버리는 건 안되나요?</p><p class="tq-w">라떼/준비중/준비중<span>2025-11-27</span></p></li><li class="tq" data-s="안녕하세요! 오늘 새벽에 첫 사입하러 가는데.. 제가 간의과세자라 그럼 장끼 받을 때 우선 부가세 포함된 건지 여쭤보고, 나중에 부과세 입금해야 될 때 간의과세자라고 안 해도 된다고 말씀드리면 되는 건가요..?"><p class="tq-t">안녕하세요! 오늘 새벽에 첫 사입하러 가는데.. 제가 간의과세자라 그럼 장끼 받을 때 우선 부가세 포함된 건지 여쭤보고, 나중에 부과세 입금해야 될 때 간의과세자라고 안 해도 된다고 말씀드리면 되는 건가요..?</p><p class="tq-w">무지무지/준비중/준비중<span>2025-11-27</span></p></li><li class="tq" data-s="혹시 온라인으로 받은 장끼들도 다 모아놔야되는 거 맞을까요??"><p class="tq-t">혹시 온라인으로 받은 장끼들도 다 모아놔야되는 거 맞을까요??</p><p class="tq-w">콩콩/1년/1200<span>2025-12-04</span></p></li><li class="tq" data-s="부가세 관련! 질문있습니다~!
+
+11월 30일 일밤에 주문했는데 
+a도매처 장끼는 11.30일 찍혀있고, 
+b 도매처 장끼는 12.1 찍혀있습니다.
+
+11월 주문금액에 부가세 입금하고 계산서 요청하는건 장끼 날짜에 맞춰 하면 되는걸까요??"><p class="tq-t">부가세 관련! 질문있습니다~!
+
+11월 30일 일밤에 주문했는데 
+A도매처 장끼는 11.30일 찍혀있고, 
+B 도매처 장끼는 12.1 찍혀있습니다.
+
+11월 주문금액에 부가세 입금하고 계산서 요청하는건 장끼 날짜에 맞춰 하면 되는걸까요??</p><p class="tq-w">이적/1년/1억<span>2025-12-05</span></p></li><li class="tq" data-s="앗 챗지피티한테 물어보니 꼭 그런건 아니고, 입금했더라도 장끼만 받아놓으면 된다고하네요..!
+
+그럼 입금은 했지만 세금계산서 발행 요청은 아직안해도되겠죠?! 5일(오늘) 발행요청 완료해야한다고 거래처에 나와있어서요!!"><p class="tq-t">앗 챗지피티한테 물어보니 꼭 그런건 아니고, 입금했더라도 장끼만 받아놓으면 된다고하네요..!
+
+그럼 입금은 했지만 세금계산서 발행 요청은 아직안해도되겠죠?! 5일(오늘) 발행요청 완료해야한다고 거래처에 나와있어서요!!</p><p class="tq-w">모트/1년차/월2천만<span>2025-12-05</span></p></li><li class="tq" data-s="부가세 보냈다해도 장끼를 모으시나요? 세부가세 내면 더이상 필요없다 생각해 버렸어는데 이유가 있는걸까요?"><p class="tq-t">부가세 보냈다해도 장끼를 모으시나요? 세부가세 내면 더이상 필요없다 생각해 버렸어는데 이유가 있는걸까요?</p><p class="tq-w">춘식이 / 6개월 / 2000<span>2025-12-06</span></p></li><li class="tq" data-s="저는 작년에 간이과세자라서 넋놓고 있다가 겨울상품 터져가지고 갑자기 매입잡는다고 너무너무 힘들었어요 … 계산서 안끊어도 장끼랑 이체내역 잘 가지고 잇으면 세무사가 어떻게 정리해 주기도 하더라고요"><p class="tq-t">저는 작년에 간이과세자라서 넋놓고 있다가 겨울상품 터져가지고 갑자기 매입잡는다고 너무너무 힘들었어요 … 계산서 안끊어도 장끼랑 이체내역 잘 가지고 잇으면 세무사가 어떻게 정리해 주기도 하더라고요</p><p class="tq-w">쏠라/2년차/1.5억<span>2026-01-05</span></p></li><li class="tq" data-s="사장님들 !
+혹시 장끼를 굳이 보관해야할까요?
+한다면 왜 보관하구 얼마나 보관해야하는지 궁금합니다,,!!ㅠ"><p class="tq-t">사장님들 !
+혹시 장끼를 굳이 보관해야할까요?
+한다면 왜 보관하구 얼마나 보관해야하는지 궁금합니다,,!!ㅠ</p><p class="tq-w">가나/2년차/2200<span>2026-01-13</span></p></li><li class="tq" data-s="장끼 잃어버렷으면 그냥 거래금액 알려달라해도되나요?"><p class="tq-t">장끼 잃어버렷으면 그냥 거래금액 알려달라해도되나요?</p><p class="tq-w">네오/5개월/3천<span>2026-02-01</span></p></li><li class="tq" data-s="혹시 장끼는 다들 버리시나요? 이걸 보관하자니 양이 너무 많아요 ㅠ"><p class="tq-t">혹시 장끼는 다들 버리시나요? 이걸 보관하자니 양이 너무 많아요 ㅠ</p><p class="tq-w">달나라/준비중/준비중<span>2026-03-11</span></p></li><li class="tq" data-s="안녕하세요 선배님들 ! 다름이 아니라 장끼 있는 거 엑셀로 정리해두려고 하는데 어떻게 정리해야할지 감이 안 오네요.... 다들 어떻게 정리하시나요..?"><p class="tq-t">안녕하세요 선배님들 ! 다름이 아니라 장끼 있는 거 엑셀로 정리해두려고 하는데 어떻게 정리해야할지 감이 안 오네요.... 다들 어떻게 정리하시나요..?</p><p class="tq-w">냠냠/준비중/준비중<span>2026-03-21</span></p></li><li class="tq" data-s="혹시 대표님들 장끼 보관 몇년까지 하시나요? 1년 단위로 정리도 괜찮을지 궁금합니다!"><p class="tq-t">혹시 대표님들 장끼 보관 몇년까지 하시나요? 1년 단위로 정리도 괜찮을지 궁금합니다!</p><p class="tq-w">링/1년반/4천<span>2026-05-05</span></p></li><li class="tq" data-s="저도 장끼 지금 대체 어떻게 보관하고 정리할지 너무 멘붕이에요;; 이지어드민도 해볼까 싶기도 하고요~ 패션온이랑요~ 이런게 도움이 될지 안될지 모르겠지만;; 현재는 구글스프레드 시트로 입고리스트 정리하고는 있는데 재고관리도 안 되고, 장끼도 부가세 포함/미포함 이런게 넘 헷갈리네요 ;ㅅ;ㅋ"><p class="tq-t">저도 장끼 지금 대체 어떻게 보관하고 정리할지 너무 멘붕이에요;; 이지어드민도 해볼까 싶기도 하고요~ 패션온이랑요~ 이런게 도움이 될지 안될지 모르겠지만;; 현재는 구글스프레드 시트로 입고리스트 정리하고는 있는데 재고관리도 안 되고, 장끼도 부가세 포함/미포함 이런게 넘 헷갈리네요 ;ㅅ;ㅋ</p><p class="tq-w">제니/2개월/500<span>2026-05-05</span></p></li><li class="tq" data-s="장끼가 정화하게 어떤 뜻인가요??"><p class="tq-t">장끼가 정화하게 어떤 뜻인가요??</p><p class="tq-w">ㄲ/준비중/준비중<span>2026-06-07</span></p></li><li class="tq" data-s="헉 감사합니다🥹🥹
+영상에서 설명을 애초에 너무 잘 해주셔서 이해하기 쉬웠던거같아요!😄
+
+건보료가 소득비율에 맞게 인상된다는거는
+제 순이익에 따라 건보료가 매겨진다는 말씀이신거죵??
+그러면 제가 세금계산서를 발행 안 했을 경우에 발행 했을 때보다 건강보험료는 더 내게 되겠네요?? 
+
+(+ 세금계산서 말고 장끼나 간이영수증으로 건보료를 줄일 수 있나용??)"><p class="tq-t">헉 감사합니다🥹🥹
+영상에서 설명을 애초에 너무 잘 해주셔서 이해하기 쉬웠던거같아요!😄
+
+건보료가 소득비율에 맞게 인상된다는거는
+제 순이익에 따라 건보료가 매겨진다는 말씀이신거죵??
+그러면 제가 세금계산서를 발행 안 했을 경우에 발행 했을 때보다 건강보험료는 더 내게 되겠네요?? 
+
+(+ 세금계산서 말고 장끼나 간이영수증으로 건보료를 줄일 수 있나용??)</p><p class="tq-w">ㄱㄱ/준비중/준비중<span>2026-06-15</span></p></li></ol>
+        </details>
+      </article>
+      <article class="tcard" id="gc3" data-topic="간이과세" data-n="31">
+        <div class="tcard-h">
+          <span class="tnum">03</span>
+          <h3>간이과세</h3>
+          <span class="tpill"><b>31</b>건</span>
+        </div>
+        <p class="tfull">간이과세자 계산서 여부</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p>기준 금액부터 헷갈립니다. 방 안에서 <b>8,000만 · 4,800만 · 1억 400만</b>이 뒤섞여 돌아다닙니다. 자기가 어디 해당하는지를 모릅니다.</p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p>"<b>내 경우엔</b> 떼야 하나 말아야 하나." 단일 정답이 아니라 조건별 기준을 원합니다.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p>같은 방에서 <b>"간이라 안 해도 된다"(A 세무사)</b>와 <b>"지금부터 해야 한다"(B 세무사)</b>가 동시에 유통. 둘 다 근거가 "세무사님이 그러셨다"입니다. / "간이는 지출증빙용 현금영수증만 있으면 된다"</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>1년차 전후. 일반 전환을 앞둔 시점에 가장 절박해집니다.</p></div>
+            <div><span class="tl">언제 몰리나</span><p>12~1월 · 전환 통보 직후</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 31건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="저두 궁금합니다.. 부가세계산서랑 너무 헷갈려요 ㅠㅠ 간이 과세자라 환급을 못받으면 세금계산서 만으로도 매입증빙이 되는건가요?!"><p class="tq-t">저두 궁금합니다.. 부가세계산서랑 너무 헷갈려요 ㅠㅠ 간이 과세자라 환급을 못받으면 세금계산서 만으로도 매입증빙이 되는건가요?!</p><p class="tq-w">권투하는 무지/준비중<span>2025-09-27</span></p></li><li class="tq" data-s="간이과세자 오픈한지 얼마안되었구 전부 거래처랑 현금 거래만 했는데 매달 세금계산서 발행 요청 드려야하나요???"><p class="tq-t">간이과세자 오픈한지 얼마안되었구 전부 거래처랑 현금 거래만 했는데 매달 세금계산서 발행 요청 드려야하나요???</p><p class="tq-w">아기곰/3개월/준비 중<span>2025-09-30</span></p></li><li class="tq" data-s="안녕하세요 저는 간이과세자이고 통신판매업 신고를 얼마전에 했는데, 동대문 사입시에 현금으로 거래만 했는데 거래처에게 세금계산서 요청을 해야할까요????"><p class="tq-t">안녕하세요 저는 간이과세자이고 통신판매업 신고를 얼마전에 했는데, 동대문 사입시에 현금으로 거래만 했는데 거래처에게 세금계산서 요청을 해야할까요????</p><p class="tq-w">아기곰/3개월/준비 중<span>2025-10-02</span></p></li><li class="tq" data-s="선배님들!
+처음 사업자 낼때 간이과세자로 내잖아요 낼때 같이 하는 사람이랑 공동 명의로 하는게 낫나요? 현재 둘 다 일 하는 상황입니다"><p class="tq-t">선배님들!
+처음 사업자 낼때 간이과세자로 내잖아요 낼때 같이 하는 사람이랑 공동 명의로 하는게 낫나요? 현재 둘 다 일 하는 상황입니다</p><p class="tq-w">비하인드/준비중<span>2025-11-01</span></p></li><li class="tq" data-s="선배님들! 혹시 간이사업자등록증 발급할때 개업날짜를 발급 받은 날 기준으로 해야할까요?
+사업 운영은 당장 할건 아닙니다!
+일단 사업자등록하고 차근차근 준비할려고 해요"><p class="tq-t">선배님들! 혹시 간이사업자등록증 발급할때 개업날짜를 발급 받은 날 기준으로 해야할까요?
+사업 운영은 당장 할건 아닙니다!
+일단 사업자등록하고 차근차근 준비할려고 해요</p><p class="tq-w">비하인드/준비중<span>2025-11-11</span></p></li><li class="tq" data-s="선배님들 간이과세자 사업자등록하고 쇼핑몰 오픈은 내년 초인데 통신판매업을 당장 신고해야하나요? 
+
+매년 1월 등록세를 내야한다는데 쇼핑몰 오픈도 아직 안했고 짧은 기간에 두번 내야하는 꼴이라 여쭤봅니다!"><p class="tq-t">선배님들 간이과세자 사업자등록하고 쇼핑몰 오픈은 내년 초인데 통신판매업을 당장 신고해야하나요? 
+
+매년 1월 등록세를 내야한다는데 쇼핑몰 오픈도 아직 안했고 짧은 기간에 두번 내야하는 꼴이라 여쭤봅니다!</p><p class="tq-w">비하인드/준비중<span>2025-11-12</span></p></li><li class="tq" data-s="간이라고해서 계산서를 미발행하는 경우가 있나요? 소득세 청년감면때문인가..."><p class="tq-t">간이라고해서 계산서를 미발행하는 경우가 있나요? 소득세 청년감면때문인가...</p><p class="tq-w">네오/10년차/3.8억<span>2025-11-27</span></p></li><li class="tq" data-s="저는 간이라 부가세 입금을 안드리거든요 ㅠㅠ 장기 보관해야한다고 해서 보관중인데 너무 많아지는데 .. 버려도 되겠죠? ㅠㅠ"><p class="tq-t">저는 간이라 부가세 입금을 안드리거든요 ㅠㅠ 장기 보관해야한다고 해서 보관중인데 너무 많아지는데 .. 버려도 되겠죠? ㅠㅠ</p><p class="tq-w">라떼/준비중/준비중<span>2025-11-27</span></p></li><li class="tq" data-s="지금 간이과세자이고 내년에 일반으로 넘어갈것같아 세무사에 전화해보니 지금부터 세금계산서 자료 발행해야한다더라구요ㅠ 저는 간이는 안해도 되는줄알고 매입 계산서발행 여태 안했거든요ㅠㅠ 지금부터라도 하는게 맞을까요? 간이에서 일반으로 넘어갈때 이부분 아시는분 계실까요,,?ㅠㅠ"><p class="tq-t">지금 간이과세자이고 내년에 일반으로 넘어갈것같아 세무사에 전화해보니 지금부터 세금계산서 자료 발행해야한다더라구요ㅠ 저는 간이는 안해도 되는줄알고 매입 계산서발행 여태 안했거든요ㅠㅠ 지금부터라도 하는게 맞을까요? 간이에서 일반으로 넘어갈때 이부분 아시는분 계실까요,,?ㅠㅠ</p><p class="tq-w">어피치 1년차 3000<span>2025-12-01</span></p></li><li class="tq" data-s="선배님들!!
+혹시 간이과세자면 거래처에 굳이 세금계산서 요청 안해도 될까요?
+현재 오픈 준비중이며 샘플이랑 상품 사입해서 사진찍는 단계라 사입비용이 많이 들어가지는 않고있습니다.
+여기서 사입비용에 대해 계산서 요청했을 경우 보통 익월 5일전이잖아요?
+바로 안하고 2~3개월 후에 요청해도 해주나요?"><p class="tq-t">선배님들!!
+혹시 간이과세자면 거래처에 굳이 세금계산서 요청 안해도 될까요?
+현재 오픈 준비중이며 샘플이랑 상품 사입해서 사진찍는 단계라 사입비용이 많이 들어가지는 않고있습니다.
+여기서 사입비용에 대해 계산서 요청했을 경우 보통 익월 5일전이잖아요?
+바로 안하고 2~3개월 후에 요청해도 해주나요?</p><p class="tq-w">비하인드/준비중<span>2025-12-11</span></p></li><li class="tq" data-s="안녕하세요! 이제 3개월된 초보사장입니다ㅠㅠ 세금관련은 아예무지해서 질문드려요ㅠㅠ!! 도와주세요ㅠㅠ
+지금 간이사업자로 되어있긴한데 도매거래처들한테 부가세내고 세금계산서 다 발행을 받아놔야되는건가요? ㅠㅠ 
+그리고 세금계산서를 만약에 다 발행을 받아놓으면 알아서 국세청에서 세금계산을 해주나요..? ㅠㅠ 
+너무 무지한 질문이지만 답변해주시면 너무 감사하겠습니다!🫶"><p class="tq-t">안녕하세요! 이제 3개월된 초보사장입니다ㅠㅠ 세금관련은 아예무지해서 질문드려요ㅠㅠ!! 도와주세요ㅠㅠ
+지금 간이사업자로 되어있긴한데 도매거래처들한테 부가세내고 세금계산서 다 발행을 받아놔야되는건가요? ㅠㅠ 
+그리고 세금계산서를 만약에 다 발행을 받아놓으면 알아서 국세청에서 세금계산을 해주나요..? ㅠㅠ 
+너무 무지한 질문이지만 답변해주시면 너무 감사하겠습니다!🫶</p><p class="tq-w">라이언/9개월/1200<span>2025-12-11</span></p></li><li class="tq" data-s="혹시 간이과세자에 오픈준비중으로 아직 매출 없음 , 동대문 사입에 대한 매입금만 있는 상황에서 세금계산서 발행을 하는게 맞을까요?"><p class="tq-t">혹시 간이과세자에 오픈준비중으로 아직 매출 없음 , 동대문 사입에 대한 매입금만 있는 상황에서 세금계산서 발행을 하는게 맞을까요?</p><p class="tq-w">비하인드/준비중<span>2025-12-18</span></p></li><li class="tq" data-s="그럼 깡통으로 소득안잡혀있는 간이과세 사업자로 최근부터 월에 2000씩 매출하고 있는데 그럼 세금계산서 발행은 계속 하는게 맞는거죠?? 일반 넘어가고 하면되너요~?"><p class="tq-t">그럼 깡통으로 소득안잡혀있는 간이과세 사업자로 최근부터 월에 2000씩 매출하고 있는데 그럼 세금계산서 발행은 계속 하는게 맞는거죠?? 일반 넘어가고 하면되너요~?</p><p class="tq-w">티비보는라이언/1년/1000<span>2025-12-18</span></p></li><li class="tq" data-s="오프라인 운영하시는 사장님들 있을까요!??제가 간이과세자라서 이제 곧 세금을 신고해야되는데, 손님 분들중에서 현금으로 계산하시고 깎아달라고 하시는 분들이 대다수 입니다.
+ 현금결제하면 다른 가게들처럼 10프로정도 깍고 가는데 잘하는건지 모르겟어요ㅠ
+이런 경우 어떤식으로 세금 신고 가야하는지 궁금해서요..현금할인하고 깎아줘도 마진률 1.7은 되도록 만드는데 어떻게 세금신고 해야될까요..?"><p class="tq-t">오프라인 운영하시는 사장님들 있을까요!??제가 간이과세자라서 이제 곧 세금을 신고해야되는데, 손님 분들중에서 현금으로 계산하시고 깎아달라고 하시는 분들이 대다수 입니다.
+ 현금결제하면 다른 가게들처럼 10프로정도 깍고 가는데 잘하는건지 모르겟어요ㅠ
+이런 경우 어떤식으로 세금 신고 가야하는지 궁금해서요..현금할인하고 깎아줘도 마진률 1.7은 되도록 만드는데 어떻게 세금신고 해야될까요..?</p><p class="tq-w">피넛/3개월/350<span>2025-12-31</span></p></li><li class="tq" data-s="아직 간이라서 세금계산서 안하는 게 좋다는데 안하면 안되나요??"><p class="tq-t">아직 간이라서 세금계산서 안하는 게 좋다는데 안하면 안되나요??</p><p class="tq-w">콩콩/1년/1200<span>2025-12-31</span></p></li><li class="tq" data-s="간이사업자인데, 무통장입금 결제시 고객님이 현금영수증 신청을 따로 요청하지 않은 경우에도 따로 현금영수증 및 세금계산서 를 발행해야 하나요/?"><p class="tq-t">간이사업자인데, 무통장입금 결제시 고객님이 현금영수증 신청을 따로 요청하지 않은 경우에도 따로 현금영수증 및 세금계산서 를 발행해야 하나요/?</p><p class="tq-w">무채/5개월/400<span>2026-01-01</span></p></li><li class="tq" data-s="간이과새자일 경우에 4800만원 안 넘으면 부과세 면세인가요??"><p class="tq-t">간이과새자일 경우에 4800만원 안 넘으면 부과세 면세인가요??</p><p class="tq-w">콩콩/1년/1200<span>2026-01-05</span></p></li><li class="tq" data-s="간이과세자 기준이 1억 400이고 면세는 4800아닌가용..??"><p class="tq-t">간이과세자 기준이 1억 400이고 면세는 4800아닌가용..??</p><p class="tq-w">콩콩/1년/1200<span>2026-01-05</span></p></li><li class="tq" data-s="엇 간이과세자 기준 변경되서
+
+간이가 1억 400 (의류는 부가세 최대 4%)
+4800미만 = 부과세 면세 (단 신고는해야함)
+
+이거 아닌가여?"><p class="tq-t">엇 간이과세자 기준 변경되서
+
+간이가 1억 400 (의류는 부가세 최대 4%)
+4800미만 = 부과세 면세 (단 신고는해야함)
+
+이거 아닌가여?</p><p class="tq-w">언더독 / 1년 / 1억<span>2026-01-05</span></p></li><li class="tq" data-s="그럼 지금 간이과세자면 세금계산서는 언제부터 끊는게 좋을까요?!"><p class="tq-t">그럼 지금 간이과세자면 세금계산서는 언제부터 끊는게 좋을까요?!</p><p class="tq-w">ㄱㄱ/2년차/2000<span>2026-01-05</span></p></li><li class="tq" data-s="1억400만원까지 간이과세자라고 알고있는데 끊어야하는거에요?!"><p class="tq-t">1억400만원까지 간이과세자라고 알고있는데 끊어야하는거에요?!</p><p class="tq-w">ㄱㄱ/2년차/2000<span>2026-01-05</span></p></li><li class="tq" data-s="혹시 간이과세자는 그냥 혼자  진행해도 되겠죠?.."><p class="tq-t">혹시 간이과세자는 그냥 혼자  진행해도 되겠죠?..</p><p class="tq-w">가보자고/육개월차/준비중<span>2026-01-09</span></p></li><li class="tq" data-s="안녕하세요! 질문이 있습니다ㅜㅜ
+제가 아직 간이과세자이고 4800 미만이라 부가세 면세 해당이라 전자세금계산서를 안떼려고 했거든요 ㅜ
+근데 주거래처에서 전자세금 계산서가 필수라고 그래서..
+혹시 부가세는 나중에 환급이 가능할까요??"><p class="tq-t">안녕하세요! 질문이 있습니다ㅜㅜ
+제가 아직 간이과세자이고 4800 미만이라 부가세 면세 해당이라 전자세금계산서를 안떼려고 했거든요 ㅜ
+근데 주거래처에서 전자세금 계산서가 필수라고 그래서..
+혹시 부가세는 나중에 환급이 가능할까요??</p><p class="tq-w">콩콩/1년/1200<span>2026-01-12</span></p></li><li class="tq" data-s="선배님들 간이과세인데 네이버페이 주문형,결제형 신청할때 통신판매업 신고를 하고 신청을 해야하나요?"><p class="tq-t">선배님들 간이과세인데 네이버페이 주문형,결제형 신청할때 통신판매업 신고를 하고 신청을 해야하나요?</p><p class="tq-w">비하인드/준비중<span>2026-01-13</span></p></li><li class="tq" data-s="간이라 아직 신고 안한상태인데 네이버페이 할려면 필수 신고잖아요???"><p class="tq-t">간이라 아직 신고 안한상태인데 네이버페이 할려면 필수 신고잖아요???</p><p class="tq-w">비하인드/준비중<span>2026-01-13</span></p></li><li class="tq" data-s="선배님들 1월달에 간이사업자도 부가가치세 신고하는거 맞죠?"><p class="tq-t">선배님들 1월달에 간이사업자도 부가가치세 신고하는거 맞죠?</p><p class="tq-w">비하인드/준비중<span>2026-01-16</span></p></li><li class="tq" data-s="안녕하세요 이번에 처음 부가세 신고 해보는데요. 간이과세자인데 세무사 없이 진행해도 괜찮을까요?"><p class="tq-t">안녕하세요 이번에 처음 부가세 신고 해보는데요. 간이과세자인데 세무사 없이 진행해도 괜찮을까요?</p><p class="tq-w">권투하는 무지/준비중<span>2026-01-21</span></p></li><li class="tq" data-s="간이 과세자라 부가세 환급을 못받는데, 청년 감면으로 100% 감면이면 사입할때 세금 계산서 안떼도 되나요? 세금 계산서 떼면 10% 추가 입금을 해야되더라고요..!"><p class="tq-t">간이 과세자라 부가세 환급을 못받는데, 청년 감면으로 100% 감면이면 사입할때 세금 계산서 안떼도 되나요? 세금 계산서 떼면 10% 추가 입금을 해야되더라고요..!</p><p class="tq-w">권투하는 무지/준비중<span>2026-02-13</span></p></li><li class="tq" data-s="대표님들 작년 9월에 개업해서 12월까지 홈택스 매출 잡혀있는게 4700만원이 넘으면 일반과세자로 넘어가나요?"><p class="tq-t">대표님들 작년 9월에 개업해서 12월까지 홈택스 매출 잡혀있는게 4700만원이 넘으면 일반과세자로 넘어가나요?</p><p class="tq-w">날것/1년차/1000<span>2026-02-27</span></p></li><li class="tq" data-s="안녕하세요! 간이과세자로 이번에 처음 세금계산서 발행을 받아보려고 하는데 궁금한 점이 있어 질문드립니다
+
+자잘자잘 거래한 거래처가 많은 편이라 모든 거래처에 다 요청하기보다는,
+거래금액이 어느 정도 큰 거래처들 위주로만 세금계산서를 발행받아도 괜찮은 걸까요?
+보통 최소 얼마 이상 거래한 곳부터 발행받는지 궁금합니다!"><p class="tq-t">안녕하세요! 간이과세자로 이번에 처음 세금계산서 발행을 받아보려고 하는데 궁금한 점이 있어 질문드립니다
+
+자잘자잘 거래한 거래처가 많은 편이라 모든 거래처에 다 요청하기보다는,
+거래금액이 어느 정도 큰 거래처들 위주로만 세금계산서를 발행받아도 괜찮은 걸까요?
+보통 최소 얼마 이상 거래한 곳부터 발행받는지 궁금합니다!</p><p class="tq-w">가나디/2년차/2천<span>2026-05-07</span></p></li><li class="tq" data-s="안녕하세요 쇼필공님!☺️
+쇼필공님이 올려주신 세금 영상 보다가 궁금한 점이 생겨서 질문 남깁니다 !! 
+(일단 그 어떤 영상보다 정말 유익했고 잘 봤습니다 감사합니다🙇‍♀️😭👍)
+
+단순경비율 대상이 아니면 무조건 세금계산서 발행해서 제 사입비나 사업에 든 비용을 세법상으로 인정받아야하잖아아요?! (= 소득세 줄이기 위해서)
+
+근데. 제가 연매출이 6000만원이 넘어가버려서 단순경비율 대상이 아니게 됐지만?
+지방에서 창업하는 청년이라서 청년창업자 세액감면 제도 혜택을 받게돼서 소득세 100%가 감면이 되면
+연매출 6000만원이 넘어가서 단순경비율 대상이 아니게 되더라도 굳이 10% 돈 더 내 가며 세금계산서를 발행할 필요가 없죠??
+(“물론“ 연매출 1억 400만원 이하라서 간이 과세자를 유지한다는 전제하에, 즉 부가세 낼 때도 매입세액 공제가 거의 없는 상태라는 전제하에)"><p class="tq-t">안녕하세요 쇼필공님!☺️
+쇼필공님이 올려주신 세금 영상 보다가 궁금한 점이 생겨서 질문 남깁니다 !! 
+(일단 그 어떤 영상보다 정말 유익했고 잘 봤습니다 감사합니다🙇‍♀️😭👍)
+
+단순경비율 대상이 아니면 무조건 세금계산서 발행해서 제 사입비나 사업에 든 비용을 세법상으로 인정받아야하잖아아요?! (= 소득세 줄이기 위해서)
+
+근데. 제가 연매출이 6000만원이 넘어가버려서 단순경비율 대상이 아니게 됐지만?
+지방에서 창업하는 청년이라서 청년창업자 세액감면 제도 혜택을 받게돼서 소득세 100%가 감면이 되면
+연매출 6000만원이 넘어가서 단순경비율 대상이 아니게 되더라도 굳이 10% 돈 더 내 가며 세금계산서를 발행할 필요가 없죠??
+(“물론“ 연매출 1억 400만원 이하라서 간이 과세자를 유지한다는 전제하에, 즉 부가세 낼 때도 매입세액 공제가 거의 없는 상태라는 전제하에)</p><p class="tq-w">ㄱㄱ/준비중/준비중<span>2026-06-15</span></p></li></ol>
+        </details>
+      </article>
+      <article class="tcard" id="gc4" data-topic="계산서 누락·정정" data-n="38">
+        <div class="tcard-h">
+          <span class="tnum">04</span>
+          <h3>계산서 누락·정정</h3>
+          <span class="tpill"><b>38</b>건</span>
+        </div>
+        <p class="tfull">세금계산서 발행·누락·정정</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p>발행 타이밍(익월 5일), 지연발급이 되는지, 누락된 걸 살릴 수 있는지, 잘못 발행된 걸 취소할 수 있는지 — 전부 모릅니다.</p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p><b>이미 놓친 것을 어떻게 복구하나.</b> 사후 대응이 핵심입니다.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p>"가산세는 어차피 내 부담이니 괜찮다" — 부담 주체와 금액을 모른 채 넘어갑니다.</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>1~3년차. 첫 신고에서 누락을 발견하고 몰려옵니다.</p></div>
+            <div><span class="tl">언제 몰리나</span><p>매월 초 · 1월 · 7월</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 38건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="안녕하세요 쇼핑몰 오픈한지 한달이 되어가고있는 초보입니다..! 세금계산서 요청할때 제가 한 달 동안 사입한 물건의 총 가격의 부가세를 입금하고 세금계산서를 요청하는 걸까요?"><p class="tq-t">안녕하세요 쇼핑몰 오픈한지 한달이 되어가고있는 초보입니다..! 세금계산서 요청할때 제가 한 달 동안 사입한 물건의 총 가격의 부가세를 입금하고 세금계산서를 요청하는 걸까요?</p><p class="tq-w">무무/준비중<span>2025-09-27</span></p></li><li class="tq" data-s="청년세액감면 대상자이신분들 세금계산서 끊고 계시나용..?"><p class="tq-t">청년세액감면 대상자이신분들 세금계산서 끊고 계시나용..?</p><p class="tq-w">고양이/2년/5천<span>2025-09-29</span></p></li><li class="tq" data-s="세금계산서 끊는거랑 안끊는게 2-3% 
+얼마차이안난다는 말씀이신거죠?!"><p class="tq-t">세금계산서 끊는거랑 안끊는게 2-3% 
+얼마차이안난다는 말씀이신거죠?!</p><p class="tq-w">고양이/2년/5천<span>2025-09-29</span></p></li><li class="tq" data-s="간의과세자는 세금계산서는 필요없고 지출 증빙용 현금영수증만 있으면 된다고 하던데 맞나용..?ㅜㅜ"><p class="tq-t">간의과세자는 세금계산서는 필요없고 지출 증빙용 현금영수증만 있으면 된다고 하던데 맞나용..?ㅜㅜ</p><p class="tq-w">무지무지/준비중/준비중<span>2025-10-01</span></p></li><li class="tq" data-s="안녕하세용 저 자사몰 셋팅중인데 
+쇼필공- 이지페이 신청했거든요 그럼 현금영수증,세금계산서 발행 따로 설정 안해도되는건가요?.?"><p class="tq-t">안녕하세용 저 자사몰 셋팅중인데 
+쇼필공- 이지페이 신청했거든요 그럼 현금영수증,세금계산서 발행 따로 설정 안해도되는건가요?.?</p><p class="tq-w">네오/5개월/3천<span>2025-10-04</span></p></li><li class="tq" data-s="이번에 세금계산서 빠진 곳이 있어서 이월발행 요청하려는데 보통 미리 말씀두리나요 아니면 담달거 요청드릴때 같이 말씀드리나요 ??"><p class="tq-t">이번에 세금계산서 빠진 곳이 있어서 이월발행 요청하려는데 보통 미리 말씀두리나요 아니면 담달거 요청드릴때 같이 말씀드리나요 ??</p><p class="tq-w">라이언/1년/4천<span>2025-10-09</span></p></li><li class="tq" data-s="세금계산서를 제가 발행할 경우가 궁금합니다! 어떨 때에 제가 세금계산서 발행을 하나요? 계산서는 도매처에 받기만하지 해본적이 없어 문의드려요~"><p class="tq-t">세금계산서를 제가 발행할 경우가 궁금합니다! 어떨 때에 제가 세금계산서 발행을 하나요? 계산서는 도매처에 받기만하지 해본적이 없어 문의드려요~</p><p class="tq-w">라이언/준비중/준비중<span>2025-10-28</span></p></li><li class="tq" data-s="안녕하세요~ 혹시 팀솔루션 이용하고 계신 대표님들 계실까요? 매번 금액을 입금해서 충전식으로 사용하고 있는데 세금계산서 발행은 어떻게 하면 되는지 궁금합니다"><p class="tq-t">안녕하세요~ 혹시 팀솔루션 이용하고 계신 대표님들 계실까요? 매번 금액을 입금해서 충전식으로 사용하고 있는데 세금계산서 발행은 어떻게 하면 되는지 궁금합니다</p><p class="tq-w">수민/2년/1억<span>2025-11-30</span></p></li><li class="tq" data-s="저는 일부러 세금계산서 발행헀었는데 그럼 지금까지 발행 받은 것도 취소할 수 있나요...? 홈택스 같은 데 들어가서ㅜㅜ"><p class="tq-t">저는 일부러 세금계산서 발행헀었는데 그럼 지금까지 발행 받은 것도 취소할 수 있나요...? 홈택스 같은 데 들어가서ㅜㅜ</p><p class="tq-w">무지무지/준비중/준비중<span>2025-12-01</span></p></li><li class="tq" data-s="그리고 미송건은 입금과 세금계산서 받는 시점에서 아직 미송이 안나온 경우에도, 입금을 미리 했기 때문에 물건 받기전에 세금계산서를 그냥 발행해야겠죠..?"><p class="tq-t">그리고 미송건은 입금과 세금계산서 받는 시점에서 아직 미송이 안나온 경우에도, 입금을 미리 했기 때문에 물건 받기전에 세금계산서를 그냥 발행해야겠죠..?</p><p class="tq-w">모트/1년차/월2천만<span>2025-12-02</span></p></li><li class="tq" data-s="안녕하세요 사장님들! 이번에 첫 사입하고 왔는데 샘플 안 받고 그냥 1-2장씩 사입을 했거든요
+그러고 지금 따로 도매처에서 부가세 입금 연락이 안 오는데 제가 먼저 연락 드려야 되는 걸까요? 
+세금계산서도 마찬가지라 한 곳 말곤 연락이 안 왔는데 제가 먼저 연락 드려야 되는 걸까용..?"><p class="tq-t">안녕하세요 사장님들! 이번에 첫 사입하고 왔는데 샘플 안 받고 그냥 1-2장씩 사입을 했거든요
+그러고 지금 따로 도매처에서 부가세 입금 연락이 안 오는데 제가 먼저 연락 드려야 되는 걸까요? 
+세금계산서도 마찬가지라 한 곳 말곤 연락이 안 왔는데 제가 먼저 연락 드려야 되는 걸까용..?</p><p class="tq-w">무지무지/준비중/준비중<span>2025-12-02</span></p></li><li class="tq" data-s="대표님들 세금계산서 발급하시는것들 국세청에서 일일히 다 확인하시나요??
+저번달부터 거래처에 세금계산서 요청드리고 있는데 제대로 발급 됐는지 보려고 하는데 사이트 들어가서 보는 방법밖에 없나 해서요.."><p class="tq-t">대표님들 세금계산서 발급하시는것들 국세청에서 일일히 다 확인하시나요??
+저번달부터 거래처에 세금계산서 요청드리고 있는데 제대로 발급 됐는지 보려고 하는데 사이트 들어가서 보는 방법밖에 없나 해서요..</p><p class="tq-w">초롱초롱 네오/6개월차/3000<span>2025-12-04</span></p></li><li class="tq" data-s="안녕하세요! 혹시 연매출 4800만원 아직 넘은 상황이 아니라면, 거래처에 세금계산서 발급해달라고 요청해도 발급 불가한가요?"><p class="tq-t">안녕하세요! 혹시 연매출 4800만원 아직 넘은 상황이 아니라면, 거래처에 세금계산서 발급해달라고 요청해도 발급 불가한가요?</p><p class="tq-w">모트/1년차/월2천만<span>2025-12-05</span></p></li><li class="tq" data-s="너무 감사합니다ㅠㅜ 그런데 이미 계좌이체(입금) 완료한 경우에는 세금계산서가 필요없어도 꼭 요청해야하죠?"><p class="tq-t">너무 감사합니다ㅠㅜ 그런데 이미 계좌이체(입금) 완료한 경우에는 세금계산서가 필요없어도 꼭 요청해야하죠?</p><p class="tq-w">모트/1년차/월2천만<span>2025-12-05</span></p></li><li class="tq" data-s="선배님들 궁금한 게 있습니다!
+제가 지금까지 전자세금계산서를 안떼고 거래했었는데 혹시 거래처한테 몇달전꺼 지금이라도 지연발급 될까요..??"><p class="tq-t">선배님들 궁금한 게 있습니다!
+제가 지금까지 전자세금계산서를 안떼고 거래했었는데 혹시 거래처한테 몇달전꺼 지금이라도 지연발급 될까요..??</p><p class="tq-w">콩콩/1년/1200<span>2025-12-07</span></p></li><li class="tq" data-s="세금계산서 발행되었는지 다들 홈텍스 전자세금계산서 목록조회에서 하시나요?"><p class="tq-t">세금계산서 발행되었는지 다들 홈텍스 전자세금계산서 목록조회에서 하시나요?</p><p class="tq-w">미도/2년/2500<span>2025-12-09</span></p></li><li class="tq" data-s="세금계산서 끊는데 매장에 연락해도안받고 카톡도안보시고 아직도 안끊어주셨는데 연락방법이 없을땐 어떻게 하시나요..???"><p class="tq-t">세금계산서 끊는데 매장에 연락해도안받고 카톡도안보시고 아직도 안끊어주셨는데 연락방법이 없을땐 어떻게 하시나요..???</p><p class="tq-w">미도/2년/2500<span>2025-12-11</span></p></li><li class="tq" data-s="안녕하세요 대표님들!
+세금계산서 발급한거 홈택스 들어가서 확인하려는데 제대로 검색이 안되더라구요!ㅠㅠ 등록한 이메일로 발급완료 메일은 받긴했는데.. 혹시 홈페이지에서 확인할때 자료발급한 내용이 바로바로 안뜨고 나중에 뜨기도  하나용??"><p class="tq-t">안녕하세요 대표님들!
+세금계산서 발급한거 홈택스 들어가서 확인하려는데 제대로 검색이 안되더라구요!ㅠㅠ 등록한 이메일로 발급완료 메일은 받긴했는데.. 혹시 홈페이지에서 확인할때 자료발급한 내용이 바로바로 안뜨고 나중에 뜨기도  하나용??</p><p class="tq-w">초롱초롱 네오/6개월차/3000<span>2025-12-11</span></p></li><li class="tq" data-s="혹시 세금계산서 발급받을때 상호 오타로 다르게 되어있어도 따로 수정요청은 안해도 되죠..?"><p class="tq-t">혹시 세금계산서 발급받을때 상호 오타로 다르게 되어있어도 따로 수정요청은 안해도 되죠..?</p><p class="tq-w">고양이/2년/5천<span>2025-12-11</span></p></li><li class="tq" data-s="대표님들 혹시 동대문은 현금결제 계좌이체먼 가능한가요..? 세금계산서는 어떻게 끊어주세요??"><p class="tq-t">대표님들 혹시 동대문은 현금결제 계좌이체먼 가능한가요..? 세금계산서는 어떻게 끊어주세요??</p><p class="tq-w">리치/준비중<span>2025-12-18</span></p></li><li class="tq" data-s="선배님들!!
+매출 없는 상태에서 동대문 사입시 어차피 세금계산서 발행 의미 없는데 현금으로 매입해도 상관없나요? 영수증이랑 시트에 잘 정리만 해두면?"><p class="tq-t">선배님들!!
+매출 없는 상태에서 동대문 사입시 어차피 세금계산서 발행 의미 없는데 현금으로 매입해도 상관없나요? 영수증이랑 시트에 잘 정리만 해두면?</p><p class="tq-w">비하인드/준비중<span>2025-12-18</span></p></li><li class="tq" data-s="매출 나오는 시점부터 매입한 건에 대해 세금계산서 요청해도 안늦는거죠?"><p class="tq-t">매출 나오는 시점부터 매입한 건에 대해 세금계산서 요청해도 안늦는거죠?</p><p class="tq-w">비하인드/준비중<span>2025-12-18</span></p></li><li class="tq" data-s="대표님들 혹시 자사몰 고객님 세금계산서 발행 해줘야 되나요.??
+이런 알람이 와가지구.."><p class="tq-t">대표님들 혹시 자사몰 고객님 세금계산서 발행 해줘야 되나요.??
+이런 알람이 와가지구..</p><p class="tq-w">ㄱㅇㅈ/2년차/7천<span>2025-12-18</span></p></li><li class="tq" data-s="안녕하세요 세금계산서 발행 관련해서 여쭤볼게 있습니다
+12월달 사입한 것들 1월달 초에 발행해달라고 요청하면 다들 발행해주시나요..?"><p class="tq-t">안녕하세요 세금계산서 발행 관련해서 여쭤볼게 있습니다
+12월달 사입한 것들 1월달 초에 발행해달라고 요청하면 다들 발행해주시나요..?</p><p class="tq-w">누닌/준비중/준비중<span>2025-12-23</span></p></li><li class="tq" data-s="세금계산서 발행안하신게 1억 6천인가요??"><p class="tq-t">세금계산서 발행안하신게 1억 6천인가요??</p><p class="tq-w">쿠쿠/3년차/5천<span>2026-01-05</span></p></li><li class="tq" data-s="혹시 전자세금계산서 발행한 거는 취소는 따로 안될까요??!"><p class="tq-t">혹시 전자세금계산서 발행한 거는 취소는 따로 안될까요??!</p><p class="tq-w">콩콩/1년/1200<span>2026-01-07</span></p></li><li class="tq" data-s="질문이 너무 많아 죄송합니다… 혹시 사입한 것들 현금영수증 사업자번호로 때면 국세청에 자동으로 신고가 되는건알고있는데!!! 혹시 세금계산서는 어떤경우에 사용하는건가요??!"><p class="tq-t">질문이 너무 많아 죄송합니다… 혹시 사입한 것들 현금영수증 사업자번호로 때면 국세청에 자동으로 신고가 되는건알고있는데!!! 혹시 세금계산서는 어떤경우에 사용하는건가요??!</p><p class="tq-w">초초보/3개월350<span>2026-01-08</span></p></li><li class="tq" data-s="그럼 경비 전부다 세금계산서 받아야하는건가요?"><p class="tq-t">그럼 경비 전부다 세금계산서 받아야하는건가요?</p><p class="tq-w">초초보/3개월350<span>2026-01-15</span></p></li><li class="tq" data-s="안녕하세요 선배님 ! 혹시 세금계산서 이메일로 받을때 
+따로 세금계산서용 이메일을 하나 더 만드실까요 ?
+아니면 erp 프로그램을 사용하셔서 매입, 매출, 직원들 급여등 한번에 처리하실까요 ??
+하나하나 작성해서 세무사에게 전달하려니 너무 번거롭더라구요 ㅠ 직원 고용하신 분들 꼭 답변 부탁드립니다ㅠㅠ"><p class="tq-t">안녕하세요 선배님 ! 혹시 세금계산서 이메일로 받을때 
+따로 세금계산서용 이메일을 하나 더 만드실까요 ?
+아니면 ERP 프로그램을 사용하셔서 매입, 매출, 직원들 급여등 한번에 처리하실까요 ??
+하나하나 작성해서 세무사에게 전달하려니 너무 번거롭더라구요 ㅠ 직원 고용하신 분들 꼭 답변 부탁드립니다ㅠㅠ</p><p class="tq-w">포메 / 3년차 / 2.5억<span>2026-01-16</span></p></li><li class="tq" data-s="안녕하세요 대표님들
+거래처에서 세금계산서 발급한거 확인하려고 하는데 국세청 홈택스 어느 메뉴에서 확인하는건지 아시는 분 계실까요???"><p class="tq-t">안녕하세요 대표님들
+거래처에서 세금계산서 발급한거 확인하려고 하는데 국세청 홈택스 어느 메뉴에서 확인하는건지 아시는 분 계실까요???</p><p class="tq-w">초롱초롱 네오/6개월차/3000<span>2026-01-17</span></p></li><li class="tq" data-s="안녕하세요 신상배송 처음 써보는데 세금계산서 10퍼도 포함된건가요? 알아서 신고가되나요?"><p class="tq-t">안녕하세요 신상배송 처음 써보는데 세금계산서 10퍼도 포함된건가요? 알아서 신고가되나요?</p><p class="tq-w">초초보/3개월350<span>2026-02-10</span></p></li><li class="tq" data-s="대표님들 혹시 제가 카페 24로 자사몰 시작한지 이제 한달정도라 아직 모르는게 많아 질문드립니다! 혹시 카페 24에 세금계산서 관리가 있는데 따로 발급받아야하는걸까요?"><p class="tq-t">대표님들 혹시 제가 카페 24로 자사몰 시작한지 이제 한달정도라 아직 모르는게 많아 질문드립니다! 혹시 카페 24에 세금계산서 관리가 있는데 따로 발급받아야하는걸까요?</p><p class="tq-w">듀듀/5개월차/1천6백<span>2026-03-02</span></p></li><li class="tq" data-s="제작하는시는 분들, 혹시 공장에서 세금계산서 다들 떼어주시나요? 제가 거래하는 공장은 세금계산서 어렵다고 하시는데 동대문 제작도매들 거래하는 공장들이 원래 그런가 궁금해서요.."><p class="tq-t">제작하는시는 분들, 혹시 공장에서 세금계산서 다들 떼어주시나요? 제가 거래하는 공장은 세금계산서 어렵다고 하시는데 동대문 제작도매들 거래하는 공장들이 원래 그런가 궁금해서요..</p><p class="tq-w">믿음 / 준비중<span>2026-03-17</span></p></li><li class="tq" data-s="사장님들 혹시 부가세는 거래처에 발주 카톡 넣을때 부가세 포함 입금해서 매달 초에 세금계산서만 받는건가용? 아니면 매달초에 부가세를 정리해달라고해서 그때 한번에 입금하고 세금계산서를 받는건가요 ???"><p class="tq-t">사장님들 혹시 부가세는 거래처에 발주 카톡 넣을때 부가세 포함 입금해서 매달 초에 세금계산서만 받는건가용? 아니면 매달초에 부가세를 정리해달라고해서 그때 한번에 입금하고 세금계산서를 받는건가요 ???</p><p class="tq-w">빼로롱 / 1년차 / 1000<span>2026-04-02</span></p></li><li class="tq" data-s="보통 세금계산서 발행 요청드릴때 세액 얼마입금해여하는지 여쭤봐도되나요?"><p class="tq-t">보통 세금계산서 발행 요청드릴때 세액 얼마입금해여하는지 여쭤봐도되나요?</p><p class="tq-w">듀듀/3달/150만원<span>2026-05-03</span></p></li><li class="tq" data-s="세금계산서발행을 작년11월부터 30번정도 말씀드렸는데 알겠다하고 안끊어주시는 곳은 어떻게해야할까요..;;ㅠ"><p class="tq-t">세금계산서발행을 작년11월부터 30번정도 말씀드렸는데 알겠다하고 안끊어주시는 곳은 어떻게해야할까요..;;ㅠ</p><p class="tq-w">미도/2년/2500<span>2026-05-07</span></p></li><li class="tq" data-s="사장님들 안녕하세요!
+큰 거래처들은 대부분 끊어져있는데
+누락된 세금계산서들이 많으면 부가세 부담이 많이 클까요?"><p class="tq-t">사장님들 안녕하세요!
+큰 거래처들은 대부분 끊어져있는데
+누락된 세금계산서들이 많으면 부가세 부담이 많이 클까요?</p><p class="tq-w">얌/3년/1억2천<span>2026-05-18</span></p></li><li class="tq" data-s="안녕하세요 혹시 사입비용 업체에게 세금계산서 요청시 모든 업체들 10일에 말씀드리면되는걸까요?!"><p class="tq-t">안녕하세요 혹시 사입비용 업체에게 세금계산서 요청시 모든 업체들 10일에 말씀드리면되는걸까요?!</p><p class="tq-w">누워있는 죠르디<span>2026-06-09</span></p></li></ol>
+        </details>
+      </article>
+      <article class="tcard" id="gc5" data-topic="부가세 입금" data-n="40">
+        <div class="tcard-h">
+          <span class="tnum">05</span>
+          <h3>부가세 입금</h3>
+          <span class="tpill"><b>40</b>건</span>
+        </div>
+        <p class="tfull">부가세 입금 실무</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p>언제 · 누구에게 · 얼마를 보내는지 자체가 안 잡힙니다. 발주할 때 포함해서 보내는지, 월초에 따로 보내는지, 금액은 내가 계산하는지 거래처가 알려주는지.</p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p><b>거래처 수십 곳을 매달 처리하는 루틴.</b> 일일이 계산해서 카톡 돌리는 게 현실이라 시간이 가장 많이 듭니다.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p>"만원짜리 소액은 그냥 넘겨도 된다" / "많이 팔리는 몇 군데만 하면 된다"</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>전 구간. 질문 수 최다입니다.</p></div>
+            <div><span class="tl">언제 몰리나</span><p>매월 1~5일에 집중</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 40건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="안녕하세요 에이블리 쇼핑몰 관련해서 부가가치세 신고 해보신분 계신가요?"><p class="tq-t">안녕하세요 에이블리 쇼핑몰 관련해서 부가가치세 신고 해보신분 계신가요?</p><p class="tq-w">햄/1년차/100만원..<span>2025-09-27</span></p></li><li class="tq" data-s="혹시 다들 거래처 부가세 신고는 앞 전에 다 하셧을까요 ??"><p class="tq-t">혹시 다들 거래처 부가세 신고는 앞 전에 다 하셧을까요 ??</p><p class="tq-w">인사하는 춘식이/3년차/2000<span>2025-10-08</span></p></li><li class="tq" data-s="대표님들 부가세 내려고 거래처에 요청하려하는데 제가 전달할 정보가 어떤게 있을까요? 사업자등록증이랑 이메일 전달하고 10% 송금하면 되나요?"><p class="tq-t">대표님들 부가세 내려고 거래처에 요청하려하는데 제가 전달할 정보가 어떤게 있을까요? 사업자등록증이랑 이메일 전달하고 10% 송금하면 되나요?</p><p class="tq-w">춘식이 / 6개월 / 2000<span>2025-11-03</span></p></li><li class="tq" data-s="종소세랑 부가가치세 소득없으면 무실적으로 신고하면 되는거죠?"><p class="tq-t">종소세랑 부가가치세 소득없으면 무실적으로 신고하면 되는거죠?</p><p class="tq-w">비하인드/준비중<span>2025-11-11</span></p></li><li class="tq" data-s="올해 8천만원 벌었는데 
+부가세 신고를 안했따 ? 어 ? 그대 8천만원 벌었구나  ? 
+세금 퇄퇄 ~"><p class="tq-t">올해 8천만원 벌었는데 
+부가세 신고를 안했따 ? 어 ? 그대 8천만원 벌었구나  ? 
+세금 퇄퇄 ~</p><p class="tq-w">도롱뇽/5년/000<span>2025-11-27</span></p></li><li class="tq" data-s="매출이 낮아 부가세를 면세해주는 구간이다보니 괜찮다 싶지만, 구간이 8천만원인가 ? 
+로 확대되서"><p class="tq-t">매출이 낮아 부가세를 면세해주는 구간이다보니 괜찮다 싶지만, 구간이 8천만원인가 ? 
+로 확대되서</p><p class="tq-w">도롱뇽/5년/000<span>2025-11-27</span></p></li><li class="tq" data-s="1만원 공급가 떼오면 장기에 1만원에 부가세 1천원까지 해서 애초에1만1천원 입금하면 나중에 계산서 끊을때 또 입금할 일이 없는거죠..?"><p class="tq-t">1만원 공급가 떼오면 장기에 1만원에 부가세 1천원까지 해서 애초에1만1천원 입금하면 나중에 계산서 끊을때 또 입금할 일이 없는거죠..?</p><p class="tq-w">하하/준비중/준비중<span>2025-11-27</span></p></li><li class="tq" data-s="부가세 입금은 하시는거죵?"><p class="tq-t">부가세 입금은 하시는거죵?</p><p class="tq-w">하하/준비중/준비중<span>2025-11-27</span></p></li><li class="tq" data-s="미리 부가세 입금하고 월초에 요청드리는 경우 금액은 따로 말씀 안드려도 되는걸까용?"><p class="tq-t">미리 부가세 입금하고 월초에 요청드리는 경우 금액은 따로 말씀 안드려도 되는걸까용?</p><p class="tq-w">라이언/1년/4천<span>2025-11-27</span></p></li><li class="tq" data-s="대표님들 궁금한 점이 있습니다!
+
+거래처에서 사입할 때 부가세10프로 언제부터 발행하는 게 좋을까요? 아직 매출이 거의 없어서 따로 신청은 안 하고 있어서요!"><p class="tq-t">대표님들 궁금한 점이 있습니다!
+
+거래처에서 사입할 때 부가세10프로 언제부터 발행하는 게 좋을까요? 아직 매출이 거의 없어서 따로 신청은 안 하고 있어서요!</p><p class="tq-w">가나/준비중/준비중<span>2025-12-02</span></p></li><li class="tq" data-s="11월달 자료 부가세 21일에 나간 물대 25,000원 부가세 2,500원 더 입금주시면 됩니다~
+
+- 혹시 물대라는 단어가 뭔지 알 수 있을까요..?"><p class="tq-t">11월달 자료 부가세 21일에 나간 물대 25,000원 부가세 2,500원 더 입금주시면 됩니다~
+
+- 혹시 물대라는 단어가 뭔지 알 수 있을까요..?</p><p class="tq-w">해피/5개월/1억<span>2025-12-02</span></p></li><li class="tq" data-s="대표님들 질문드립니다! 혹시 거래처에 입금해야될 부가세는 보통 업체에 물어보시나요 아니면 미리 적어두면서 계산해서 보내시나요??"><p class="tq-t">대표님들 질문드립니다! 혹시 거래처에 입금해야될 부가세는 보통 업체에 물어보시나요 아니면 미리 적어두면서 계산해서 보내시나요??</p><p class="tq-w">일쟁/1년/2000<span>2025-12-03</span></p></li><li class="tq" data-s="선배님들 혹시 부가세 통장 따로 만들어서 관리하시나요?"><p class="tq-t">선배님들 혹시 부가세 통장 따로 만들어서 관리하시나요?</p><p class="tq-w">무지무지/준비중/준비중<span>2025-12-04</span></p></li><li class="tq" data-s="고수님들 부가세 연락할때 일일이 계산해서연락하시나요? 매번 제가 다 더해서 연락했는데 다른분들은 어떻게 하시나 싶어서요~ 그냥 얼마 드리면 되냐고 하면 알아서들 해주시나요?"><p class="tq-t">고수님들 부가세 연락할때 일일이 계산해서연락하시나요? 매번 제가 다 더해서 연락했는데 다른분들은 어떻게 하시나 싶어서요~ 그냥 얼마 드리면 되냐고 하면 알아서들 해주시나요?</p><p class="tq-w">춘식이 / 6개월 / 2000<span>2025-12-05</span></p></li><li class="tq" data-s="답변 감사드립니다~ 그리고 한개라도 팔려도 다 부가세연락돌리시나요? 저는 많이 팔리는 몇군데에만 연락해서 하고 있는데 나중에 큰일나려나요 ㅎ,,"><p class="tq-t">답변 감사드립니다~ 그리고 한개라도 팔려도 다 부가세연락돌리시나요? 저는 많이 팔리는 몇군데에만 연락해서 하고 있는데 나중에 큰일나려나요 ㅎ,,</p><p class="tq-w">춘식이 / 6개월 / 2000<span>2025-12-05</span></p></li><li class="tq" data-s="아니면 부가세 입금하고 계산서 아직 떼지말까요ㅠ? 4800만 간당한것같아서요ㅜㅜ"><p class="tq-t">아니면 부가세 입금하고 계산서 아직 떼지말까요ㅠ? 4800만 간당한것같아서요ㅜㅜ</p><p class="tq-w">모트/1년차/월2천만<span>2025-12-05</span></p></li><li class="tq" data-s="근데 어차피 상품매입비는 부가세 환급되지않아용?"><p class="tq-t">근데 어차피 상품매입비는 부가세 환급되지않아용?</p><p class="tq-w">사모예,1년미만,준비중<span>2025-12-18</span></p></li><li class="tq" data-s="제가 플랫폼에서는 지금까지는 부가세 신고 내역으로 하는데 그럼 계산이 어그러지겠죠? 순매출로 해야할까요?"><p class="tq-t">제가 플랫폼에서는 지금까지는 부가세 신고 내역으로 하는데 그럼 계산이 어그러지겠죠? 순매출로 해야할까요?</p><p class="tq-w">네오씨/7년/5천<span>2026-01-03</span></p></li><li class="tq" data-s="거래처에 월초 계산서 발행 요청드릴때 한달간 거래금액 저희쪽에서 카톡으로 말씀드려야 할까요? ㅠㅠ 처음이라 어렵네요 ㅠㅠ
+주문건 결제할때마다 부가세 포함해서 입금드렸었습니다"><p class="tq-t">거래처에 월초 계산서 발행 요청드릴때 한달간 거래금액 저희쪽에서 카톡으로 말씀드려야 할까요? ㅠㅠ 처음이라 어렵네요 ㅠㅠ
+주문건 결제할때마다 부가세 포함해서 입금드렸었습니다</p><p class="tq-w">언더독 / 1년 / 1억<span>2026-01-04</span></p></li><li class="tq" data-s="부가세 연락 오늘 12시까지 돌려야하나요?  자정 넘어가도 받아주시나요?"><p class="tq-t">부가세 연락 오늘 12시까지 돌려야하나요?  자정 넘어가도 받아주시나요?</p><p class="tq-w">춘식이 / 6개월 / 2000<span>2026-01-05</span></p></li><li class="tq" data-s="대표님들 만원짜리여도 다 부가세 하시나요? 얼마정도면 그냥 넘기시는지 궁금해요"><p class="tq-t">대표님들 만원짜리여도 다 부가세 하시나요? 얼마정도면 그냥 넘기시는지 궁금해요</p><p class="tq-w">춘식이 / 6개월 / 2000<span>2026-01-05</span></p></li><li class="tq" data-s="부가가치세 0원도 신고해야하나요?!"><p class="tq-t">부가가치세 0원도 신고해야하나요?!</p><p class="tq-w">ㄱㄱ/2년차/2000<span>2026-01-05</span></p></li><li class="tq" data-s="부가세 같은 경우는 거래처에 입금을 해버렸는데 그거는 환불 받을 수 있을까요..?ㅠ"><p class="tq-t">부가세 같은 경우는 거래처에 입금을 해버렸는데 그거는 환불 받을 수 있을까요..?ㅠ</p><p class="tq-w">콩콩/1년/1200<span>2026-01-07</span></p></li><li class="tq" data-s="부가가치세 처음 신고하는데 작년 매출 5천만원으로 잡힌거 세액이 9만원 가량 나오는데 이렇게 신고하면 되는 걸까요?
+간이, 청년사업입니다 !"><p class="tq-t">부가가치세 처음 신고하는데 작년 매출 5천만원으로 잡힌거 세액이 9만원 가량 나오는데 이렇게 신고하면 되는 걸까요?
+간이, 청년사업입니다 !</p><p class="tq-w">로드/1년/2천<span>2026-01-08</span></p></li><li class="tq" data-s="제가 이번에 카페24 부가세 신고는 처음인데 혹시 플랫폼 연동이 되어있으면 따로 확인해야 할까요 ?"><p class="tq-t">제가 이번에 카페24 부가세 신고는 처음인데 혹시 플랫폼 연동이 되어있으면 따로 확인해야 할까요 ?</p><p class="tq-w">생각하는 라이언/2년차/6천<span>2026-01-09</span></p></li><li class="tq" data-s="안녕히세용 부가가치세 신고 기간이 1월 26까지그 맞을까요??"><p class="tq-t">안녕히세용 부가가치세 신고 기간이 1월 26까지그 맞을까요??</p><p class="tq-w">냐항 / 준비중/준비중<span>2026-01-09</span></p></li><li class="tq" data-s="선배님들
+혹시 사입 현금으로 했을때 현금영수증 ? 부가세 그거 하려면 이메일로 사업자 등록증 보내드리고 카톡으로 현금 사용한 금액 말씀드리면 되는건가요!!?"><p class="tq-t">선배님들
+혹시 사입 현금으로 했을때 현금영수증 ? 부가세 그거 하려면 이메일로 사업자 등록증 보내드리고 카톡으로 현금 사용한 금액 말씀드리면 되는건가요!!?</p><p class="tq-w">초초보/3개월350<span>2026-01-14</span></p></li><li class="tq" data-s="혹시 그러면 부가세 제외한 금액으로 이체한 내역은 신고가ㅜ안되나요??"><p class="tq-t">혹시 그러면 부가세 제외한 금액으로 이체한 내역은 신고가ㅜ안되나요??</p><p class="tq-w">콩콩/1년/1200<span>2026-01-14</span></p></li><li class="tq" data-s="일반과세로 전환되신 사업자 선배님들께 여쭤봅니다 🙏
+저는 올해 1월부터 일반과세로 전환되어, 지금부터 도매 자료를 챙겨야 하는 상황입니다.
+
+1️⃣ 도매 결제 방식이 궁금합니다.
+입금하실 때
+
+도매가만 먼저 입금하시고, 월말에 자료 요청하면서 부가세(10%)를 따로 입금하시나요?
+
+아니면 평소에 도매가 + 10%를 함께 입금하고, 월말에 계산서(자료)만 요청하시나요?
+
+2️⃣ 발주·입금 처리 방식도 궁금합니다.
+매일 발주 넣을 때
+
+엑셀로 발주서 정리 → 그 엑셀 기준으로 은행에 업로드해서 바로 입금 처리하시나요?
+
+3️⃣ 엑셀 파일 관리 관련 질문입니다.
+발주 넣을 때마다 엑셀이 생기면
+
+예를 들어 1월 한 달 기준으로 엑셀 파일을 약 30개 정도 각각 저장해서 관리하시는지 궁금합니다.
+
+4️⃣ 도매에서 계산서 발행해주는 경우
+
+계산서 외에 발주 엑셀, 입금 내역 등 관련 자료들도 전부 따로 모아서 보관하시는지도 알고 싶습니다.
+
+경험 있으신 분들 방식 공유해주시면 정말 큰 도움"><p class="tq-t">일반과세로 전환되신 사업자 선배님들께 여쭤봅니다 🙏
+저는 올해 1월부터 일반과세로 전환되어, 지금부터 도매 자료를 챙겨야 하는 상황입니다.
+
+1️⃣ 도매 결제 방식이 궁금합니다.
+입금하실 때
+
+도매가만 먼저 입금하시고, 월말에 자료 요청하면서 부가세(10%)를 따로 입금하시나요?
+
+아니면 평소에 도매가 + 10%를 함께 입금하고, 월말에 계산서(자료)만 요청하시나요?
+
+2️⃣ 발주·입금 처리 방식도 궁금합니다.
+매일 발주 넣을 때
+
+엑셀로 발주서 정리 → 그 엑셀 기준으로 은행에 업로드해서 바로 입금 처리하시나요?
+
+3️⃣ 엑셀 파일 관리 관련 질문입니다.
+발주 넣을 때마다 엑셀이 생기면
+
+예를 들어 1월 한 달 기준으로 엑셀 파일을 약 30개 정도 각각 저장해서 관리하시는지 궁금합니다.
+
+4️⃣ 도매에서 계산서 발행해주는 경우
+
+계산서 외에 발주 엑셀, 입금 내역 등 관련 자료들도 전부 따로 모아서 보관하시는지도 알고 싶습니다.
+
+경험 있으신 분들 방식 공유해주시면 정말 큰 도움</p><p class="tq-w">포메 / 3년차 / 2.5억<span>2026-01-15</span></p></li><li class="tq" data-s="부가세도 15일기준으로 다 빼두시나요?.?"><p class="tq-t">부가세도 15일기준으로 다 빼두시나요?.?</p><p class="tq-w">도토리/2년/7천<span>2026-01-21</span></p></li><li class="tq" data-s="재고도 조절 잘하면 부가세때 환급도 되지않나요?"><p class="tq-t">재고도 조절 잘하면 부가세때 환급도 되지않나요?</p><p class="tq-w">버킨/3년차/4억<span>2026-01-22</span></p></li><li class="tq" data-s="저 지금 부가세도 오늘까지인데 부가세도 어떻게든 줄이려고 카드 다털고이쓴데"><p class="tq-t">저 지금 부가세도 오늘까지인데 부가세도 어떻게든 줄이려고 카드 다털고이쓴데</p><p class="tq-w">버킨/3년차/4억<span>2026-01-26</span></p></li><li class="tq" data-s="브랜드를 준비하느라 법인을 그냥 만들어놓기만하고 (매입만 존재하고 매출은 x) 제품 준비중이라 법인은 그대로 멈춰져있는 상황인데 부가세 신고 해야하나요?? 이런 경우에도"><p class="tq-t">브랜드를 준비하느라 법인을 그냥 만들어놓기만하고 (매입만 존재하고 매출은 x) 제품 준비중이라 법인은 그대로 멈춰져있는 상황인데 부가세 신고 해야하나요?? 이런 경우에도</p><p class="tq-w">이명우/3개월/3천<span>2026-01-26</span></p></li><li class="tq" data-s="부가세 납부 거래처에 거래금액 보내달라하면 되나요??"><p class="tq-t">부가세 납부 거래처에 거래금액 보내달라하면 되나요??</p><p class="tq-w">네오/5개월/3천<span>2026-02-01</span></p></li><li class="tq" data-s="안녕하세요 대표님들! 혹시 여러거래처에 부가세 납부할때 하나하나 하시나요!? 엑셀로 한번에 대량으로 이체 가능하다고 들은것 같아서요!!.."><p class="tq-t">안녕하세요 대표님들! 혹시 여러거래처에 부가세 납부할때 하나하나 하시나요!? 엑셀로 한번에 대량으로 이체 가능하다고 들은것 같아서요!!..</p><p class="tq-w">어그/1년미만/3500<span>2026-02-03</span></p></li><li class="tq" data-s="그럼 일반과세로 넘어가는건가요?
+1월에 부가세 신고하는법을 몰라서 0원으로 신고했는데 수정신고해야되겠죠?"><p class="tq-t">그럼 일반과세로 넘어가는건가요?
+1월에 부가세 신고하는법을 몰라서 0원으로 신고했는데 수정신고해야되겠죠?</p><p class="tq-w">날것/1년차/1000<span>2026-02-27</span></p></li><li class="tq" data-s="도도님 부가세 신고 직접 해보셨어요?"><p class="tq-t">도도님 부가세 신고 직접 해보셨어요?</p><p class="tq-w">두찌/12년/2억<span>2026-02-27</span></p></li><li class="tq" data-s="혹시 메타 현금 충전해서 사용하는 방식도 부가세 반영 가능한가요??"><p class="tq-t">혹시 메타 현금 충전해서 사용하는 방식도 부가세 반영 가능한가요??</p><p class="tq-w">참새/5개월/1500<span>2026-04-22</span></p></li><li class="tq" data-s="카페24 공급가 적을때 부가세 포함해서 적어야 할까요?"><p class="tq-t">카페24 공급가 적을때 부가세 포함해서 적어야 할까요?</p><p class="tq-w">ㄲ/준비중/준비중<span>2026-04-27</span></p></li><li class="tq" data-s="카페24 상품 업로드 할 때 공급가 적는 칸에 부가세 포함해서 적어야 하나요?"><p class="tq-t">카페24 상품 업로드 할 때 공급가 적는 칸에 부가세 포함해서 적어야 하나요?</p><p class="tq-w">ㄲ/준비중/준비중<span>2026-04-27</span></p></li></ol>
+        </details>
+      </article>
+      <article class="tcard" id="gc6" data-topic="자사몰 매출 신고" data-n="15">
+        <div class="tcard-h">
+          <span class="tnum">06</span>
+          <h3>자사몰 매출 신고</h3>
+          <span class="tpill"><b>15</b>건</span>
+        </div>
+        <p class="tfull">자사몰·플랫폼 매출 신고</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p>무통장입금 · 포인트 · 쿠폰 · 100% 할인 매출이 신고에 어떻게 들어가는지 모릅니다. PG사 자료만 넘기면 끝인 줄 압니다.</p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p>어디까지가 매출로 잡히는가. 그리고 플랫폼별 정산 시점(에이블리 구매확정 등)과 월 마감의 관계.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p>"세무사님이 무통장 건은 따로 안 물어보시니 안 넣어도 되나 보다"</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>자사몰 운영 1년차 이상. 카페24·네이버페이 병행 시 특히.</p></div>
+            <div><span class="tl">언제 몰리나</span><p>1월 · 7월 신고 직전</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 15건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="늦은 시간에 죄송합니다/!
+쇼필공님 올리신 영상 보고 하고 있는데 네이버페이 결제형 신청하고 있습니다! 마지막 쯤에 현금영수증 발급을 자사몰에서 할건지 네이버페이에서 할건지를 묻는데 뭐가 더 낫나용..?"><p class="tq-t">늦은 시간에 죄송합니다/!
+쇼필공님 올리신 영상 보고 하고 있는데 네이버페이 결제형 신청하고 있습니다! 마지막 쯤에 현금영수증 발급을 자사몰에서 할건지 네이버페이에서 할건지를 묻는데 뭐가 더 낫나용..?</p><p class="tq-w">무지무지/준비중/준비중<span>2025-11-29</span></p></li><li class="tq" data-s="안녕하세요 세무적으로 궁금한게 있는데 월정산 장부처리 할때 반품들어온 내역은 그냥 월 매출에서 반품 완료 내역에서 완료된것만 빼시나요??? 순수익 계산하는데 다른분들은 반품은 계산  어떻게하고계시나 궁금해서요"><p class="tq-t">안녕하세요 세무적으로 궁금한게 있는데 월정산 장부처리 할때 반품들어온 내역은 그냥 월 매출에서 반품 완료 내역에서 완료된것만 빼시나요??? 순수익 계산하는데 다른분들은 반품은 계산  어떻게하고계시나 궁금해서요</p><p class="tq-w">피치/2년차/3000<span>2025-12-05</span></p></li><li class="tq" data-s="선배님들 혹시 현금으로 주문받으시면 현금영수증 발행 다 해주시나요 ?"><p class="tq-t">선배님들 혹시 현금으로 주문받으시면 현금영수증 발행 다 해주시나요 ?</p><p class="tq-w">쇼핑몰/1년차/800만<span>2025-12-22</span></p></li><li class="tq" data-s="대표님들 현금영수증할때 펙스 번호잇어야 한다는데 다들 어떻게 처리하실까요 ;;?"><p class="tq-t">대표님들 현금영수증할때 펙스 번호잇어야 한다는데 다들 어떻게 처리하실까요 ;;?</p><p class="tq-w">쇼핑몰/1년차/800만<span>2025-12-23</span></p></li><li class="tq" data-s="혹시 현금영수증 발행 자동발행으로 하시나요?
+여태 고객이 주문서에서 신청할수있게 설정해두었었는데 세금신고할때 오차 있으면 머리아프니 자동으로 해두라고 들어서...
+궁금합니다ㅠㅠ"><p class="tq-t">혹시 현금영수증 발행 자동발행으로 하시나요?
+여태 고객이 주문서에서 신청할수있게 설정해두었었는데 세금신고할때 오차 있으면 머리아프니 자동으로 해두라고 들어서...
+궁금합니다ㅠㅠ</p><p class="tq-w">어피치 1년차 3000<span>2026-01-12</span></p></li><li class="tq" data-s="보통 현금영수증은 결제 후 바로 발급이 되나요?"><p class="tq-t">보통 현금영수증은 결제 후 바로 발급이 되나요?</p><p class="tq-w">네오씨/7년/5천<span>2026-01-16</span></p></li><li class="tq" data-s="대표님들! 혹시 자사몰에서 무통장 입금으로 발생한 매출은 세금신고 어떻게 해야될까요?"><p class="tq-t">대표님들! 혹시 자사몰에서 무통장 입금으로 발생한 매출은 세금신고 어떻게 해야될까요?</p><p class="tq-w">ㄱㅇㅈ/2년차/7천<span>2026-01-18</span></p></li><li class="tq" data-s="선배님들 혹시 브랜드 개인 자사몰로 지인 혹은 마케팅 용으로  10만원 상당의 제품을 100명에게 100% 할인코드를 주어 판매 및 배송을 해줄 시 해당 매출에 대한 세금이나 부가세는 0원 혹은 배송비만 적용되나요? 아니면 100프로 할인코드를 적용했다 하더라도 원래 판매가 즉 10만원 총 100명분에 대한 세금이 그대로 적용되나요?"><p class="tq-t">선배님들 혹시 브랜드 개인 자사몰로 지인 혹은 마케팅 용으로  10만원 상당의 제품을 100명에게 100% 할인코드를 주어 판매 및 배송을 해줄 시 해당 매출에 대한 세금이나 부가세는 0원 혹은 배송비만 적용되나요? 아니면 100프로 할인코드를 적용했다 하더라도 원래 판매가 즉 10만원 총 100명분에 대한 세금이 그대로 적용되나요?</p><p class="tq-w">기기/준비중/준비중<span>2026-01-19</span></p></li><li class="tq" data-s="지인에게 무료 제공하는 개념이면 무통장입금으로 처리하면 되지 않나요? 번거롭게 쿠폰 발급 필요없고 현금영수증 발급 안하고"><p class="tq-t">지인에게 무료 제공하는 개념이면 무통장입금으로 처리하면 되지 않나요? 번거롭게 쿠폰 발급 필요없고 현금영수증 발급 안하고</p><p class="tq-w">막군/1년/6,000<span>2026-01-19</span></p></li><li class="tq" data-s="혹시 카페24 부가세 신고 자료는 이용중인 pg사 자료 싹 긁어서 제출하는 거 맞을까요??
+이렇게 pg사 통한 실결제내역만 제출하면 자사몰 포인트나 쿠폰 결제건은 알아서 빠질텐데 이렇게 해도 될지 잘 모르겠어서요...!"><p class="tq-t">혹시 카페24 부가세 신고 자료는 이용중인 PG사 자료 싹 긁어서 제출하는 거 맞을까요??
+이렇게 PG사 통한 실결제내역만 제출하면 자사몰 포인트나 쿠폰 결제건은 알아서 빠질텐데 이렇게 해도 될지 잘 모르겠어서요...!</p><p class="tq-w">무지/2년차/700<span>2026-01-19</span></p></li><li class="tq" data-s="세무사가 부가세 신고할때 보통 플랫폼매출자료랑 pg사매출자료만 요구하시는게 맞나요?
+무통장으로 입금받은건 따로 요구받은적이 없는거같은데 이게 맞나요??"><p class="tq-t">세무사가 부가세 신고할때 보통 플랫폼매출자료랑 PG사매출자료만 요구하시는게 맞나요?
+무통장으로 입금받은건 따로 요구받은적이 없는거같은데 이게 맞나요??</p><p class="tq-w">춘삼/준비중<span>2026-01-20</span></p></li><li class="tq" data-s="선배님들 국세청 들어가니까 자동으로 기입되는 금액 있잖아요? 거기에 추가로 네이버페이/카카오페이 금액도 입력 해야하나요?
+
+네이버페이 들어갈때마다 부가세 입력은 직접해야한다고 나오는데 이미 국세청이랑 연동된거 아닌가..? 싶어서요"><p class="tq-t">선배님들 국세청 들어가니까 자동으로 기입되는 금액 있잖아요? 거기에 추가로 네이버페이/카카오페이 금액도 입력 해야하나요?
+
+네이버페이 들어갈때마다 부가세 입력은 직접해야한다고 나오는데 이미 국세청이랑 연동된거 아닌가..? 싶어서요</p><p class="tq-w">춘식이 / 6개월 / 2000<span>2026-01-22</span></p></li><li class="tq" data-s="대표님들 혹시 자사몰 무통장입금 부가세 신고하실떄 어떤 자료 로 보시나요?"><p class="tq-t">대표님들 혹시 자사몰 무통장입금 부가세 신고하실떄 어떤 자료 로 보시나요?</p><p class="tq-w">네오/10년차/3.8억<span>2026-01-26</span></p></li><li class="tq" data-s="무통장신고하시나요?
+무통장안에 카카오페이/네이버페이 무통장 다 흡수되어있어서요"><p class="tq-t">무통장신고하시나요?
+무통장안에 카카오페이/네이버페이 무통장 다 흡수되어있어서요</p><p class="tq-w">네오/10년차/3.8억<span>2026-01-26</span></p></li><li class="tq" data-s="[법인전환] 하신 대표님들 질문이 있습니다.
+
+에이블리의 경우 구매확정이 되어야지 정산이 들어오는데 
+개인사업자때 판매하고 구매확정 안된 건들이 남아있는데
+다 법인으로 넘겨서 매출로 잡으셨나요? 
+
+그렇게 되면 매입-개인, 매출/정산금 - 법인 으로 잡히는거죠!"><p class="tq-t">[법인전환] 하신 대표님들 질문이 있습니다.
+
+에이블리의 경우 구매확정이 되어야지 정산이 들어오는데 
+개인사업자때 판매하고 구매확정 안된 건들이 남아있는데
+다 법인으로 넘겨서 매출로 잡으셨나요? 
+
+그렇게 되면 매입-개인, 매출/정산금 - 법인 으로 잡히는거죠!</p><p class="tq-w">무지/5년차/2억<span>2026-02-09</span></p></li></ol>
+        </details>
+      </article>
+      <article class="tcard" id="gc7" data-topic="청년창업 감면" data-n="20">
+        <div class="tcard-h">
+          <span class="tnum">07</span>
+          <h3>청년창업 감면</h3>
+          <span class="tpill"><b>20</b>건</span>
+        </div>
+        <p class="tfull">청년창업 세액감면</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p>요건(나이 · 지역 · 업종 · 최초창업)을 <b>자기 상황에 대입하지 못합니다.</b> 업종이 2개면 되는지, 폐업 후 재창업이면 되는지, 개업일 기준인지 첫 매출일 기준인지.</p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p>"나는 되나? 몇 %인가? 신청은 따로 해야 하나?" — 판정을 원합니다.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p><b>"감면 100%면 계산서 안 떼도 된다"</b>가 가장 널리 퍼져 있습니다. / 만 34세가 넘으면 "나이 어린 타인 명의로 다시 내도 되냐"는 질문까지 나옵니다.</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>준비중~2년차. 사업자 등록 직전·직후.</p></div>
+            <div><span class="tl">언제 몰리나</span><p>12월(연말 등록 러시) · 5월</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 20건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="청년 감면은 사업자 등록증 개업일 상관 없이 매출 난 날부터 적용이죠..?!"><p class="tq-t">청년 감면은 사업자 등록증 개업일 상관 없이 매출 난 날부터 적용이죠..?!</p><p class="tq-w">권투하는 무지/준비중<span>2025-10-10</span></p></li><li class="tq" data-s="[세금] 안녕하세요 ! 궁금한 점이 있어 여쭤봅니다 사업자등록증 종목에 의류, 전자상거래 둘다 표기되어 있어도 청년창업세엑감면 받을 수 있나요 ? ?"><p class="tq-t">[세금] 안녕하세요 ! 궁금한 점이 있어 여쭤봅니다 사업자등록증 종목에 의류, 전자상거래 둘다 표기되어 있어도 청년창업세엑감면 받을 수 있나요 ? ?</p><p class="tq-w">춘식이/2개월/500<span>2025-10-18</span></p></li><li class="tq" data-s="근데 처음에 내년 4월이후면 만 34세가 넘었을 경우 나이가 적은 다른 사람 명의로 간이과세자 및 일반사업자를 다시 내도 감면혜택은 동일하게 적용되 되는걸까요?"><p class="tq-t">근데 처음에 내년 4월이후면 만 34세가 넘었을 경우 나이가 적은 다른 사람 명의로 간이과세자 및 일반사업자를 다시 내도 감면혜택은 동일하게 적용되 되는걸까요?</p><p class="tq-w">비하인드/준비중<span>2025-11-03</span></p></li><li class="tq" data-s="거기서도 세액공제가 15% 정도만 되는거죠?ㅎㅎㅎ"><p class="tq-t">거기서도 세액공제가 15% 정도만 되는거죠?ㅎㅎㅎ</p><p class="tq-w">무지/5년차/2억<span>2025-11-12</span></p></li><li class="tq" data-s="청년 창업은 세액 감면은 따로 신청해야하는걸까요?
+아님 만34세 미만에 신규 창업 4년 이하면 자동으로 적용이 되는건가요?"><p class="tq-t">청년 창업은 세액 감면은 따로 신청해야하는걸까요?
+아님 만34세 미만에 신규 창업 4년 이하면 자동으로 적용이 되는건가요?</p><p class="tq-w">로드/1년/2천<span>2025-12-01</span></p></li><li class="tq" data-s="답변 감사합니다
+그럼 청년 창업 세액 감면은 일반과세자 전환 이후에도 유지되는걸까요?"><p class="tq-t">답변 감사합니다
+그럼 청년 창업 세액 감면은 일반과세자 전환 이후에도 유지되는걸까요?</p><p class="tq-w">로드/1년/2천<span>2025-12-01</span></p></li><li class="tq" data-s="ㅠㅜ 이번년도 지나면 청년 창업관련 혜택이 줄어들 수도 있다는? 세무사 글을 봐서 이번달 중에 사업자 내려고했는데
+1월 1일이 죠타니…!!!! 더 알아봐야겠아요"><p class="tq-t">ㅠㅜ 이번년도 지나면 청년 창업관련 혜택이 줄어들 수도 있다는? 세무사 글을 봐서 이번달 중에 사업자 내려고했는데
+1월 1일이 죠타니…!!!! 더 알아봐야겠아요</p><p class="tq-w">요시유/준비중/준비중<span>2025-12-01</span></p></li><li class="tq" data-s="혹시 청년창업세액감면 혜택 때문에 주소지 서울 외에서 하실때 비상주로 하셨나요? 요새 좀 엄격해졌다고 들어서요ㅜ"><p class="tq-t">혹시 청년창업세액감면 혜택 때문에 주소지 서울 외에서 하실때 비상주로 하셨나요? 요새 좀 엄격해졌다고 들어서요ㅜ</p><p class="tq-w">씩씩/1년미만/준비중<span>2025-12-02</span></p></li><li class="tq" data-s="저도 궁금해료 4800간당간당하고 종소세 청년감면이라 0프로라서 내년부터 발행할까 고민중입니다ㅜ"><p class="tq-t">저도 궁금해료 4800간당간당하고 종소세 청년감면이라 0프로라서 내년부터 발행할까 고민중입니다ㅜ</p><p class="tq-w">듀듀/5개월차/1천6백<span>2025-12-05</span></p></li><li class="tq" data-s="청년창업은 종소세만 면제죠??"><p class="tq-t">청년창업은 종소세만 면제죠??</p><p class="tq-w">사모예,1년미만,준비중<span>2025-12-18</span></p></li><li class="tq" data-s="안녕하세요 선배님들..! 제가 기존에  으로 사업자를 냈었고.. 폐업 한 상태인데요. 이번에 다시 내게 되었을 때 으로 낸다면 청년 창업자 세액 감면 제도를 이용할 수 있을까요..? ㅠㅡㅠ 
+
+쇼핑몰은 도매 및 소매+ 통판업이 맞는 것 같긴 한데 기존의 폐업 사업자와 겹치면 최초 창업이 아니라고 될 것 같아서요ㅠㅠ"><p class="tq-t">안녕하세요 선배님들..! 제가 기존에 &lt;도매 및 소매업- 해외직구 대행업&gt; 으로 사업자를 냈었고.. 폐업 한 상태인데요. 이번에 다시 내게 되었을 때 &lt;제조업, 통신판매업&gt;으로 낸다면 청년 창업자 세액 감면 제도를 이용할 수 있을까요..? ㅠㅡㅠ 
+
+쇼핑몰은 도매 및 소매+ 통판업이 맞는 것 같긴 한데 기존의 폐업 사업자와 겹치면 최초 창업이 아니라고 될 것 같아서요ㅠㅠ</p><p class="tq-w">룡/준비중/준비중<span>2026-01-04</span></p></li><li class="tq" data-s="청년세액감면 대상은 따로 신청 해야하는건가요?!"><p class="tq-t">청년세액감면 대상은 따로 신청 해야하는건가요?!</p><p class="tq-w">ㄱㄱ/2년차/2000<span>2026-01-05</span></p></li><li class="tq" data-s="질문 있습니다!! 쇼핑공님 유튜브 보고왔는데요 혹시 청년창업 세액감면 신청 바로 하는게 좋을까여?"><p class="tq-t">질문 있습니다!! 쇼핑공님 유튜브 보고왔는데요 혹시 청년창업 세액감면 신청 바로 하는게 좋을까여?</p><p class="tq-w">초초보/3개월350<span>2026-01-22</span></p></li><li class="tq" data-s="청년창업세액감면 이해가 안되서그러는데요 혹시 저는 2025 12월 사업자등록 했고 1월2일에 매출이 찍혔는데 일산입니다  그럼 75퍼 인가요??"><p class="tq-t">청년창업세액감면 이해가 안되서그러는데요 혹시 저는 2025 12월 사업자등록 했고 1월2일에 매출이 찍혔는데 일산입니다  그럼 75퍼 인가요??</p><p class="tq-w">초초보/3개월350<span>2026-01-26</span></p></li><li class="tq" data-s="청년창업세액공제 신청하고싶은데 업종에 통신판매업만 있어야하나요??
+도소매업, 제조업도 같이 넣고 싶은데 세개해서 사업자 신고해도 세액공제 가능한가요...?"><p class="tq-t">청년창업세액공제 신청하고싶은데 업종에 통신판매업만 있어야하나요??
+도소매업, 제조업도 같이 넣고 싶은데 세개해서 사업자 신고해도 세액공제 가능한가요...?</p><p class="tq-w">아치피/준비중/준비중<span>2026-02-03</span></p></li><li class="tq" data-s="헉 그럼 한 사업자에 업종 2개 이상이면 아예 청년 세액공제가 안되는건가요?"><p class="tq-t">헉 그럼 한 사업자에 업종 2개 이상이면 아예 청년 세액공제가 안되는건가요?</p><p class="tq-w">춘식이/1년차/1500<span>2026-02-03</span></p></li><li class="tq" data-s="위에 뜨는 업종만 세액공제가 가능한가용??"><p class="tq-t">위에 뜨는 업종만 세액공제가 가능한가용??</p><p class="tq-w">춘식이/1년차/1500<span>2026-02-03</span></p></li><li class="tq" data-s="청년창업받아도 성실신고이신거죠?"><p class="tq-t">청년창업받아도 성실신고이신거죠?</p><p class="tq-w">네오/10년차/3.8억<span>2026-04-27</span></p></li><li class="tq" data-s="아 정말요?! 
+
+종목만 다르면 개인으로 새로 내도 청감 100%인데 
+
+왜 법인으로 내셨나요?!"><p class="tq-t">아 정말요?! 
+
+종목만 다르면 개인으로 새로 내도 청감 100%인데 
+
+왜 법인으로 내셨나요?!</p><p class="tq-w">잏팡팡 / 3년차 / 3억<span>2026-05-13</span></p></li><li class="tq" data-s="작년 기준 5억 매출인데 복식부기로 진행했고 청년창업감면 50% 받아서 
+종소세 150에 기장수수료 130정도면 비싼걸까요,,?"><p class="tq-t">작년 기준 5억 매출인데 복식부기로 진행했고 청년창업감면 50% 받아서 
+종소세 150에 기장수수료 130정도면 비싼걸까요,,?</p><p class="tq-w">로바니/3년차/6천<span>2026-05-20</span></p></li></ol>
+        </details>
+      </article>
+      <article class="tcard" id="gc8" data-topic="종소세" data-n="18">
+        <div class="tcard-h">
+          <span class="tnum">08</span>
+          <h3>종소세</h3>
+          <span class="tpill"><b>18</b>건</span>
+        </div>
+        <p class="tfull">종소세·소득세·성실신고</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p>얼마가 나올지 예측을 못 해서 <b>대비를 못 합니다.</b> 신고서 받고 나서 놀랍니다.</p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p>매출 대비 몇 %를 미리 떼어놔야 하는지. 세율 구간이 어떻게 올라가는지.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p>"부가세만 떼어두면 된다" — 종소세는 계산에서 빠져 있습니다.</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>1억 이상 구간부터 절실해집니다.</p></div>
+            <div><span class="tl">언제 몰리나</span><p>4~5월</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 18건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="쇼칠공님 제가 사업자 신고를 이미 서울에 했는데, 지방으로 이전한다고 해서 청년 소득세 면제 100% 받을 순 없죠??
+아직 매출은 0원입니다"><p class="tq-t">쇼칠공님 제가 사업자 신고를 이미 서울에 했는데, 지방으로 이전한다고 해서 청년 소득세 면제 100% 받을 순 없죠??
+아직 매출은 0원입니다</p><p class="tq-w">고고/1년미만/준비중<span>2025-10-09</span></p></li><li class="tq" data-s="보통 월매출 1억 정도면 소득세 어느정도 나올까요? 세무사님이 이번년도 예상 결산해봤는데 생각보다 너무 많이나와서 당황스러워서요ㅜ"><p class="tq-t">보통 월매출 1억 정도면 소득세 어느정도 나올까요? 세무사님이 이번년도 예상 결산해봤는데 생각보다 너무 많이나와서 당황스러워서요ㅜ</p><p class="tq-w">헤나룽 / 5년 / 1억<span>2025-11-28</span></p></li><li class="tq" data-s="혹시 그럼 현금으로 사입하고 따로 영수증 안챙겨놔도 내년 종소세 신고시 아무런 문제 없는걸까요?"><p class="tq-t">혹시 그럼 현금으로 사입하고 따로 영수증 안챙겨놔도 내년 종소세 신고시 아무런 문제 없는걸까요?</p><p class="tq-w">비하인드/준비중<span>2025-12-18</span></p></li><li class="tq" data-s="혹시 10억 미만 대표님들 종소세 조정료 전액 지원 받고 계신분 있으실까죠?"><p class="tq-t">혹시 10억 미만 대표님들 종소세 조정료 전액 지원 받고 계신분 있으실까죠?</p><p class="tq-w">네오씨/7년/5천<span>2025-12-26</span></p></li><li class="tq" data-s="저도 처음 들어봤어요..! 이거되면 너무 좋은데요 ? 종소세 신고수수료가 제일 비싼데.."><p class="tq-t">저도 처음 들어봤어요..! 이거되면 너무 좋은데요 ? 종소세 신고수수료가 제일 비싼데..</p><p class="tq-w">무지/5년차/2억<span>2025-12-26</span></p></li><li class="tq" data-s="성실신고대상자 지정된 상태인데, 매출떨어져도 성실기간 그대로 가져가나요!?"><p class="tq-t">성실신고대상자 지정된 상태인데, 매출떨어져도 성실기간 그대로 가져가나요!?</p><p class="tq-w">두찌/12년/2억<span>2025-12-30</span></p></li><li class="tq" data-s="종소세 한번 맞으시면 어떻게 줄일까"><p class="tq-t">종소세 한번 맞으시면 어떻게 줄일까</p><p class="tq-w">버킨/3년차/4억<span>2026-01-22</span></p></li><li class="tq" data-s="종소세가 3천만원이 어떻게 나와요??"><p class="tq-t">종소세가 3천만원이 어떻게 나와요??</p><p class="tq-w">이명우/3개월/3천<span>2026-01-26</span></p></li><li class="tq" data-s="그러면 영업권 소득세도 5:5로 내년에 납부하시는건가요?"><p class="tq-t">그러면 영업권 소득세도 5:5로 내년에 납부하시는건가요?</p><p class="tq-w">무지/5년차/2억<span>2026-02-13</span></p></li><li class="tq" data-s="이미 소득세 5년 감면 사업자면, 
+주거지 서울로 옮기면 혜택 없어지나요?ㅎ"><p class="tq-t">이미 소득세 5년 감면 사업자면, 
+주거지 서울로 옮기면 혜택 없어지나요?ㅎ</p><p class="tq-w">쿠우/9년차/1억<span>2026-02-23</span></p></li><li class="tq" data-s="대표님들 종소세 신고는 대행 수수료는 매출의 몇프로정도 내시나요?"><p class="tq-t">대표님들 종소세 신고는 대행 수수료는 매출의 몇프로정도 내시나요?</p><p class="tq-w">달나라/준비중/준비중<span>2026-05-06</span></p></li><li class="tq" data-s="종소세 신고비용 1억미만이면 보통 얼마가 평균가일까요? 45부르던데"><p class="tq-t">종소세 신고비용 1억미만이면 보통 얼마가 평균가일까요? 45부르던데</p><p class="tq-w">메가더벤티/3개월/800<span>2026-05-07</span></p></li><li class="tq" data-s="가족도 종소세 절세되는걸로 아는데 월급말하시는거아닌가요?"><p class="tq-t">가족도 종소세 절세되는걸로 아는데 월급말하시는거아닌가요?</p><p class="tq-w">테오/8년차/2.5억<span>2026-05-12</span></p></li><li class="tq" data-s="올해 매출액으로 내년 내실 종소세 어느정도 예상하세요?"><p class="tq-t">올해 매출액으로 내년 내실 종소세 어느정도 예상하세요?</p><p class="tq-w">네오/10년차/3.8억<span>2026-05-13</span></p></li><li class="tq" data-s="선배님들 저가 12월에 사업자내고 1월부터 매출이 찍혔는데 종소세 신고해야하는데 청년 새액감면 그걸체크해야하나요? 아니면 매출 0이니까 작년은 그냥 신청하면되나요?"><p class="tq-t">선배님들 저가 12월에 사업자내고 1월부터 매출이 찍혔는데 종소세 신고해야하는데 청년 새액감면 그걸체크해야하나요? 아니면 매출 0이니까 작년은 그냥 신청하면되나요?</p><p class="tq-w">초초보/3개월350<span>2026-05-20</span></p></li><li class="tq" data-s="사장님들 종소세 
+세무사에게 신고 수수료 얼마 대부분 나오셨나요~?"><p class="tq-t">사장님들 종소세 
+세무사에게 신고 수수료 얼마 대부분 나오셨나요~?</p><p class="tq-w">도토리/2년/7천<span>2026-05-29</span></p></li><li class="tq" data-s="앗 조정료입니다! 잘못 적었네요 ㅎㅎ 종소세 조정료 궁금합니다ㅜㅜ"><p class="tq-t">앗 조정료입니다! 잘못 적었네요 ㅎㅎ 종소세 조정료 궁금합니다ㅜㅜ</p><p class="tq-w">헤나룽 / 5년 / 1억<span>2026-06-04</span></p></li><li class="tq" data-s="아 그러시구나 알려주셔서 감사해요 ㅜㅜ 저는 이번 종소세 신고하면서 ..알게됐는데 건보료 폭탄 맞았거든요 ㅋㅋ .. 100만원 넘게 나올거라고...."><p class="tq-t">아 그러시구나 알려주셔서 감사해요 ㅜㅜ 저는 이번 종소세 신고하면서 ..알게됐는데 건보료 폭탄 맞았거든요 ㅋㅋ .. 100만원 넘게 나올거라고....</p><p class="tq-w">하이룽/5년차/2억<span>2026-06-04</span></p></li></ol>
+        </details>
+      </article>
+      <article class="tcard" id="gc9" data-topic="세무사 선택" data-n="43">
+        <div class="tcard-h">
+          <span class="tnum">09</span>
+          <h3>세무사 선택</h3>
+          <span class="tpill"><b>43</b>건</span>
+        </div>
+        <p class="tfull">기장료·세무사 선택</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p><b>시세를 모릅니다.</b> 월 8만 8천부터 100만원까지 방에 다 나옵니다. 맡긴 뒤에 뭘 확인해야 하는지도 모릅니다 — 몇 달째 연락이 없어도 정상인지 아닌지.</p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p>적정 가격 기준 · 가격이 오르는 이유 · <b>좋은 세무사를 판별하는 질문</b>.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p>사고 사례가 있습니다 — <b>"세무기장 썼는데 거기서 매출 누락해서 가산세 5천 나왔다."</b> 책임 소재를 아무도 모릅니다.</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>전 구간. "쇼핑몰 아는 세무사 추천" 요청만 10건 이상.</p></div>
+            <div><span class="tl">언제 몰리나</span><p>상시 · 신고 직후 불만 급증</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 43건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="사과님 혹시 세무사님 연결가능할까요..?!"><p class="tq-t">사과님 혹시 세무사님 연결가능할까요..?!</p><p class="tq-w">A/3년차/1.2억<span>2025-10-22</span></p></li><li class="tq" data-s="좋은 세무사 찾는것도 중요하긴한데
+결국은 물어봐야지 알려주더라구요"><p class="tq-t">좋은 세무사 찾는것도 중요하긴한데
+결국은 물어봐야지 알려주더라구요</p><p class="tq-w">사과/5년/20억<span>2025-10-22</span></p></li><li class="tq" data-s="ㅜㅜ 지금 세무사분이 쇼핑몰은 잘모르시는것 같아서 여쭤봤긴한데,, 한번 찾아보겠습니다 ㅎㅎ"><p class="tq-t">ㅜㅜ 지금 세무사분이 쇼핑몰은 잘모르시는것 같아서 여쭤봤긴한데,, 한번 찾아보겠습니다 ㅎㅎ</p><p class="tq-w">A/3년차/1.2억<span>2025-10-22</span></p></li><li class="tq" data-s="쇼필공님 세무사님이 완전 쇼핑몰 전문으로 해주시는분 아니신가용?"><p class="tq-t">쇼필공님 세무사님이 완전 쇼핑몰 전문으로 해주시는분 아니신가용?</p><p class="tq-w">사과/5년/20억<span>2025-10-22</span></p></li><li class="tq" data-s="세무사님이랑 회계사님이랑 어떤 차이가 있을까요?? 세무사님보다 회계사님이 더 나을까요?"><p class="tq-t">세무사님이랑 회계사님이랑 어떤 차이가 있을까요?? 세무사님보다 회계사님이 더 나을까요?</p><p class="tq-w">이명우/3개월/3천<span>2025-10-24</span></p></li><li class="tq" data-s="안녕하세요 사업자 등록 관련해서 세무상담이 필요한 상황인데 이런 게 처음이라 
+괜찮은 곳을 몰라서요 ㅠㅠ 혹시 쇼필공님 세무사님 연락처를 좀 알 수 있을까요? 전화 상담드리려고 합니다 ! 괜찮은 세무사님 아시는 분 계시면 소개 좀 부탁드릴게요 
+ㅠㅠ"><p class="tq-t">안녕하세요 사업자 등록 관련해서 세무상담이 필요한 상황인데 이런 게 처음이라 
+괜찮은 곳을 몰라서요 ㅠㅠ 혹시 쇼필공님 세무사님 연락처를 좀 알 수 있을까요? 전화 상담드리려고 합니다 ! 괜찮은 세무사님 아시는 분 계시면 소개 좀 부탁드릴게요 
+ㅠㅠ</p><p class="tq-w">라떼/준비중/준비중<span>2025-11-07</span></p></li><li class="tq" data-s="혹시 세무기장은 다들 어떻게하세요? 개인사업자이고 매출이 크지 않은데 좀 저렴한 곳을 알아보고 싶은데 어디서 알아보면 될까요?"><p class="tq-t">혹시 세무기장은 다들 어떻게하세요? 개인사업자이고 매출이 크지 않은데 좀 저렴한 곳을 알아보고 싶은데 어디서 알아보면 될까요?</p><p class="tq-w">모찌/6개월/1억<span>2025-11-11</span></p></li><li class="tq" data-s="보통 개인사업자 세무 기장료는 얼마들 내고 계세요?"><p class="tq-t">보통 개인사업자 세무 기장료는 얼마들 내고 계세요?</p><p class="tq-w">모찌/6개월/1억<span>2025-11-11</span></p></li><li class="tq" data-s="혹시 세무기장 맡기면 얼마정도 나오나용 ?!"><p class="tq-t">혹시 세무기장 맡기면 얼마정도 나오나용 ?!</p><p class="tq-w">고양이/2년/5천<span>2025-12-11</span></p></li><li class="tq" data-s="에이블리 하시는분들 광고비 카드로 결제된거 신용카드 공제 넣으시나요?! 
+세무사에서 여쭤보셔서 문의드립니다!!"><p class="tq-t">에이블리 하시는분들 광고비 카드로 결제된거 신용카드 공제 넣으시나요?! 
+세무사에서 여쭤보셔서 문의드립니다!!</p><p class="tq-w">나나/ 2년차/9천<span>2025-12-11</span></p></li><li class="tq" data-s="안녕하세요! 혹시 의류 쇼핑몰 쪽으로 세무사 아시는 분 추천 받을 수 있을까요?!"><p class="tq-t">안녕하세요! 혹시 의류 쇼핑몰 쪽으로 세무사 아시는 분 추천 받을 수 있을까요?!</p><p class="tq-w">누롱 / 2년 / 7100<span>2025-12-22</span></p></li><li class="tq" data-s="아직 시작한지 3개월 정도되가는데 이런경우도 세무사를 끼는게 나을까요..??ㅜㅠ"><p class="tq-t">아직 시작한지 3개월 정도되가는데 이런경우도 세무사를 끼는게 나을까요..??ㅜㅠ</p><p class="tq-w">피넛/3개월/350<span>2025-12-31</span></p></li><li class="tq" data-s="혹시 다들 세무기장 쇼핑몰 전문 세무사한테 맡기실까요 ?"><p class="tq-t">혹시 다들 세무기장 쇼핑몰 전문 세무사한테 맡기실까요 ?</p><p class="tq-w">쇼핑몰/1년차/800만<span>2026-01-02</span></p></li><li class="tq" data-s="매달 자료를 달라고 하나요 ? 기장하더라도 신고때만 전달드리긴 했었어요. 지금은 세무사님이 저희 계정 들어가서 직접 확인하시고요!"><p class="tq-t">매달 자료를 달라고 하나요 ? 기장하더라도 신고때만 전달드리긴 했었어요. 지금은 세무사님이 저희 계정 들어가서 직접 확인하시고요!</p><p class="tq-w">무지/5년차/2억<span>2026-01-02</span></p></li><li class="tq" data-s="세무기장은 언제부터 맡기면 되는건가요..? 그기준을 잘 모르겠어요ㅠ 매출 얼마이상이면 맡겨야할까요?"><p class="tq-t">세무기장은 언제부터 맡기면 되는건가요..? 그기준을 잘 모르겠어요ㅠ 매출 얼마이상이면 맡겨야할까요?</p><p class="tq-w">미도/2년/2500<span>2026-01-09</span></p></li><li class="tq" data-s="안녕하세요 다들 세무사 비용 어느정도 드세요?
+저는 25년에 오픈해서 간이사업자인데
+세무사에서 부가세 16만5천원
+소득세는 무실적 33만원 이렇게 건당으로 말하더라구용 !
+근데 이 단톡에서 저번에 쌤157 해보라고 해서 해봤더니 부가세예상이 11만원으로 뜨는데 제대로 입력된게 맞는지 세무사 하고해야하는지 의문이라 선배님들께 조언얻어용"><p class="tq-t">안녕하세요 다들 세무사 비용 어느정도 드세요?
+저는 25년에 오픈해서 간이사업자인데
+세무사에서 부가세 16만5천원
+소득세는 무실적 33만원 이렇게 건당으로 말하더라구용 !
+근데 이 단톡에서 저번에 쌤157 해보라고 해서 해봤더니 부가세예상이 11만원으로 뜨는데 제대로 입력된게 맞는지 세무사 하고해야하는지 의문이라 선배님들께 조언얻어용</p><p class="tq-w">권투하는 무지/준비/준비중<span>2026-01-15</span></p></li><li class="tq" data-s="세무사 꼭 써야하나요??! 간이사업자면 일반과세자 되기전까지 세금관리 특별히 해줘야하나요?"><p class="tq-t">세무사 꼭 써야하나요??! 간이사업자면 일반과세자 되기전까지 세금관리 특별히 해줘야하나요?</p><p class="tq-w">초초보/3개월350<span>2026-01-15</span></p></li><li class="tq" data-s="대표님들 세무사님 추천가능할까요ㅎ"><p class="tq-t">대표님들 세무사님 추천가능할까요ㅎ</p><p class="tq-w">롱노고 / 1년차 /8천<span>2026-01-19</span></p></li><li class="tq" data-s="쇼필공님 유튜브에 세무사 추천하신 거 있을까요? 못찾아서 여쭤봅니다😢"><p class="tq-t">쇼필공님 유튜브에 세무사 추천하신 거 있을까요? 못찾아서 여쭤봅니다😢</p><p class="tq-w">헬롱/2년/5000<span>2026-01-20</span></p></li><li class="tq" data-s="세금 관련한 부분은 다들 기장 맡기시고 따로 확인하시죠??"><p class="tq-t">세금 관련한 부분은 다들 기장 맡기시고 따로 확인하시죠??</p><p class="tq-w">피치/2년차/3000<span>2026-01-22</span></p></li><li class="tq" data-s="환급은 진짜 명확한 증빙 아니면 환급되도록 넣는건 비추라는 세무사무실도 있더라구요. 아마 하나하나 경비영수증까지 다 챙겼기 때문에 받으셨던게 아닐까 싶어요-! 어? 얘네 돌려받네? 하면서 비용처리한 항목 다시 볼수도 있다고 해서요"><p class="tq-t">환급은 진짜 명확한 증빙 아니면 환급되도록 넣는건 비추라는 세무사무실도 있더라구요. 아마 하나하나 경비영수증까지 다 챙겼기 때문에 받으셨던게 아닐까 싶어요-! 어? 얘네 돌려받네? 하면서 비용처리한 항목 다시 볼수도 있다고 해서요</p><p class="tq-w">두찌/12년/2억<span>2026-01-22</span></p></li><li class="tq" data-s="혹시 세무사님께 이번에 매입이랑 매출을 받았는데
+매출-매입을 했을 때 1년 마진으로 대충 봐도 얼추 맞을까요?"><p class="tq-t">혹시 세무사님께 이번에 매입이랑 매출을 받았는데
+매출-매입을 했을 때 1년 마진으로 대충 봐도 얼추 맞을까요?</p><p class="tq-w">춘식/2년차/2천<span>2026-01-23</span></p></li><li class="tq" data-s="혹시 세무사쓰시는 분들 광고비지출이랑 매입은 따로 작성하시나요 ? 광고비를 얼마나 썼는 지 정리가 안되니까 막 쓰게 되더라구요"><p class="tq-t">혹시 세무사쓰시는 분들 광고비지출이랑 매입은 따로 작성하시나요 ? 광고비를 얼마나 썼는 지 정리가 안되니까 막 쓰게 되더라구요</p><p class="tq-w">생각하는 라이언/2년차/6천<span>2026-01-28</span></p></li><li class="tq" data-s="세금 하실때 세무사 끼고 하시나요?"><p class="tq-t">세금 하실때 세무사 끼고 하시나요?</p><p class="tq-w">웅이 /쇼핑몰 /2계월차 매출2억<span>2026-02-02</span></p></li><li class="tq" data-s="저도 기장맡기는 세무사님이 해주시는데, 직원분들 자료모아서 전달만 드리면 되겠죠?"><p class="tq-t">저도 기장맡기는 세무사님이 해주시는데, 직원분들 자료모아서 전달만 드리면 되겠죠?</p><p class="tq-w">모찌/6개월/1억<span>2026-02-02</span></p></li><li class="tq" data-s="선배님들 혹시 세무사 추천 받을 수 있을까용,,,?"><p class="tq-t">선배님들 혹시 세무사 추천 받을 수 있을까용,,,?</p><p class="tq-w">춘식이/1년차/1500<span>2026-02-03</span></p></li><li class="tq" data-s="안녕하세요 혹시 다들 기장료는 어느정도 납부하고 계실까요?
+1년 매출 10억 미만이면 기장료가 어느정도가 적당한건지 잘 모르겠네요..ㅎ"><p class="tq-t">안녕하세요 혹시 다들 기장료는 어느정도 납부하고 계실까요?
+1년 매출 10억 미만이면 기장료가 어느정도가 적당한건지 잘 모르겠네요..ㅎ</p><p class="tq-w">모찌/6개월/1억<span>2026-02-25</span></p></li><li class="tq" data-s="혹시 기장맡기는 대표님들 20만원 내는분도 계신가요?
+
+1년 매출이 10억이 안되는데 최근데 매출좀 늘었다고 10-&gt;20만원으로 올린다는데 이게 맞는건지..ㅠ"><p class="tq-t">혹시 기장맡기는 대표님들 20만원 내는분도 계신가요?
+
+1년 매출이 10억이 안되는데 최근데 매출좀 늘었다고 10-&gt;20만원으로 올린다는데 이게 맞는건지..ㅠ</p><p class="tq-w">모찌/6개월/1억<span>2026-02-25</span></p></li><li class="tq" data-s="혹시 그럼 세무사님 써도 따로 장부정리 해야겠죠 ..?"><p class="tq-t">혹시 그럼 세무사님 써도 따로 장부정리 해야겠죠 ..?</p><p class="tq-w">생각하는 라이언/2년차/6천<span>2026-02-27</span></p></li><li class="tq" data-s="선배님들 안녕하세요! 혹시 다들 세무사는 어떻게 찾아보셨나요..?!! 쇼핑몰 전문 세무사분들이 있는 것 같던데 그런 분들 찾는 게 좋을까요?"><p class="tq-t">선배님들 안녕하세요! 혹시 다들 세무사는 어떻게 찾아보셨나요..?!! 쇼핑몰 전문 세무사분들이 있는 것 같던데 그런 분들 찾는 게 좋을까요?</p><p class="tq-w">춘식/준비중<span>2026-03-05</span></p></li><li class="tq" data-s="대표님들 혹시 세무기장 맡기고 있는데 부가가치세신고 이후 별다른 매출 자료 요청도 없으시고 제가 직원도 없다보니 매달 신고할것도 없어 연락도 없는데 원래 이런건가요..?"><p class="tq-t">대표님들 혹시 세무기장 맡기고 있는데 부가가치세신고 이후 별다른 매출 자료 요청도 없으시고 제가 직원도 없다보니 매달 신고할것도 없어 연락도 없는데 원래 이런건가요..?</p><p class="tq-w">듀듀/5개월차/1천6백<span>2026-03-06</span></p></li><li class="tq" data-s="안녕하세요 선배님들 
+이제 막 오픈한지 1달 정도 됐는데 주문이 막 한 건씩 들어오기 시작했습니다.
+
+다름이 아니라, 공부하다보면 세금 폭탄 맞았다, 세금 문제가 많다 이런 경우가 많다고 하는데
+혹시 기장을 맡기기 어려운 초반에는 따로 세금 관련해서 신고하거나 고려해야할 점이 있을까요?
+
+혼자 공부해보려는데 생각보다 어려워서ㅜㅜ 한 번 의견 여쭤보고 싶습니다ㅜㅜ"><p class="tq-t">안녕하세요 선배님들 
+이제 막 오픈한지 1달 정도 됐는데 주문이 막 한 건씩 들어오기 시작했습니다.
+
+다름이 아니라, 공부하다보면 세금 폭탄 맞았다, 세금 문제가 많다 이런 경우가 많다고 하는데
+혹시 기장을 맡기기 어려운 초반에는 따로 세금 관련해서 신고하거나 고려해야할 점이 있을까요?
+
+혼자 공부해보려는데 생각보다 어려워서ㅜㅜ 한 번 의견 여쭤보고 싶습니다ㅜㅜ</p><p class="tq-w">tty/준비중/준비중<span>2026-03-26</span></p></li><li class="tq" data-s="세무사 기장 맡기시는 대표님들 대부분 쇼핑몰 전담 세무사사무실에 맡기시나요?"><p class="tq-t">세무사 기장 맡기시는 대표님들 대부분 쇼핑몰 전담 세무사사무실에 맡기시나요?</p><p class="tq-w">네오/10년차/3.8억<span>2026-04-07</span></p></li><li class="tq" data-s="보통 월 기장료 얼마정도 내시나요? 월 88,000원 정도면 괜찮은걸까요 ㅜ"><p class="tq-t">보통 월 기장료 얼마정도 내시나요? 월 88,000원 정도면 괜찮은걸까요 ㅜ</p><p class="tq-w">링/1년반/4천<span>2026-04-07</span></p></li><li class="tq" data-s="기장료 100만원요..?ㄷㄷㄷ"><p class="tq-t">기장료 100만원요..?ㄷㄷㄷ</p><p class="tq-w">구구/14년/5억<span>2026-04-07</span></p></li><li class="tq" data-s="저는 기존 세무사사무실에서 해서 개인/법인 기장료 변동은 없는데 보통 법인이면 기장료가 더 청구되는거죠 !??"><p class="tq-t">저는 기존 세무사사무실에서 해서 개인/법인 기장료 변동은 없는데 보통 법인이면 기장료가 더 청구되는거죠 !??</p><p class="tq-w">무지/5년차/2억<span>2026-04-07</span></p></li><li class="tq" data-s="선배님들 사업자카드를 홈택스에 등록해도 메타광고 돌리는 해외결제건은 내역서 뽑아서 세무사한테 전달해주시나요? 
+아니면 홈택스가 알아서 잡힐까요?"><p class="tq-t">선배님들 사업자카드를 홈택스에 등록해도 메타광고 돌리는 해외결제건은 내역서 뽑아서 세무사한테 전달해주시나요? 
+아니면 홈택스가 알아서 잡힐까요?</p><p class="tq-w">무야호/1년차/1000<span>2026-04-22</span></p></li><li class="tq" data-s="세무사는 꼭 가까운 거리에 계신분으로 안써도 괜찮을까요? 
+나중에 혹시라도 잠수타거나 연락안되실경우도 있을까 걱정되서요!"><p class="tq-t">세무사는 꼭 가까운 거리에 계신분으로 안써도 괜찮을까요? 
+나중에 혹시라도 잠수타거나 연락안되실경우도 있을까 걱정되서요!</p><p class="tq-w">고양이/2년/5천<span>2026-05-04</span></p></li><li class="tq" data-s="혹시 세무기장은 언제쯤 맡기는게 좋을까요. 직원이랑 사무실도 없고 혼자 운영중입니다. 사입이랑 배송은 3pl 사용중인데 너무 고민되는데 조언 부탁드리겠습니다!!"><p class="tq-t">혹시 세무기장은 언제쯤 맡기는게 좋을까요. 직원이랑 사무실도 없고 혼자 운영중입니다. 사입이랑 배송은 3PL 사용중인데 너무 고민되는데 조언 부탁드리겠습니다!!</p><p class="tq-w">ㄱㄱ/1년/6천<span>2026-05-06</span></p></li><li class="tq" data-s="혹시 월매출 1억 이상인 대표님을 세무기장료 어느정도 나오시는지 여쭤봐도될까요? 지금 하는곳이 좀 비싼감이 있어서요ㅠ"><p class="tq-t">혹시 월매출 1억 이상인 대표님을 세무기장료 어느정도 나오시는지 여쭤봐도될까요? 지금 하는곳이 좀 비싼감이 있어서요ㅠ</p><p class="tq-w">헤나룽 / 5년 / 1억<span>2026-06-04</span></p></li><li class="tq" data-s="안녕하세요 기장을 3개월단위(분기별)로 한번씩 받을 수 있나요?"><p class="tq-t">안녕하세요 기장을 3개월단위(분기별)로 한번씩 받을 수 있나요?</p><p class="tq-w">스카이/2년차/준비중<span>2026-06-08</span></p></li><li class="tq" data-s="이렇게 받으면 월기장료 3개월치를 한 번에 납부하는 방식일까요?"><p class="tq-t">이렇게 받으면 월기장료 3개월치를 한 번에 납부하는 방식일까요?</p><p class="tq-w">스카이/2년차/준비중<span>2026-06-08</span></p></li><li class="tq" data-s="저도 그부분때문에 세무사분께 여쭤봤는데 이체기록만 남아있다면 문제가 되진 않는다고 답변은 받았는데 쇼필공님께서 그렇게 말씀하시니 한번더 체크해야겠네요!"><p class="tq-t">저도 그부분때문에 세무사분께 여쭤봤는데 이체기록만 남아있다면 문제가 되진 않는다고 답변은 받았는데 쇼필공님께서 그렇게 말씀하시니 한번더 체크해야겠네요!</p><p class="tq-w">테오/8년차/2.5억<span>2026-06-08</span></p></li></ol>
+        </details>
+      </article>
+      <article class="tcard" id="gc10" data-topic="법인 전환" data-n="37">
+        <div class="tcard-h">
+          <span class="tnum">10</span>
+          <h3>법인 전환</h3>
+          <span class="tpill"><b>37</b>건</span>
+        </div>
+        <p class="tfull">법인 전환·법인 자금</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p>전환 시점 기준을 모릅니다(매출? 순익? 종소세?). 전환 실무(영업권 평가 · 포괄양수도 · 플랫폼 정산 이월 · 자사몰 이관)도 통째로 모릅니다.</p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p>"나는 지금 해야 하나." 그리고 전환하면 뭐가 바뀌는지.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p>"종소세 4천 넘으면 법인이 무조건 유리" / "월급을 200만원으로 잡아 건보료를 줄인다" / <b>관계사 광고대행 계산서로 법인 자금을 빼는 방법이 방에 공유되고 있습니다</b> — "방법은 다 있음, 법의 경계를 아슬하게", "리스키하게 가면 5년마다 터진다"</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>3억 이상 고매출층. 성실신고 대상이 가까워지면 급해집니다.</p></div>
+            <div><span class="tl">언제 몰리나</span><p>상시 · 5월 종소세 직후</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 37건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="궁금한게 있습니다
+법인 명의 자사몰(카페24)에서 법인대표가 개인카드로 자사 상품을 구매해도 정산에 문제가 없을까요?"><p class="tq-t">궁금한게 있습니다
+법인 명의 자사몰(카페24)에서 법인대표가 개인카드로 자사 상품을 구매해도 정산에 문제가 없을까요?</p><p class="tq-w">쿨리/1년차/3천<span>2025-10-05</span></p></li><li class="tq" data-s="법인 세금을 개인카드로 하면 나중에 안번거로워지나요??"><p class="tq-t">법인 세금을 개인카드로 하면 나중에 안번거로워지나요??</p><p class="tq-w">콘/2년차/10억<span>2025-10-14</span></p></li><li class="tq" data-s="법인 페북 광고 비용 개인카드로 결제해도 괜찮나요?"><p class="tq-t">법인 페북 광고 비용 개인카드로 결제해도 괜찮나요?</p><p class="tq-w">이명우/3개월/3천<span>2025-10-21</span></p></li><li class="tq" data-s="정보 감사합니다! :) 다른 질문이긴 한데, 혹시 년매출 어느정도 되실때 법인전환 고려하시나요~?"><p class="tq-t">정보 감사합니다! :) 다른 질문이긴 한데, 혹시 년매출 어느정도 되실때 법인전환 고려하시나요~?</p><p class="tq-w">헤나룽 / 5년 / 1억<span>2025-11-03</span></p></li><li class="tq" data-s="영업권 평가같은것도 받아보신적 있으신가요?"><p class="tq-t">영업권 평가같은것도 받아보신적 있으신가요?</p><p class="tq-w">사과/5년/20억<span>2025-11-04</span></p></li><li class="tq" data-s="계좌만들기 보고 생각났는데, 법인말고 개인사업자 이신분들 사업자통장말고 개인통장 사용하는 경우 많으실까요~? 차이가 있을까요?"><p class="tq-t">계좌만들기 보고 생각났는데, 법인말고 개인사업자 이신분들 사업자통장말고 개인통장 사용하는 경우 많으실까요~? 차이가 있을까요?</p><p class="tq-w">무좀/준비중/준비중<span>2025-11-06</span></p></li><li class="tq" data-s="혹시 이방에 회계쪽으로 잘아시는분계실까요..ㅠㅠ 법인이긴한데 이게 수치적으로정확하게 영업이익/순이익이 안뽑히는감이있어서..ㅠ"><p class="tq-t">혹시 이방에 회계쪽으로 잘아시는분계실까요..ㅠㅠ 법인이긴한데 이게 수치적으로정확하게 영업이익/순이익이 안뽑히는감이있어서..ㅠ</p><p class="tq-w">구구/14년/5억<span>2025-11-06</span></p></li><li class="tq" data-s="혹시 동업자와 신규 법인을 세팅 준비중인데, 공동 대표로 하게되면 과정들이 많이 번거로울까요? 엄청 번거롭다고하면 한명은 대표, 한명은 사내이사 / 지분은 50:50 동일하게 세팅을 하려고하는데 고민이 되어서 대표님들께 질문드립니다ㅠㅠ"><p class="tq-t">혹시 동업자와 신규 법인을 세팅 준비중인데, 공동 대표로 하게되면 과정들이 많이 번거로울까요? 엄청 번거롭다고하면 한명은 대표, 한명은 사내이사 / 지분은 50:50 동일하게 세팅을 하려고하는데 고민이 되어서 대표님들께 질문드립니다ㅠㅠ</p><p class="tq-w">이명우/3개월/3천<span>2025-12-02</span></p></li><li class="tq" data-s="안녕하세요 ,. 혹시 개인-&gt; 법인으로 전환한 대표님들 계시다면 영업권은 어느정도로 하셨을까요 ? 최대한 많이 평가받아서 처리하셨는지요 !"><p class="tq-t">안녕하세요 ,. 혹시 개인-&gt; 법인으로 전환한 대표님들 계시다면 영업권은 어느정도로 하셨을까요 ? 최대한 많이 평가받아서 처리하셨는지요 !</p><p class="tq-w">무지/5년차/2억<span>2025-12-15</span></p></li><li class="tq" data-s="안녕하세요 법인 운영하시는 대표님 계시면 하나 여쭤보고 싶습니다.
+
+이번에 개인사업자 하나 광고대행업으로 개설해서,
+법인 광고대행 명목으로 계산서 발행 끊고 매달 매출 발생 시키려고 하는데,
+이거 자전거래로 위험할 수 있으려나요?
+
+세무사무실에 말하니 세무서에 걸릴 리스크가 크다고, 위험하다고 연 500정도만 하라고 하는데,
+전 매달 800~1000이상씩 뺴려고 했거든요.
+
+법인 매출에 약 4%정도 되는 금액입니다.
+우리 세무사무실이 보수적으로 말하는건가 싶어서 여기 선배님들 의견을 듣고 싶어 이렇게 글씁니다 알려주세요 ㅠㅠ"><p class="tq-t">안녕하세요 법인 운영하시는 대표님 계시면 하나 여쭤보고 싶습니다.
+
+이번에 개인사업자 하나 광고대행업으로 개설해서,
+법인 광고대행 명목으로 계산서 발행 끊고 매달 매출 발생 시키려고 하는데,
+이거 자전거래로 위험할 수 있으려나요?
+
+세무사무실에 말하니 세무서에 걸릴 리스크가 크다고, 위험하다고 연 500정도만 하라고 하는데,
+전 매달 800~1000이상씩 뺴려고 했거든요.
+
+법인 매출에 약 4%정도 되는 금액입니다.
+우리 세무사무실이 보수적으로 말하는건가 싶어서 여기 선배님들 의견을 듣고 싶어 이렇게 글씁니다 알려주세요 ㅠㅠ</p><p class="tq-w">고기/6년차/3억<span>2025-12-16</span></p></li><li class="tq" data-s="저궁금한게 혹시 법인이신분들은 대표자 급여측정 얼마정도로 해두시나요?"><p class="tq-t">저궁금한게 혹시 법인이신분들은 대표자 급여측정 얼마정도로 해두시나요?</p><p class="tq-w">네오/10년차/3.8억<span>2025-12-16</span></p></li><li class="tq" data-s="법인으로 돌리는건 보통 매출 언제부터 고려하나요 ㅎㅎ?"><p class="tq-t">법인으로 돌리는건 보통 매출 언제부터 고려하나요 ㅎㅎ?</p><p class="tq-w">꼬래/6개월/3500<span>2025-12-16</span></p></li><li class="tq" data-s="법인전환은 성실되기 전에 하셨을까요!?"><p class="tq-t">법인전환은 성실되기 전에 하셨을까요!?</p><p class="tq-w">두찌/12년/2억<span>2025-12-18</span></p></li><li class="tq" data-s="장부를 써본적이 없어서 개인 경비(식사등) 이런건 어떤 품목으로 넣으시나요? 그랜터에선 가지급금으로 넣으라고 안내하는데.."><p class="tq-t">장부를 써본적이 없어서 개인 경비(식사등) 이런건 어떤 품목으로 넣으시나요? 그랜터에선 가지급금으로 넣으라고 안내하는데..</p><p class="tq-w">네오씨/7년/5천<span>2025-12-26</span></p></li><li class="tq" data-s="곧 법인전환하는 대표님 계신가요? 사과님 카톡을 이제야 봤네요ㅜ 영업권 받아서 넘어가시는지 궁금합니다!"><p class="tq-t">곧 법인전환하는 대표님 계신가요? 사과님 카톡을 이제야 봤네요ㅜ 영업권 받아서 넘어가시는지 궁금합니다!</p><p class="tq-w">무지/5년차/2억<span>2025-12-26</span></p></li><li class="tq" data-s="나중엔 저도 법인+개인도 하려고 해서 궁금하네요"><p class="tq-t">나중엔 저도 법인+개인도 하려고 해서 궁금하네요</p><p class="tq-w">무지/5년차/2억<span>2025-12-30</span></p></li><li class="tq" data-s="근데 법인인데 대납해도 되나요?"><p class="tq-t">근데 법인인데 대납해도 되나요?</p><p class="tq-w">사과/5년/20억<span>2025-12-31</span></p></li><li class="tq" data-s="법인설립하신 분들 혹시 사업목적에 의류말고 다양하게 넣으셨나요? 아니면 현재 진행하는 의류업만 넣으셨나요?"><p class="tq-t">법인설립하신 분들 혹시 사업목적에 의류말고 다양하게 넣으셨나요? 아니면 현재 진행하는 의류업만 넣으셨나요?</p><p class="tq-w">무지/5년차/2억<span>2026-01-01</span></p></li><li class="tq" data-s="안녕하세요 대표님들
+혹시 쿠팡 개인 사업자로 운영 하시다가 법인 사업자로 넘어 가신분 계실까여?
+
+어떻게 넘어가셨는지 궁금합니다.
+
+제가 아는분한테 듣기론
+개인 사업자 그냥 두고 
+법인 사업자 같은 명의로 신규 개설해서
+똑같이 업데이트 이후 가격매칭 걸어서 리뷰 다 들고온 다음 법인으로 다 운영하고 개인 사업자 제품은 품절 걸었다고 하던데 보통 다 그렇게 하시나여?"><p class="tq-t">안녕하세요 대표님들
+혹시 쿠팡 개인 사업자로 운영 하시다가 법인 사업자로 넘어 가신분 계실까여?
+
+어떻게 넘어가셨는지 궁금합니다.
+
+제가 아는분한테 듣기론
+개인 사업자 그냥 두고 
+법인 사업자 같은 명의로 신규 개설해서
+똑같이 업데이트 이후 가격매칭 걸어서 리뷰 다 들고온 다음 법인으로 다 운영하고 개인 사업자 제품은 품절 걸었다고 하던데 보통 다 그렇게 하시나여?</p><p class="tq-w">FR/6년차/2억<span>2026-01-05</span></p></li><li class="tq" data-s="안녕하세요! 개인사업자에서 법인으로 전환 준비중인데, 인터넷에 너무 많은 법무사가 있어서 고르기가 어렵습니다..!! 혹시 개인사업자-&gt; 법인설립 하면서 이용하셨던 법무사님 있으면 소개해주실 분 있으실까요? :)"><p class="tq-t">안녕하세요! 개인사업자에서 법인으로 전환 준비중인데, 인터넷에 너무 많은 법무사가 있어서 고르기가 어렵습니다..!! 혹시 개인사업자-&gt; 법인설립 하면서 이용하셨던 법무사님 있으면 소개해주실 분 있으실까요? :)</p><p class="tq-w">뚜뚜 / 5년 / 1억<span>2026-01-21</span></p></li><li class="tq" data-s="쇼필공님! 월 8억인데 운영하고 계신 쇼핑몰 법인이 아닌 개인으로 운영하시는 이유가 궁금해요!
+
+보통 15억 이상이면 세금 감당이 어려워서 바꾼다고 그러는데 아닌곳도 있다고 해서 혹시 이렇게 결정된 이유가 있을까요!!"><p class="tq-t">쇼필공님! 월 8억인데 운영하고 계신 쇼핑몰 법인이 아닌 개인으로 운영하시는 이유가 궁금해요!
+
+보통 15억 이상이면 세금 감당이 어려워서 바꾼다고 그러는데 아닌곳도 있다고 해서 혹시 이렇게 결정된 이유가 있을까요!!</p><p class="tq-w">무이/3년/3억<span>2026-01-26</span></p></li><li class="tq" data-s="앗 덧붙이자면 운영하고 계신 여성의류 쇼핑몰이요~!! 
+다른 쇼핑몰 말구 ! 제가 개인으로 해야할지 법인으로 가야할지 고민이 너무 많은 상황에 쇼필공님 여성의류 쇼핑몰보고 궁금해져서요! !"><p class="tq-t">앗 덧붙이자면 운영하고 계신 여성의류 쇼핑몰이요~!! 
+다른 쇼핑몰 말구 ! 제가 개인으로 해야할지 법인으로 가야할지 고민이 너무 많은 상황에 쇼필공님 여성의류 쇼핑몰보고 궁금해져서요! !</p><p class="tq-w">무이/3년/3억<span>2026-01-26</span></p></li><li class="tq" data-s="안녕하세요.
+카페24 저희 자사몰
+개인사업자에서 법인 사업자로 이관 하려 하는데
+혹시 해보신 분 있으실까요!?"><p class="tq-t">안녕하세요.
+카페24 저희 자사몰
+개인사업자에서 법인 사업자로 이관 하려 하는데
+혹시 해보신 분 있으실까요!?</p><p class="tq-w">FR/6년차/2억<span>2026-02-13</span></p></li><li class="tq" data-s="영업권땜에 그런거에요? 영업권 없이 그냥 명의
+변경만 하면 안되나보네영"><p class="tq-t">영업권땜에 그런거에요? 영업권 없이 그냥 명의
+변경만 하면 안되나보네영</p><p class="tq-w">FR/6년차/2억<span>2026-02-13</span></p></li><li class="tq" data-s="아 그러면 영업권 팔고 포괄양수도 어쩌고 하고.. 까진 괜찮으시려나...!! 세무사는 뭐래여 ? ㅋㅋ"><p class="tq-t">아 그러면 영업권 팔고 포괄양수도 어쩌고 하고.. 까진 괜찮으시려나...!! 세무사는 뭐래여 ? ㅋㅋ</p><p class="tq-w">버킨/3년차/4억<span>2026-02-13</span></p></li><li class="tq" data-s="@사과/5년/20억 사과님 영업권 평가 감정사 비용 얼마드셨어요? ㅠ"><p class="tq-t">@사과/5년/20억 사과님 영업권 평가 감정사 비용 얼마드셨어요? ㅠ</p><p class="tq-w">버킨/3년차/4억<span>2026-02-13</span></p></li><li class="tq" data-s="영업권평가를 무조건해야하나요?"><p class="tq-t">영업권평가를 무조건해야하나요?</p><p class="tq-w">네오/10년차/3.8억<span>2026-02-13</span></p></li><li class="tq" data-s="어? 보통 조정료 법인세낼때 같이나오긴할껀데"><p class="tq-t">어? 보통 조정료 법인세낼때 같이나오긴할껀데</p><p class="tq-w">구구/14년/5억<span>2026-04-07</span></p></li><li class="tq" data-s="사과님 지금 세무사 사무실 통해서 법인전환까지 다 하신걸까요?!"><p class="tq-t">사과님 지금 세무사 사무실 통해서 법인전환까지 다 하신걸까요?!</p><p class="tq-w">무지/5년차/2억<span>2026-04-07</span></p></li><li class="tq" data-s="법인전환하신이유있나요?"><p class="tq-t">법인전환하신이유있나요?</p><p class="tq-w">네오/10년차/3.8억<span>2026-04-27</span></p></li><li class="tq" data-s="법인 전환이 연매출말고 순매출로 따지시죠~?"><p class="tq-t">법인 전환이 연매출말고 순매출로 따지시죠~?</p><p class="tq-w">고구마/2년차/7천<span>2026-04-27</span></p></li><li class="tq" data-s="근데 법인전환이 생각보다 장점이 크지않은느낌이던데, 사과님은 어떻게 판단하시고전환하셨나요?"><p class="tq-t">근데 법인전환이 생각보다 장점이 크지않은느낌이던데, 사과님은 어떻게 판단하시고전환하셨나요?</p><p class="tq-w">테오/8년차/2.5억<span>2026-04-27</span></p></li><li class="tq" data-s="영업권 평가로 빼는건 초반에 한번만 진행 가능한건가요!? 주기적으로 뺄수 있는 항목일까요!?"><p class="tq-t">영업권 평가로 빼는건 초반에 한번만 진행 가능한건가요!? 주기적으로 뺄수 있는 항목일까요!?</p><p class="tq-w">두찌/12년/2억<span>2026-04-27</span></p></li><li class="tq" data-s="1인 법인대표님 계실까요?"><p class="tq-t">1인 법인대표님 계실까요?</p><p class="tq-w">뮤츠/4년/5000<span>2026-05-12</span></p></li><li class="tq" data-s="혹시 하나의 사업자로 두개 이상의 브랜드를 운영하는 분 계실까요? (법인 말고 갱ㄴ중에서요!)"><p class="tq-t">혹시 하나의 사업자로 두개 이상의 브랜드를 운영하는 분 계실까요? (법인 말고 갱ㄴ중에서요!)</p><p class="tq-w">잏팡팡 / 3년차 / 3억<span>2026-05-13</span></p></li><li class="tq" data-s="처음 시작할 땐 법인과 개인 중 어떤 것이 장단점이 확실한지 알 수 있을까요?"><p class="tq-t">처음 시작할 땐 법인과 개인 중 어떤 것이 장단점이 확실한지 알 수 있을까요?</p><p class="tq-w">해보자/준비중/준비중<span>2026-05-13</span></p></li><li class="tq" data-s="법인으로 하면 불편하진 않으세요?!"><p class="tq-t">법인으로 하면 불편하진 않으세요?!</p><p class="tq-w">잏팡팡 / 3년차 / 3억<span>2026-05-13</span></p></li></ol>
+        </details>
+      </article>
+      <article class="tcard" id="gc11" data-topic="첫 직원·4대보험" data-n="20">
+        <div class="tcard-h">
+          <span class="tnum">11</span>
+          <h3>첫 직원·4대보험</h3>
+          <span class="tpill"><b>20</b>건</span>
+        </div>
+        <p class="tfull">인건비·4대보험·3.3%</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p><b>3.3%와 4대보험이 뭐가 다른지 자체를 모릅니다.</b> 주휴수당 15시간 기준, 외주 계약서, 가족 급여도 마찬가지.</p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p>첫 직원·알바를 뽑을 때 어느 쪽으로 처리하나. 그리고 그 선택의 결과.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p>"주 15시간 미만으로 쪼개면 된다" — 실제로 파트타이머 4명을 15시간 미만으로 운영하는 사례가 올라와 있습니다. / 구직자가 "실업급여 받으니 신고하지 말아달라"고 요구하는 상황도 반복됩니다.</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>첫 직원을 뽑는 시점(대략 매출 5천~1억).</p></div>
+            <div><span class="tl">언제 몰리나</span><p>상시 · 성수기 직전 채용기</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 20건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="왜? 어차피 건보료가 엄청올라가요"><p class="tq-t">왜? 어차피 건보료가 엄청올라가요</p><p class="tq-w">쇼필공<span>2025-09-29</span></p></li><li class="tq" data-s="안녕하세요 혹시! 포장알바 파트타이머 분들 알바비 계산을 어떻게 처리하고 계신지 궁금해서요~~ 처음 고용해봐서 시급이나 식비제공하는게 일반적인지, 주휴수당은 주에 15시간 넘으면 당연히 지급해야하는거라 그렇게 될 것 같은데 
+프리랜서 3.3% 처리 / 4대보험 처리 이 뜻을 잘 모르겠어서 여쭙니다!!"><p class="tq-t">안녕하세요 혹시! 포장알바 파트타이머 분들 알바비 계산을 어떻게 처리하고 계신지 궁금해서요~~ 처음 고용해봐서 시급이나 식비제공하는게 일반적인지, 주휴수당은 주에 15시간 넘으면 당연히 지급해야하는거라 그렇게 될 것 같은데 
+프리랜서 3.3% 처리 / 4대보험 처리 이 뜻을 잘 모르겠어서 여쭙니다!!</p><p class="tq-w">뚜뚜 / 5년 / 1억<span>2025-10-13</span></p></li><li class="tq" data-s="안녕하세요 알바를 썼는데 3.3 신고 어디서 어떻게 하는지 몰라서요. 혹시 아시는 분들 계실까요? 홈텍스 어디서 신고해야 될까요?"><p class="tq-t">안녕하세요 알바를 썼는데 3.3 신고 어디서 어떻게 하는지 몰라서요. 혹시 아시는 분들 계실까요? 홈텍스 어디서 신고해야 될까요?</p><p class="tq-w">키키/1년차/4000<span>2025-10-24</span></p></li><li class="tq" data-s="이번에 3.3% 조사좀 한다는데  3.3% 하시는분들은 큰 걱정 없으실까요?"><p class="tq-t">이번에 3.3% 조사좀 한다는데  3.3% 하시는분들은 큰 걱정 없으실까요?</p><p class="tq-w">후추/4년/2억<span>2025-11-04</span></p></li><li class="tq" data-s="건보료는 몇백단위인가여 ?;;"><p class="tq-t">건보료는 몇백단위인가여 ?;;</p><p class="tq-w">뮤츠/4년/5000<span>2025-11-30</span></p></li><li class="tq" data-s="혹시 회사다니면서 투잡으로 하시다가 퇴사하신 대표님들 계신가요!  어떤 시점에 어떤 결정으로 퇴사하게 되셨는지 궁금합니다~! 
+
+스마트스토어 겨울상품만 주력이라 불안한 마음이 크고, 주기적인 월급이 없으면 소싱하는 데 소극적이 될 것 같아서 선뜻 결정이 안됩니다! 
+순수익은 현재 연봉의 3배정도는 됩니다. 
+다만 건보료나 세금 등등 생각했을 때 연봉 3배의 사업소득이 사실은 현 연봉이랑 동일하다고 느낍니다."><p class="tq-t">혹시 회사다니면서 투잡으로 하시다가 퇴사하신 대표님들 계신가요!  어떤 시점에 어떤 결정으로 퇴사하게 되셨는지 궁금합니다~! 
+
+스마트스토어 겨울상품만 주력이라 불안한 마음이 크고, 주기적인 월급이 없으면 소싱하는 데 소극적이 될 것 같아서 선뜻 결정이 안됩니다! 
+순수익은 현재 연봉의 3배정도는 됩니다. 
+다만 건보료나 세금 등등 생각했을 때 연봉 3배의 사업소득이 사실은 현 연봉이랑 동일하다고 느낍니다.</p><p class="tq-w">쏠라/2년차/1.5억<span>2025-12-03</span></p></li><li class="tq" data-s="대표님들 혹시 한달에 건강보험료 얼마나가세요??"><p class="tq-t">대표님들 혹시 한달에 건강보험료 얼마나가세요??</p><p class="tq-w">키득/3년차/2억<span>2025-12-08</span></p></li><li class="tq" data-s="이번에 국민연금/건강보험이 너무 올랐던데 저만 올랐나요 혹시..?"><p class="tq-t">이번에 국민연금/건강보험이 너무 올랐던데 저만 올랐나요 혹시..?</p><p class="tq-w">쇼잘/10년/2억<span>2025-12-10</span></p></li><li class="tq" data-s="알바도 사대보험 들어줘야해요?"><p class="tq-t">알바도 사대보험 들어줘야해요?</p><p class="tq-w">생각이 많은 스카피<span>2025-12-30</span></p></li><li class="tq" data-s="혹시.. 사업자 4대보험,잡비(박스,기타문구등), 정수기렌탈,각종 사업 구독료등 사업상 지출 카드는 어떤 카드 쓰세요?"><p class="tq-t">혹시.. 사업자 4대보험,잡비(박스,기타문구등), 정수기렌탈,각종 사업 구독료등 사업상 지출 카드는 어떤 카드 쓰세요?</p><p class="tq-w">테오/8년차/2.5억<span>2026-01-28</span></p></li><li class="tq" data-s="시급 주휴수당 시급사이 중간값이 어떤거죠?"><p class="tq-t">시급 주휴수당 시급사이 중간값이 어떤거죠?</p><p class="tq-w">테오/8년차/2.5억<span>2026-02-25</span></p></li><li class="tq" data-s="대표님들, 외주 보정작업하는거 구하고있는데 3.3%원천징수랑 계약서 해야하는건가요? 아시는분 계실까요~?"><p class="tq-t">대표님들, 외주 보정작업하는거 구하고있는데 3.3%원천징수랑 계약서 해야하는건가요? 아시는분 계실까요~?</p><p class="tq-w">미도/2년/2500<span>2026-02-26</span></p></li><li class="tq" data-s="대표님들 혹시 메인md 시급 얼마 주시나요?
+
+하루5시간 주5일
+주휴수당별도
+4대보험 퇴직금 휴게30분 식사제공
+
+시급 12000원 주려고 하는데 적정가격인지 너무 많이 주는건지 궁금합니다
+
+보정은 하루2-3개정도 생각중입니다"><p class="tq-t">대표님들 혹시 메인MD 시급 얼마 주시나요?
+
+하루5시간 주5일
+주휴수당별도
+4대보험 퇴직금 휴게30분 식사제공
+
+시급 12000원 주려고 하는데 적정가격인지 너무 많이 주는건지 궁금합니다
+
+보정은 하루2-3개정도 생각중입니다</p><p class="tq-w">춘식이/2년/1억5천<span>2026-02-26</span></p></li><li class="tq" data-s="혹은 너무 적은걸까요? 프리로 3.3으로 구하는게 나을지 고민이 됩니다"><p class="tq-t">혹은 너무 적은걸까요? 프리로 3.3으로 구하는게 나을지 고민이 됩니다</p><p class="tq-w">춘식이/2년/1억5천<span>2026-02-26</span></p></li><li class="tq" data-s="알바도 4대보험을 가입하는걸로 알고있는데 짜르고 싶을때 짜를수가 있나요??"><p class="tq-t">알바도 4대보험을 가입하는걸로 알고있는데 짜르고 싶을때 짜를수가 있나요??</p><p class="tq-w">고구마/2년차/7천<span>2026-03-20</span></p></li><li class="tq" data-s="저희도 최근에 줄여서 사대보험 포함 1800정도 나가는데 다들 인력 구성은 어떻게 되세요?!
+저희는 md1 cs1 물류1 파트타이머는 풀타임1 주15시간 미만 4분 계신데 파트타이머 더 줄일수 있지않나 싶어서요,,"><p class="tq-t">저희도 최근에 줄여서 사대보험 포함 1800정도 나가는데 다들 인력 구성은 어떻게 되세요?!
+저희는 md1 cs1 물류1 파트타이머는 풀타임1 주15시간 미만 4분 계신데 파트타이머 더 줄일수 있지않나 싶어서요,,</p><p class="tq-w">춘식이/8년차/4억<span>2026-04-14</span></p></li><li class="tq" data-s="대표님들
+혹시 이번 4월 건강보험료 많이 오르신 분 계실까요?"><p class="tq-t">대표님들
+혹시 이번 4월 건강보험료 많이 오르신 분 계실까요?</p><p class="tq-w">달나라/준비중/준비중<span>2026-04-20</span></p></li><li class="tq" data-s="혹시 건보료는 얼마정도 내세요..?"><p class="tq-t">혹시 건보료는 얼마정도 내세요..?</p><p class="tq-w">하이룽/5년차/2억<span>2026-06-04</span></p></li><li class="tq" data-s="3.3으로 신고해도 동일할까요!?"><p class="tq-t">3.3으로 신고해도 동일할까요!?</p><p class="tq-w">후추/4년/2억<span>2026-06-08</span></p></li><li class="tq" data-s="지금까지 모두 근무자 희망으로 3.3만 했는데 
+오래하실분이면 직원으로 등록하는게 이득이겠죠??"><p class="tq-t">지금까지 모두 근무자 희망으로 3.3만 했는데 
+오래하실분이면 직원으로 등록하는게 이득이겠죠??</p><p class="tq-w">후추/4년/2억<span>2026-06-08</span></p></li></ol>
+        </details>
+      </article>
+      <article class="tcard" id="gc12" data-topic="비용처리" data-n="9">
+        <div class="tcard-h">
+          <span class="tnum">12</span>
+          <h3>비용처리</h3>
+          <span class="tpill"><b>9</b>건</span>
+        </div>
+        <p class="tfull">비용처리·증빙·홈택스</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p><b>뭐가 되고 뭐가 안 되는지 실물 기준이 없습니다.</b> 헤드폰은? 식사는? 월세는? 해외 광고비(메타)는?</p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p>"뭘 사야 매입이 잡히나"까지 나갑니다. 절세 목적의 소비 판단을 원합니다.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p>"환급 나오게 넣는 건 비추 — 어? 얘네 돌려받네? 하면서 비용처리 항목을 다시 볼 수 있다"(세무사무실 말이라며 유통)</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>1년차 이상. 이익이 나기 시작하면 급해집니다.</p></div>
+            <div><span class="tl">언제 몰리나</span><p>연말 · 신고 직전</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 9건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="안녕하세요 초보라 잘 몰라서ㅠ여쭤봐요..! 사업자 카드로 근무할때 쓸 헤드폰 구매해도 문제 없이 비용처리 될까요?"><p class="tq-t">안녕하세요 초보라 잘 몰라서ㅠ여쭤봐요..! 사업자 카드로 근무할때 쓸 헤드폰 구매해도 문제 없이 비용처리 될까요?</p><p class="tq-w">권투하는 무지/준비중<span>2025-11-20</span></p></li><li class="tq" data-s="세금 발행 요청하고 홈택스 들어가서 전부 확인하는 작업은 매달 해야하는거죠?"><p class="tq-t">세금 발행 요청하고 홈택스 들어가서 전부 확인하는 작업은 매달 해야하는거죠?</p><p class="tq-w">로바니/3년차/6천<span>2025-11-27</span></p></li><li class="tq" data-s="홈택스에 발급 이메일? 설정하셨는지 한번 확인해보세요!"><p class="tq-t">홈택스에 발급 이메일? 설정하셨는지 한번 확인해보세요!</p><p class="tq-w">비하인드/준비중<span>2025-12-04</span></p></li><li class="tq" data-s="그냥 지산 입주용으로 다른 사업자 만드신걸까요? 그럼 월세는 경비처리 안하시는걸가요?"><p class="tq-t">그냥 지산 입주용으로 다른 사업자 만드신걸까요? 그럼 월세는 경비처리 안하시는걸가요?</p><p class="tq-w">A/3년차/1.2억<span>2025-12-26</span></p></li><li class="tq" data-s="저도 버킨님처럼 비슷하게 갑니다 ㅎㅎ 뭐사도 이거 비용처리되? 안되? ㅋㅋㅋㅋ"><p class="tq-t">저도 버킨님처럼 비슷하게 갑니다 ㅎㅎ 뭐사도 이거 비용처리되? 안되? ㅋㅋㅋㅋ</p><p class="tq-w">두찌/12년/2억<span>2026-01-22</span></p></li><li class="tq" data-s="홈택스에서 사업용 카드 등록해서 쓰시나요?"><p class="tq-t">홈택스에서 사업용 카드 등록해서 쓰시나요?</p><p class="tq-w">비하인드/준비중<span>2026-01-28</span></p></li><li class="tq" data-s="홈택스에서 사업장전환으로 로그인 하셨을까요?"><p class="tq-t">홈택스에서 사업장전환으로 로그인 하셨을까요?</p><p class="tq-w">존버중/3년/비공개<span>2026-02-02</span></p></li><li class="tq" data-s="비용처리가 되는 걸 써야되는거겠쬬..? 어떤 걸 해야 매입 잡히기 좋을 지. ㅜㅜ 돈도 잘 안써서요 ㅜㅜㅋㅋㅋㅋ"><p class="tq-t">비용처리가 되는 걸 써야되는거겠쬬..? 어떤 걸 해야 매입 잡히기 좋을 지. ㅜㅜ 돈도 잘 안써서요 ㅜㅜㅋㅋㅋㅋ</p><p class="tq-w">하이룽/5년차/2억<span>2026-06-04</span></p></li><li class="tq" data-s="올해 하반기쯤부터 6천이 넘을 것 같더라도 상관없이 그냥 비용처리를 해야할까요?
+이번달에 처음으로 매출이 2000정도 될 것 같아서요!"><p class="tq-t">올해 하반기쯤부터 6천이 넘을 것 같더라도 상관없이 그냥 비용처리를 해야할까요?
+이번달에 처음으로 매출이 2000정도 될 것 같아서요!</p><p class="tq-w">라이언,준비중,준비중<span>2026-06-15</span></p></li></ol>
+        </details>
+      </article>
+      <article class="tcard" id="gc13" data-topic="중국 사입·통관" data-n="18">
+        <div class="tcard-h">
+          <span class="tnum">13</span>
+          <h3>중국 사입·통관</h3>
+          <span class="tpill"><b>18</b>건</span>
+        </div>
+        <p class="tfull">수입·통관·관세</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p>사업자통관 / 대행통관 / 신고단가의 <b>합법 경계를 모릅니다.</b> 10년차 3.8억 대표도 "이거 위법인 것 같은데? 편법?"이라고 묻습니다.</p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p>지금 하는 방식이 위법인지 아닌지. 그리고 정상 루트는 무엇인지.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p>"언더밸류는 다들 하니까 괜찮다" / "대행통관이 편하다" — 위험도를 모른 채 관행을 따릅니다.</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>중국 사입을 시작한 3년차 이상.</p></div>
+            <div><span class="tl">언제 몰리나</span><p>상시 · 시즌 준비기</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 18건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="아 수입해주는 에이전시만 있으면 되겠네요.에이전시가 통관도 해주시나요?"><p class="tq-t">아 수입해주는 에이전시만 있으면 되겠네요.에이전시가 통관도 해주시나요?</p><p class="tq-w">곰돌이/10년/1억1000<span>2025-12-02</span></p></li><li class="tq" data-s="광저우에서 물건하시는분들은 
+ 
+1. 광저우시장 둘러보면서 마음에 드는 가게 위챗따기 
+2. 샘플주문 배송대행 통해서 받아서 촬영 후 
+3. 물건터지면 사업자통관으로 수량 받음! 
+
+이런식으로 사입이 진행되는건가요~~??  중국사입 관심있는데, 과정이 어떻게 되는지 궁금합니다!"><p class="tq-t">광저우에서 물건하시는분들은 
+ 
+1. 광저우시장 둘러보면서 마음에 드는 가게 위챗따기 
+2. 샘플주문 배송대행 통해서 받아서 촬영 후 
+3. 물건터지면 사업자통관으로 수량 받음! 
+
+이런식으로 사입이 진행되는건가요~~??  중국사입 관심있는데, 과정이 어떻게 되는지 궁금합니다!</p><p class="tq-w">테오/8년차/2.5억<span>2025-12-11</span></p></li><li class="tq" data-s="다들 말씀하시는 게 사업자 통관이신가요??"><p class="tq-t">다들 말씀하시는 게 사업자 통관이신가요??</p><p class="tq-w">콩순이/3개월/2000<span>2025-12-19</span></p></li><li class="tq" data-s="사장님들 안녕하세요
+혹시 중국에서 사입할때 보통 배송비 관부가세 다 포함해서
+개당 얼마나 드시나요??
+이번에 70개 정도 시켰는데 개당 9000원 배송비가 잡히는데
+비싼건지 싼건지 잘 모르곘네요 ㅠㅠ"><p class="tq-t">사장님들 안녕하세요
+혹시 중국에서 사입할때 보통 배송비 관부가세 다 포함해서
+개당 얼마나 드시나요??
+이번에 70개 정도 시켰는데 개당 9000원 배송비가 잡히는데
+비싼건지 싼건지 잘 모르곘네요 ㅠㅠ</p><p class="tq-w">콩순이/3개월/2000<span>2026-01-06</span></p></li><li class="tq" data-s="사업자통관으로 가져오시는거예요?"><p class="tq-t">사업자통관으로 가져오시는거예요?</p><p class="tq-w">테오/8년차/2.5억<span>2026-01-22</span></p></li><li class="tq" data-s="아 지금 사입수수료랑 통관수수료랑 합쳐서 말씀하시는건가요 ?"><p class="tq-t">아 지금 사입수수료랑 통관수수료랑 합쳐서 말씀하시는건가요 ?</p><p class="tq-w">쇼핑몰/1년차/800만<span>2026-02-20</span></p></li><li class="tq" data-s="그럼 에이전시에 결제해야되는 금액이 
+배대지 수수료 + 물비 고 
+
+부가세 관세는 관세청에 내는건가요?"><p class="tq-t">그럼 에이전시에 결제해야되는 금액이 
+배대지 수수료 + 물비 고 
+
+부가세 관세는 관세청에 내는건가요?</p><p class="tq-w">테오/8년차/2.5억<span>2026-02-20</span></p></li><li class="tq" data-s="언더밸류라는건 물건값을 낮게책정해서 세금을 줄인다는건가요?"><p class="tq-t">언더밸류라는건 물건값을 낮게책정해서 세금을 줄인다는건가요?</p><p class="tq-w">테오/8년차/2.5억<span>2026-02-20</span></p></li><li class="tq" data-s="관세 부가세가 23%? 후"><p class="tq-t">관세 부가세가 23%? 후</p><p class="tq-w">테오/8년차/2.5억<span>2026-02-20</span></p></li><li class="tq" data-s="천연소재 = 관세가 없다 이거는 안챙기면 아무도 안알려주더라구요"><p class="tq-t">천연소재 = 관세가 없다 이거는 안챙기면 아무도 안알려주더라구요</p><p class="tq-w">슬픈 어피치 /2개월/2000만원<span>2026-02-26</span></p></li><li class="tq" data-s="라벨 수량이 많은데 그럼 중국에서 사업자 통관하시나용?"><p class="tq-t">라벨 수량이 많은데 그럼 중국에서 사업자 통관하시나용?</p><p class="tq-w">달나라/준비중/준비중<span>2026-03-03</span></p></li><li class="tq" data-s="사업자 통관하실대 신고단가 어떻게 설정하시나요 전부 다 잡아야하는거죠?"><p class="tq-t">사업자 통관하실대 신고단가 어떻게 설정하시나요 전부 다 잡아야하는거죠?</p><p class="tq-w">네오/10년차/3.8억<span>2026-04-10</span></p></li><li class="tq" data-s="tt송금 말씀 하시는것같은데 배대지 아닌 구매대행은 tt 아니여도 계좌로 거래 많이 하기도 하고 딱히 큰 문제가 될 것 같지는 않은데 타 물류회사 쪽 얘기는 대행통관을 얘기하는게 아닐까요 ?"><p class="tq-t">tt송금 말씀 하시는것같은데 배대지 아닌 구매대행은 tt 아니여도 계좌로 거래 많이 하기도 하고 딱히 큰 문제가 될 것 같지는 않은데 타 물류회사 쪽 얘기는 대행통관을 얘기하는게 아닐까요 ?</p><p class="tq-w">(해결사)히피/1년/8천<span>2026-04-10</span></p></li><li class="tq" data-s="대행통관하시면 안되는거죠?"><p class="tq-t">대행통관하시면 안되는거죠?</p><p class="tq-w">네오/10년차/3.8억<span>2026-04-10</span></p></li><li class="tq" data-s="관세 신고시에 상품가액 전부 신고하는게 맞는거구요??"><p class="tq-t">관세 신고시에 상품가액 전부 신고하는게 맞는거구요??</p><p class="tq-w">네오/10년차/3.8억<span>2026-04-10</span></p></li><li class="tq" data-s="그냥 단순하게 수입한 그대로 신고하면 되는줄 알았는데 그렇게는 잘 안한다고 말하시니까 알아보면 이거 위법인거같은데..? 편법..?"><p class="tq-t">그냥 단순하게 수입한 그대로 신고하면 되는줄 알았는데 그렇게는 잘 안한다고 말하시니까 알아보면 이거 위법인거같은데..? 편법..?</p><p class="tq-w">네오/10년차/3.8억<span>2026-04-10</span></p></li><li class="tq" data-s="대행통관으로 진행하면 문재가 생길까요? ㅠ"><p class="tq-t">대행통관으로 진행하면 문재가 생길까요? ㅠ</p><p class="tq-w">네오/10년차/3.8억<span>2026-04-11</span></p></li><li class="tq" data-s="대표님들 대행 통관이 불법인가요?
+
+화주 - 물류센터로 결제 - 수령 
+(관부가세포함 물류센터로결제)"><p class="tq-t">대표님들 대행 통관이 불법인가요?
+
+화주 - 물류센터로 결제 - 수령 
+(관부가세포함 물류센터로결제)</p><p class="tq-w">네오/10년차/3.8억<span>2026-04-27</span></p></li></ol>
+        </details>
+      </article>
+      <article class="tcard" id="gc14" data-topic="진짜 순수익" data-n="27">
+        <div class="tcard-h">
+          <span class="tnum">14</span>
+          <h3>진짜 순수익</h3>
+          <span class="tpill"><b>27</b>건</span>
+        </div>
+        <p class="tfull">세금 넣은 순수익 계산</p>
+        <div class="trows">
+          <div class="tr"><span class="tl">결핍 · 무엇을 모르나</span><p>부가세를 원가에 넣어야 하는지, 판매가에서 빼야 하는지부터 갈립니다. 플랫폼 수수료의 부가세 별도·포함도 매번 헷갈립니다. 그래서 <b>같은 상품인데 사람마다 마진율이 다르게 나옵니다.</b></p></div>
+          <div class="tr"><span class="tl">니즈 · 무엇을 알고 싶어하나</span><p>세금까지 넣은 마진 공식. 정산 들어올 때 몇 %를 떼어둘 것인가.</p></div>
+          <div class="tr tr-w"><span class="tl">잘못 알고 있는 것 · 글의 각도</span><p>"두 배 마진이면 남는다" — 실제로는 9%라는 계산이 방에 올라와 있습니다.</p></div>
+          <div class="tr tgrid">
+            <div><span class="tl">누가 묻나</span><p>전 구간. "매출은 느는데 남는 게 없다"의 정체입니다.</p></div>
+            <div><span class="tl">언제 몰리나</span><p>상시</p></div>
+          </div>
+        </div>
+        <details class="tqbox">
+          <summary><span>실제 질문 27건 보기</span><i class="tchev"></i></summary>
+          <ol class="tqlist"><li class="tq" data-s="원가율 52% 
+수수료 15% 만해도...67%인데 
+
+인건비,택배비,판관비,세금,까지....어떻게 33%를 맞추시나요...
+
+꿀팁 알려주실 수 있나요....안 그래도....지금 고민이 많은데..."><p class="tq-t">원가율 52% 
+수수료 15% 만해도...67%인데 
+
+인건비,택배비,판관비,세금,까지....어떻게 33%를 맞추시나요...
+
+꿀팁 알려주실 수 있나요....안 그래도....지금 고민이 많은데...</p><p class="tq-w">잏팡팡 / 3년차 / 3억<span>2025-10-10</span></p></li><li class="tq" data-s="총 평균 45% 정도 되는 마진율에서 
+
+택배비,카드수수료 및 플랫폼수수료,부가세 및 세금,부자재 누적재고 15%
+임대료,직원월급 및 고정비 6%
+광고비 10-12% 
+
+빼면 순마진율 10-12%정도 마진율인데 쿠폰팩으로 신규최대한 모집하고 단골고객위주로 해서 광고비비중을 낮추는걸까요?"><p class="tq-t">총 평균 45% 정도 되는 마진율에서 
+
+택배비,카드수수료 및 플랫폼수수료,부가세 및 세금,부자재 누적재고 15%
+임대료,직원월급 및 고정비 6%
+광고비 10-12% 
+
+빼면 순마진율 10-12%정도 마진율인데 쿠폰팩으로 신규최대한 모집하고 단골고객위주로 해서 광고비비중을 낮추는걸까요?</p><p class="tq-w">테오/8년차/2.5억<span>2025-10-31</span></p></li><li class="tq" data-s="4배수의 원가는 부가세 물류비 제외인가요?"><p class="tq-t">4배수의 원가는 부가세 물류비 제외인가요?</p><p class="tq-w">테오/8년차/2.5억<span>2025-10-31</span></p></li><li class="tq" data-s="안녕하세요 다들 상품가격을 측정하실때 부가세도 포함시켜서 계산하시나요?"><p class="tq-t">안녕하세요 다들 상품가격을 측정하실때 부가세도 포함시켜서 계산하시나요?</p><p class="tq-w">두두/4년차/1억<span>2025-11-21</span></p></li><li class="tq" data-s="아네네 그동안 부가세는 포함하지않고 원가 측정을 해왔는데 마진등 생각했을때 포함 시켜야 하나 갑자기 고민이 되서 여쭤봤어요 답변 감사합니다"><p class="tq-t">아네네 그동안 부가세는 포함하지않고 원가 측정을 해왔는데 마진등 생각했을때 포함 시켜야 하나 갑자기 고민이 되서 여쭤봤어요 답변 감사합니다</p><p class="tq-w">두두/4년차/1억<span>2025-11-21</span></p></li><li class="tq" data-s="여러분 혹시 순수익 계산 이렇게 하는게 맞을까요?
+
+원가 13000원 2배(26000원)마진으로 100장 판매=2,600,000원에 원가 1,300,000원
+광고비 10% 260,000원
+부가세 10% 260,000원
+배송비(무배일경우) 285,000원
+플랫폼수수료(네이버 약 7%) 182,000원
+종소세(6%구간/청년감면시 0%) 매출에서 원가 비용처리 하니까 130만원에 대한 6% 78,000원 하면 총 순수익 235,000원으로
+두배 마진시에도 순수익이 9% 정도인데 여기에 판관비 5%정도 차감하면 4% 정도가 순수익일거같은데..다들 이렇게 계산하시는지.."><p class="tq-t">여러분 혹시 순수익 계산 이렇게 하는게 맞을까요?
+
+원가 13000원 2배(26000원)마진으로 100장 판매=2,600,000원에 원가 1,300,000원
+광고비 10% 260,000원
+부가세 10% 260,000원
+배송비(무배일경우) 285,000원
+플랫폼수수료(네이버 약 7%) 182,000원
+종소세(6%구간/청년감면시 0%) 매출에서 원가 비용처리 하니까 130만원에 대한 6% 78,000원 하면 총 순수익 235,000원으로
+두배 마진시에도 순수익이 9% 정도인데 여기에 판관비 5%정도 차감하면 4% 정도가 순수익일거같은데..다들 이렇게 계산하시는지..</p><p class="tq-w">존버중/3년/비공개<span>2025-11-25</span></p></li><li class="tq" data-s="혹시 자사몰 운영하시면서 마진이랑 매입비용 부가세, 결제 수수료 이런거 하나하나 다 계산하시나요?..
+
+매월 상품마다 계산하려니.. 반품에.. 교환까지 있으면 다 꼬여서 숫자가 안맞을때가 많은데.. 
+
+혹시 쉽게 정산하거나 알수 있는 앱이나 방법이 있을까요??..ㅠㅠ
+
+고객분들이 자사몰만 결제하는게 아니라 네이버페이로도 주문하다보니.. 쉽지 않네요..ㅜ"><p class="tq-t">혹시 자사몰 운영하시면서 마진이랑 매입비용 부가세, 결제 수수료 이런거 하나하나 다 계산하시나요?..
+
+매월 상품마다 계산하려니.. 반품에.. 교환까지 있으면 다 꼬여서 숫자가 안맞을때가 많은데.. 
+
+혹시 쉽게 정산하거나 알수 있는 앱이나 방법이 있을까요??..ㅠㅠ
+
+고객분들이 자사몰만 결제하는게 아니라 네이버페이로도 주문하다보니.. 쉽지 않네요..ㅜ</p><p class="tq-w">모찌/6개월/1억<span>2025-11-26</span></p></li><li class="tq" data-s="사입가 10,000원  +  부가세1000원 + 택배비2000 +판관비3,000원 + 수수료1,000원 이렇게 계산한다음 배수를 넣나요?"><p class="tq-t">사입가 10,000원  +  부가세1000원 + 택배비2000 +판관비3,000원 + 수수료1,000원 이렇게 계산한다음 배수를 넣나요?</p><p class="tq-w">테오/8년차/2.5억<span>2025-12-01</span></p></li><li class="tq" data-s="선배님들 이번에 4910 입점할 생각인데 수수료가 기본25% 부가세 별도라고 판매가 27.5%라고 ai가 알려주는데 이게 맞는건가여....?"><p class="tq-t">선배님들 이번에 4910 입점할 생각인데 수수료가 기본25% 부가세 별도라고 판매가 27.5%라고 ai가 알려주는데 이게 맞는건가여....?</p><p class="tq-w">하품/한달차/0원<span>2026-01-09</span></p></li><li class="tq" data-s="안녕하세요! 사장님들 :) 혹시 월 매출,매입(지출/수입) 순수익 계산 엑셀 따로 폼 만드셨을까용 ?"><p class="tq-t">안녕하세요! 사장님들 :) 혹시 월 매출,매입(지출/수입) 순수익 계산 엑셀 따로 폼 만드셨을까용 ?</p><p class="tq-w">쇼피/4년차/4억<span>2026-01-09</span></p></li><li class="tq" data-s="혹시 상품 계산하실때 부가세도 마진 계산기 항목에 넣으시나요? 아니면 그냥 부가세는 나중에 계산하시나요!"><p class="tq-t">혹시 상품 계산하실때 부가세도 마진 계산기 항목에 넣으시나요? 아니면 그냥 부가세는 나중에 계산하시나요!</p><p class="tq-w">이명우/3개월/3천<span>2026-01-13</span></p></li><li class="tq" data-s="혹시 원가계산할때 제가 계산하는 방식이 맞을까요?
+맞약 원가가 5천원인데 부가세 10%포함 5500원에 매입해서
+이 제품을 2만원에 판다고 가정할 때 나중에 판매금액에서 내야하는 부가세10% 빼면 18000원이 남잖아요? 그러면 18000원의 30%가 5400원이니까 
+대충 원가율 30%라고 하는게 맞나요?"><p class="tq-t">혹시 원가계산할때 제가 계산하는 방식이 맞을까요?
+맞약 원가가 5천원인데 부가세 10%포함 5500원에 매입해서
+이 제품을 2만원에 판다고 가정할 때 나중에 판매금액에서 내야하는 부가세10% 빼면 18000원이 남잖아요? 그러면 18000원의 30%가 5400원이니까 
+대충 원가율 30%라고 하는게 맞나요?</p><p class="tq-w">사모예,1년미만,준비중<span>2026-01-22</span></p></li><li class="tq" data-s="형님들 소비자가 정하실때 택배비 부가세 다 녹이시나요?"><p class="tq-t">형님들 소비자가 정하실때 택배비 부가세 다 녹이시나요?</p><p class="tq-w">초초보/3개월350<span>2026-01-24</span></p></li><li class="tq" data-s="쇼필공님 ! 공유해주신 에이블리 마진계산파일을 이용해서 마진 계산중인데, 이 부분은 어떻게 입력해아하나요??
+ 달마다 부가세 10%잡고 해야하는건가요?ㅜ"><p class="tq-t">쇼필공님 ! 공유해주신 에이블리 마진계산파일을 이용해서 마진 계산중인데, 이 부분은 어떻게 입력해아하나요??
+ 달마다 부가세 10%잡고 해야하는건가요?ㅜ</p><p class="tq-w">춘식/2년차/2천<span>2026-02-01</span></p></li><li class="tq" data-s="안녕하세요 대표님 다름이 아니라 하나만 더 여쭤보겠습니다.
+무신사는 수수료 30퍼 부가세 포함 30퍼인가여? 별도 인가여?
+별도면 33퍼가 맞나여?"><p class="tq-t">안녕하세요 대표님 다름이 아니라 하나만 더 여쭤보겠습니다.
+무신사는 수수료 30퍼 부가세 포함 30퍼인가여? 별도 인가여?
+별도면 33퍼가 맞나여?</p><p class="tq-w">FR/6년차/2억<span>2026-02-05</span></p></li><li class="tq" data-s="선배님들 혹시 마진 계산할때 종소세도 넣어도 상품 마진 계산하시나여??"><p class="tq-t">선배님들 혹시 마진 계산할때 종소세도 넣어도 상품 마진 계산하시나여??</p><p class="tq-w">하품/한달차/0원<span>2026-02-25</span></p></li><li class="tq" data-s="선배님들 혹시 4910,에이블리 마진 계산할떄
+플랫폼수수료% + 플랫폼부가세10 +쿠폰% + 결제수수료%
+이렇게 마진 계산하는게 맞나여? ㅠㅠ너무어려워여 마진 계산공식이 플랫폼은 알려주시면 감사하겠습니다"><p class="tq-t">선배님들 혹시 4910,에이블리 마진 계산할떄
+플랫폼수수료% + 플랫폼부가세10 +쿠폰% + 결제수수료%
+이렇게 마진 계산하는게 맞나여? ㅠㅠ너무어려워여 마진 계산공식이 플랫폼은 알려주시면 감사하겠습니다</p><p class="tq-w">하품/한달차/0원<span>2026-03-04</span></p></li><li class="tq" data-s="태오 네오 선배님들 혹시 4910에서 저가 입점해있는데
+마진 계산할떄 
+플랫폼수수료% + 플랫폼수수료부가세% +쿠폰% + 결제수수료%
+이렇게 계산하는게 맞나여?"><p class="tq-t">태오 네오 선배님들 혹시 4910에서 저가 입점해있는데
+마진 계산할떄 
+플랫폼수수료% + 플랫폼수수료부가세% +쿠폰% + 결제수수료%
+이렇게 계산하는게 맞나여?</p><p class="tq-w">하품/한달차/0원<span>2026-03-04</span></p></li><li class="tq" data-s="엇 이걸로 순수익 매기는거 아닌가용? 세금내는거까지 당연히 포함한다거 생각햇어요 ㅋㅋ 비용처리된거 감안하고 부가세,종소세 빼서 계산해요 저는"><p class="tq-t">엇 이걸로 순수익 매기는거 아닌가용? 세금내는거까지 당연히 포함한다거 생각햇어요 ㅋㅋ 비용처리된거 감안하고 부가세,종소세 빼서 계산해요 저는</p><p class="tq-w">존버중/3년/비공개<span>2026-03-12</span></p></li><li class="tq" data-s="제가 뽀뽀하는 어피치님께서 어디까지 비용으로 보시는지를 알 수 가 없어서 종소세 부가세 다 하고 남는 금액이 15%면 괜찮죠"><p class="tq-t">제가 뽀뽀하는 어피치님께서 어디까지 비용으로 보시는지를 알 수 가 없어서 종소세 부가세 다 하고 남는 금액이 15%면 괜찮죠</p><p class="tq-w">테오/8년차/2.5억<span>2026-03-17</span></p></li><li class="tq" data-s="물건마진(택배비,부가세,물건비,부가세)포함 50%가나오면 메타광고 로아스 300%이상은 나와야겠죠?"><p class="tq-t">물건마진(택배비,부가세,물건비,부가세)포함 50%가나오면 메타광고 로아스 300%이상은 나와야겠죠?</p><p class="tq-w">길리숫/2년차/8천<span>2026-03-18</span></p></li><li class="tq" data-s="카테고리에 맞는 상세 공부가 필요하구요.
+보통 부가세 말고 종소세 세금까지
+정산 들어올때 마다 빼놓는걸 추천 드립니다.
+갑자기 내려면 큰일나거든요.
+수익에 10%는 따로 빼두시고
+차근차근 공뷰하시고 하시면 어떻게 하실지 보이실거에요
+초반에는 무조건 보수적으로~"><p class="tq-t">카테고리에 맞는 상세 공부가 필요하구요.
+보통 부가세 말고 종소세 세금까지
+정산 들어올때 마다 빼놓는걸 추천 드립니다.
+갑자기 내려면 큰일나거든요.
+수익에 10%는 따로 빼두시고
+차근차근 공뷰하시고 하시면 어떻게 하실지 보이실거에요
+초반에는 무조건 보수적으로~</p><p class="tq-w">라이언/3년차/3<span>2026-03-26</span></p></li><li class="tq" data-s="대표님들 최종 순익 계산하실 때 종소세까지 포함하셔서 상품금액 책정하시나요?"><p class="tq-t">대표님들 최종 순익 계산하실 때 종소세까지 포함하셔서 상품금액 책정하시나요?</p><p class="tq-w">참새/5개월/1500<span>2026-03-26</span></p></li><li class="tq" data-s="부가세까진 포함하긴하는데 종소세는 세율구간때문에 애매하지 않을까욤?"><p class="tq-t">부가세까진 포함하긴하는데 종소세는 세율구간때문에 애매하지 않을까욤?</p><p class="tq-w">레오/6개월/5500<span>2026-03-26</span></p></li><li class="tq" data-s="대표님들 근데 순익 계산할때 
+
+매출액 -매출액의 부가세 포함 원가 - 판관비(고정비용) - 변동비 (광고/택배비) - 부가세(상품원가빼고)  
+이렇게 계산중인데 더 고려해야할게 있을까요?
+소득세 빼구요"><p class="tq-t">대표님들 근데 순익 계산할때 
+
+매출액 -매출액의 부가세 포함 원가 - 판관비(고정비용) - 변동비 (광고/택배비) - 부가세(상품원가빼고)  
+이렇게 계산중인데 더 고려해야할게 있을까요?
+소득세 빼구요</p><p class="tq-w">네오/10년차/3.8억<span>2026-04-15</span></p></li><li class="tq" data-s="로아스 계산 시 부가세 다 제외한 금액 기준으로 계산하나요?"><p class="tq-t">로아스 계산 시 부가세 다 제외한 금액 기준으로 계산하나요?</p><p class="tq-w">씩씩/1년미만/준비중<span>2026-05-02</span></p></li><li class="tq" data-s="대표님들 혹시도매가 4500원짜리 반팔은 마진 어느정도 남기시나요? 대부분 13200원.. 14000원대에 판매중인데 수수료 부가세 다 떼고 5천원 정도 남기는거같은데 요래도 되는건가요 옷으로 여름장사는 첨이라 ㅠㅠ"><p class="tq-t">대표님들 혹시도매가 4500원짜리 반팔은 마진 어느정도 남기시나요? 대부분 13200원.. 14000원대에 판매중인데 수수료 부가세 다 떼고 5천원 정도 남기는거같은데 요래도 되는건가요 옷으로 여름장사는 첨이라 ㅠㅠ</p><p class="tq-w">햄이/5개월/4천만원<span>2026-06-19</span></p></li></ol>
+        </details>
+      </article></div>
+
+        <p class="tfoot">
+          근거 — 의류 쇼핑몰 대표 커뮤니티 오픈채팅 9개월 전수 분석<br />
+          닉네임은 커뮤니티 표기 그대로입니다 (별명 / 업력 / 최근 6개월 최고매출)
+        </p>
+      </div>
+    </section>
+
+    <div id="detail-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-navy-950/60 p-5">
     <div class="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="detail-name">
       <div class="flex items-start justify-between border-b border-slate-200 px-7 py-5">
         <div>
@@ -333,11 +1323,12 @@
       el('login-view').classList.toggle('hidden', view !== 'login');
       el('list-view').classList.toggle('hidden', view !== 'list');
       el('dash-view').classList.toggle('hidden', view !== 'dash');
+      el('content-view').classList.toggle('hidden', view !== 'content');
       const loggedIn = view !== 'login';
       el('logout-btn').classList.toggle('hidden', !loggedIn);
       el('admin-nav').classList.toggle('hidden', !loggedIn);
       el('admin-nav').classList.toggle('flex', loggedIn);
-      [['nav-dash', 'dash'], ['nav-list', 'list']].forEach(([id, v]) => {
+      [['nav-dash', 'dash'], ['nav-list', 'list'], ['nav-content', 'content']].forEach(([id, v]) => {
         const active = view === v;
         el(id).classList.toggle('bg-navy-900', active);
         el(id).classList.toggle('text-white', active);
@@ -655,6 +1646,7 @@
 
     el('nav-dash').addEventListener('click', () => { show('dash'); renderDash(); });
     el('nav-list').addEventListener('click', () => { show('list'); render(); });
+    el('nav-content').addEventListener('click', () => { show('content'); });
 
     ['biz-filter', 'm-biz-filter'].forEach((id) => el(id).addEventListener('change', (e) => { bizFilter = e.target.value; render(); }));
     ['status-filter', 'm-status-filter'].forEach((id) => el(id).addEventListener('change', (e) => { statusFilter = e.target.value; render(); }));
@@ -718,6 +1710,52 @@
         } catch (err) { sessionStorage.removeItem(PASS_KEY); }
       }
       show('login');
+    })();
+  </script>
+  <script>
+
+    // ── 글감 카드 검색·이동 ──
+    (function () {
+      var input = document.getElementById('gc-search');
+      if (!input) return;
+      var hit = document.getElementById('gc-hit');
+      var cards = Array.prototype.slice.call(document.querySelectorAll('#content-view .tcard'));
+      var qs = Array.prototype.slice.call(document.querySelectorAll('#content-view .tq'));
+
+      function run() {
+        var k = input.value.trim().toLowerCase();
+        if (!k) {
+          cards.forEach(function (c) { c.classList.remove('is-hidden'); });
+          qs.forEach(function (q) { q.classList.remove('is-hidden'); });
+          hit.textContent = '';
+          return;
+        }
+        var n = 0;
+        cards.forEach(function (c) {
+          var found = 0;
+          c.querySelectorAll('.tq').forEach(function (q) {
+            var m = q.dataset.s.indexOf(k) !== -1;
+            q.classList.toggle('is-hidden', !m);
+            if (m) found++;
+          });
+          var byTopic = c.dataset.topic.toLowerCase().indexOf(k) !== -1;
+          if (byTopic) { c.querySelectorAll('.tq').forEach(function (q) { q.classList.remove('is-hidden'); }); found = c.querySelectorAll('.tq').length; }
+          c.classList.toggle('is-hidden', found === 0);
+          if (found) { c.querySelector('.tqbox').open = true; n += found; }
+        });
+        hit.textContent = n ? n + '건' : '결과 없음';
+      }
+      var t;
+      input.addEventListener('input', function () { clearTimeout(t); t = setTimeout(run, 140); });
+
+      document.querySelectorAll('#content-view .tchip').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var target = document.getElementById(b.dataset.go);
+          if (!target) return;
+          input.value = ''; run();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
     })();
   </script>
 </body>

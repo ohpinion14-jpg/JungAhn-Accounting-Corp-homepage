@@ -41,6 +41,10 @@ a, button, summary, input, select, textarea { touch-action: manipulation; }
 .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 
+#toc summary { list-style: none; }
+#toc summary::-webkit-details-marker { display: none; }
+#toc[open] .toc-icon { transform: rotate(180deg); }
+
 details.faq summary::-webkit-details-marker { display: none; }
 details.faq[open] .faq-icon { transform: rotate(45deg); }
 .faq-icon { transition: transform 0.2s ease-out; }

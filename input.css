@@ -41,6 +41,22 @@ a, button, summary, input, select, textarea { touch-action: manipulation; }
 .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 
+/* 리뷰 마퀴: 끊김 없이 왼쪽으로 흐르는 무한 루프 */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 70s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
 #toc summary { list-style: none; }
 #toc summary::-webkit-details-marker { display: none; }
 #toc[open] .toc-icon { transform: rotate(180deg); }

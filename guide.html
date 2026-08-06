@@ -211,16 +211,6 @@
           </div>
         </article>
 
-        <!-- 중간 CTA -->
-        <div class="rounded-2xl bg-navy-900 p-8 text-white sm:p-10">
-          <p class="text-xl font-extrabold leading-[1.4] sm:text-2xl">읽다 보니 우리 쇼핑몰은<br /><span class="text-green-400">어떤지 궁금하신가요?</span></p>
-          <p class="mt-3 max-w-lg text-[15px] leading-[1.7] text-slate-300">판매 채널과 매출 구조만 들으면 현재 세무 관리 상태와 놓치고 있는 부분이 보입니다. 상담은 무료이며, 계약 여부는 편하게 결정하셔도 됩니다.</p>
-          <a href="index.html#contact" class="mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3.5 text-[15px] font-semibold text-navy-900 transition-colors hover:bg-slate-100">
-            무료 상담 신청하기
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
-          </a>
-        </div>
-
         <article id="q07" class="scroll-mt-24 border-t border-slate-200 pt-14">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">07</p>
           <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">청년창업 세액감면, 나는 몇 % 받을 수 있을까</h2>
@@ -372,17 +362,25 @@
     </div>
   </main>
 
-  <a href="index.html#contact" id="float-cta" class="fixed bottom-6 left-1/2 z-50 hidden -translate-x-1/2 items-center gap-2 rounded-full bg-brand-700 px-7 py-3.5 text-[15px] font-semibold text-white shadow-xl shadow-brand-700/30 transition-colors hover:bg-brand-600">
-    무료 상담 신청하기
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
-  </a>
+  <div id="cta-bar" class="fixed inset-x-0 bottom-0 z-50 hidden border-t border-white/10 bg-navy-900 shadow-2xl">
+    <div class="mx-auto flex max-w-content items-center justify-between gap-4 px-5 py-3.5 lg:px-8">
+      <div class="min-w-0">
+        <p class="text-[15px] font-bold leading-snug text-white sm:text-[16.5px]">읽다 보니 우리 쇼핑몰은 <span class="text-green-400">어떤지 궁금하신가요?</span></p>
+        <p class="mt-1 hidden text-[13.5px] leading-snug text-slate-300 md:block">판매 채널과 매출 구조만 들으면 현재 세무 관리 상태와 놓치고 있는 부분이 보입니다. 상담은 무료입니다.</p>
+      </div>
+      <a href="index.html#contact" class="inline-flex shrink-0 items-center gap-2 rounded-lg bg-white px-5 py-3 text-[14.5px] font-semibold text-navy-900 transition-colors hover:bg-slate-100 sm:px-6 sm:text-[15px]">
+        무료 상담 신청하기
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
 
-  <button id="to-top" class="fixed bottom-6 right-6 z-50 hidden h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-navy-700 shadow-lg transition-colors hover:border-brand-700 hover:text-brand-700" aria-label="맨 위로">
+  <button id="to-top" class="fixed bottom-24 right-6 z-50 hidden h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-navy-700 shadow-lg transition-colors hover:border-brand-700 hover:text-brand-700" aria-label="맨 위로">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
   </button>
 
   <!-- ===== Footer ===== -->
-  <footer class="border-t border-slate-200 py-12">
+  <footer class="border-t border-slate-200 pb-32 pt-12">
     <div class="mx-auto flex max-w-content flex-col items-start justify-between gap-8 px-5 md:flex-row md:items-center lg:px-8">
       <div>
         <p class="text-[15px] font-bold">정안회계법인 <span class="text-[12px] font-medium text-navy-500">JungAhn Accounting Corporation</span></p>
@@ -406,15 +404,14 @@
     // 읽기 진행 바
     const progress = document.getElementById('progress');
     const toTop = document.getElementById('to-top');
-    const floatCta = document.getElementById('float-cta');
+    const ctaBar = document.getElementById('cta-bar');
     function onScroll() {
       const h = document.documentElement.scrollHeight - window.innerHeight;
       progress.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
       const show = window.scrollY > 400;
       toTop.classList.toggle('hidden', !show);
       toTop.classList.toggle('flex', show);
-      floatCta.classList.toggle('hidden', !show);
-      floatCta.classList.toggle('inline-flex', show);
+      ctaBar.classList.toggle('hidden', !show);
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();

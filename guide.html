@@ -63,12 +63,8 @@
           사입삼촌 대납, 장끼 보관, 간이과세 세금계산서, 자사몰 무통장 매출, 청년창업 감면, 법인 전환까지.
           쇼핑몰 대표님들이 실제로 물어오시는 질문을 <strong class="font-bold text-navy-900">정안회계법인</strong>이 하나씩 정리했습니다.
         </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="index.html#contact" class="rounded-lg bg-brand-700 px-6 py-3.5 text-[15px] font-semibold text-white shadow-lg shadow-brand-700/20 transition-all hover:bg-brand-600">무료 상담 신청하기</a>
-          <a href="#q01" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-6 py-3.5 text-[15px] font-semibold text-navy-900 transition-colors hover:border-brand-700 hover:text-brand-700">
-            바로 읽기
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14m-6-6 6 6 6-6"/></svg>
-          </a>
+        <div class="mt-8">
+          <a href="index.html#contact" class="inline-block rounded-lg bg-brand-700 px-6 py-3.5 text-[15px] font-semibold text-white shadow-lg shadow-brand-700/20 transition-all hover:bg-brand-600">무료 상담 신청하기</a>
         </div>
       </div>
     </section>
@@ -376,6 +372,11 @@
     </div>
   </main>
 
+  <a href="index.html#contact" id="float-cta" class="fixed bottom-6 left-1/2 z-50 hidden -translate-x-1/2 items-center gap-2 rounded-full bg-brand-700 px-7 py-3.5 text-[15px] font-semibold text-white shadow-xl shadow-brand-700/30 transition-colors hover:bg-brand-600">
+    무료 상담 신청하기
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+  </a>
+
   <button id="to-top" class="fixed bottom-6 right-6 z-50 hidden h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-navy-700 shadow-lg transition-colors hover:border-brand-700 hover:text-brand-700" aria-label="맨 위로">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
   </button>
@@ -405,12 +406,15 @@
     // 읽기 진행 바
     const progress = document.getElementById('progress');
     const toTop = document.getElementById('to-top');
+    const floatCta = document.getElementById('float-cta');
     function onScroll() {
       const h = document.documentElement.scrollHeight - window.innerHeight;
       progress.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
-      const show = window.scrollY > 600;
+      const show = window.scrollY > 400;
       toTop.classList.toggle('hidden', !show);
       toTop.classList.toggle('flex', show);
+      floatCta.classList.toggle('hidden', !show);
+      floatCta.classList.toggle('inline-flex', show);
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();

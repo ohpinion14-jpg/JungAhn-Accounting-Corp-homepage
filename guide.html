@@ -36,15 +36,36 @@
           <span class="text-[10px] font-medium uppercase tracking-wider text-navy-500">JungAhn Accounting Corp.</span>
         </span>
       </a>
+
       <nav class="hidden items-center gap-8 md:flex" aria-label="주요 메뉴">
         <a href="index.html#core" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">서비스</a>
         <a href="index.html#about" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">대표 소개</a>
+        <a href="index.html#process" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">진행 절차</a>
         <a href="index.html#pricing" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">요금 안내</a>
-        <a href="guide.html" class="text-sm font-bold text-brand-700">세무 가이드</a>
+        <a href="index.html#faq" class="text-sm font-medium text-navy-700 transition-colors hover:text-navy-900">자주 묻는 질문</a>
+        <a href="guide.html" class="text-sm font-bold text-brand-700" aria-current="page">세무 가이드</a>
       </nav>
-      <a href="index.html#contact" class="rounded-lg bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-600 hover:shadow-md">
+
+      <a href="index.html#contact" class="hidden rounded-lg bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand-600 hover:shadow-md md:inline-block">
         무료 상담 신청
       </a>
+
+      <button id="menu-btn" class="flex h-11 w-11 items-center justify-center rounded-lg text-navy-900 md:hidden" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobile-menu">
+        <svg id="icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-5 pb-5 pt-2 md:hidden">
+      <nav class="flex flex-col" aria-label="모바일 메뉴">
+        <a href="index.html#core" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">서비스</a>
+        <a href="index.html#about" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">대표 소개</a>
+        <a href="index.html#process" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">진행 절차</a>
+        <a href="index.html#pricing" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">요금 안내</a>
+        <a href="index.html#faq" class="border-b border-slate-100 py-3.5 text-[15px] font-medium">자주 묻는 질문</a>
+        <a href="guide.html" class="py-3.5 text-[15px] font-bold text-brand-700" aria-current="page">세무 가이드</a>
+        <a href="index.html#contact" class="mt-2 rounded-lg bg-brand-700 py-3.5 text-center text-[15px] font-semibold text-white">무료 상담 신청</a>
+      </nav>
     </div>
   </header>
 
@@ -53,23 +74,23 @@
     <!-- ===== Hero ===== -->
     <section class="relative overflow-hidden border-b border-slate-200 bg-slate-50">
       <div class="pointer-events-none absolute -right-40 -top-40 -z-10 h-64 w-64 rounded-full bg-brand-50 blur-3xl sm:h-[420px] sm:w-[420px]" aria-hidden="true"></div>
-      <div class="mx-auto max-w-content px-5 py-14 sm:py-20 lg:px-8">
+      <div class="mx-auto max-w-content px-5 py-12 sm:py-20 lg:px-8">
         <p class="section-label text-sm font-bold uppercase tracking-widest text-brand-700">Tax Guide</p>
-        <h1 class="mt-3 text-[1.875rem] font-extrabold leading-[1.75] tracking-tight sm:text-4xl lg:text-[2.75rem]">
+        <h1 class="mt-3 text-[1.75rem] font-extrabold leading-[1.6] tracking-tight sm:text-4xl sm:leading-[1.75] lg:text-[2.75rem]">
           동대문에서 실제로 나오는<br />
           <span class="text-brand-700">세무 질문 13가지</span>
         </h1>
-        <p class="mt-6 max-w-2xl text-[16.5px] leading-[1.7] text-navy-600">
+        <p class="mt-5 max-w-2xl text-[15.5px] leading-[1.75] text-navy-600 sm:text-[16.5px]">
           사입삼촌 대납, 장끼 보관, 간이과세 세금계산서, 자사몰 무통장 매출, 청년창업 감면, 법인 전환까지.
           쇼핑몰 대표님들이 실제로 물어오시는 질문을 <strong class="font-bold text-navy-900">정안회계법인</strong>이 하나씩 정리했습니다.
         </p>
         <div class="mt-8">
-          <a href="index.html#contact" class="inline-block rounded-lg bg-brand-700 px-6 py-3.5 text-[15px] font-semibold text-white shadow-lg shadow-brand-700/20 transition-all hover:bg-brand-600">무료 상담 신청하기</a>
+          <a href="index.html#contact" class="block rounded-lg bg-brand-700 px-6 py-3.5 text-center text-[15px] font-semibold text-white shadow-lg shadow-brand-700/20 transition-all hover:bg-brand-600 sm:inline-block sm:text-left">무료 상담 신청하기</a>
         </div>
       </div>
     </section>
 
-    <div class="mx-auto grid max-w-content gap-12 px-5 py-14 sm:py-20 lg:grid-cols-[248px_1fr] lg:gap-14 lg:px-8">
+    <div class="mx-auto grid max-w-content gap-10 px-5 py-12 sm:py-20 lg:grid-cols-[248px_1fr] lg:gap-14 lg:px-8">
 
       <!-- ===== 목차 ===== -->
       <aside class="lg:sticky lg:top-24 lg:self-start">
@@ -98,62 +119,62 @@
       </aside>
 
       <!-- ===== 본문 ===== -->
-      <div class="min-w-0 max-w-[42rem] space-y-14">
+      <div class="min-w-0 max-w-[42rem] space-y-12 sm:space-y-14">
 
         <article id="q01" class="scroll-mt-24">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">01</p>
-          <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">사입삼촌이 대신 결제해준 물건, 세금계산서는 누구 앞으로?</h2>
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <p class="flex items-start gap-2.5 text-[15.5px] font-bold leading-[1.5] text-navy-900">
+          <h2 class="mt-2 text-[1.375rem] font-extrabold leading-[1.45] tracking-tight sm:text-[1.75rem]">사입삼촌이 대신 결제해준 물건, 세금계산서는 누구 앞으로?</h2>
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+            <p class="flex items-start gap-2.5 text-[15px] font-bold leading-[1.55] text-navy-900 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-red-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
               "이체기록만 남아 있으면 문제 되지 않는다"
             </p>
-            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15.5px] leading-[1.75] text-navy-700">
+            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15px] leading-[1.8] text-navy-700 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
               <span>반은 맞고 반은 틀립니다. 이체기록은 <strong class="font-bold text-navy-900">자금 흐름의 증빙일 뿐</strong>, 매입세액공제를 받으려면 세금계산서 같은 적격증빙이 따로 있어야 합니다.</span>
             </p>
           </div>
-          <div class="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-navy-600">
+          <div class="mt-6 space-y-5 text-[16px] leading-[1.9] text-navy-600 sm:mt-7 sm:text-[16.5px]">
             <p>세금계산서상 '공급받는자' 란에는 사입삼촌이 아니라 <strong class="font-semibold text-navy-900">대표님의 사업자등록번호</strong>가 들어가야 정상입니다. 삼촌이 대신 서류를 제출해주는 것은 절차 대행일 뿐, 계산서상 당사자 표기가 바뀌는 것은 아닙니다.</p>
             <p>이체기록만으로는 부가세 신고 시 매입세액공제가 되지 않고, 나중에 소명 요청이 들어왔을 때 자금 흐름과 증빙 흐름이 어긋나 있으면 가공경비로 의심받을 소지가 생깁니다. 매입세액공제·필요경비 인정을 받으려면 세금계산서(또는 계산서, 신용카드매출전표, 현금영수증 같은 적격증빙)가 별도로 있어야 합니다.</p>
             <p>삼촌에게 지급하는 픽업비·대납 수수료는 그 자체로 별도의 용역대가입니다. 규모가 작을 때는 넘어가는 경우가 많지만, 연간 누적되면 사업소득에서 차감할 수 있는 경비이므로 계좌이체 내역과 함께 지급명세서(3.3% 사업소득 원천징수 또는 인건비 신고) 형태로 관리해두시는 것을 권합니다.</p>
           </div>
         </article>
 
-        <article id="q02" class="scroll-mt-24 border-t border-slate-200 pt-14">
+        <article id="q02" class="scroll-mt-24 border-t border-slate-200 pt-12 sm:pt-14">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">02</p>
-          <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">장끼(간이영수증), 버려도 되는 걸까</h2>
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <p class="flex items-start gap-2.5 text-[15.5px] font-bold leading-[1.5] text-navy-900">
+          <h2 class="mt-2 text-[1.375rem] font-extrabold leading-[1.45] tracking-tight sm:text-[1.75rem]">장끼(간이영수증), 버려도 되는 걸까</h2>
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+            <p class="flex items-start gap-2.5 text-[15px] font-bold leading-[1.55] text-navy-900 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-red-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
               "장끼만 잘 모아두면 경비 처리는 되겠지"
             </p>
-            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15.5px] leading-[1.75] text-navy-700">
+            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15px] leading-[1.8] text-navy-700 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
               <span>장끼는 <strong class="font-bold text-navy-900">적격증빙이 아닙니다.</strong> 3만원을 초과하는 거래에 적격증빙이 없으면 미수취 금액의 2%가 증빙불비가산세로 붙습니다.</span>
             </p>
           </div>
-          <div class="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-navy-600">
+          <div class="mt-6 space-y-5 text-[16px] leading-[1.9] text-navy-600 sm:mt-7 sm:text-[16.5px]">
             <p>장끼는 동대문 도매시장에서 흔히 쓰는 간이영수증으로, 세법상 정식 명칭은 '영수증' 또는 '거래명세서'에 해당합니다. 3만원을 초과하는 거래는 원칙적으로 세금계산서, 계산서, 신용카드매출전표, 현금영수증 중 하나(적격증빙)를 받아야 하고, 이를 받지 못하면 증빙불비가산세가 붙습니다. 장끼는 이 적격증빙이 없을 때 거래 사실을 보완적으로 증명하는 <strong class="font-semibold text-navy-900">보조 자료</strong>로 쓰입니다.</p>
             <p>보관 기간은 국세기본법상 세금 관련 장부·증빙의 보존 기간인 <strong class="font-semibold text-navy-900">5년</strong>을 기준으로 잡으시면 됩니다. 부정행위가 개입된 경우 국세부과 제척기간이 10년까지 늘어날 수 있어, 애매하면 그 이상 보관해도 무방합니다.</p>
             <p>실무적으로는 매입 시점에 사진으로 찍어 거래처·날짜·금액을 파일명이나 스프레드시트에 정리해두고, 원본은 월 단위 봉투나 파일로 모아두는 방식이 가장 관리가 쉽습니다. 온라인으로 받은 장끼(캡처 이미지, PDF)도 동일하게 보관 대상입니다.</p>
           </div>
         </article>
 
-        <article id="q03" class="scroll-mt-24 border-t border-slate-200 pt-14">
+        <article id="q03" class="scroll-mt-24 border-t border-slate-200 pt-12 sm:pt-14">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">03</p>
-          <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">간이과세자, 세금계산서 할까 말까</h2>
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <p class="flex items-start gap-2.5 text-[15.5px] font-bold leading-[1.5] text-navy-900">
+          <h2 class="mt-2 text-[1.375rem] font-extrabold leading-[1.45] tracking-tight sm:text-[1.75rem]">간이과세자, 세금계산서 할까 말까</h2>
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+            <p class="flex items-start gap-2.5 text-[15px] font-bold leading-[1.55] text-navy-900 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-red-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
               "간이과세 기준은 연매출 8,000만원"
             </p>
-            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15.5px] leading-[1.75] text-navy-700">
+            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15px] leading-[1.8] text-navy-700 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
               <span>8,000만원은 과거 기준입니다. 현재는 직전연도 공급대가 기준 <strong class="font-bold text-navy-900">1억 400만원 미만</strong>입니다.</span>
             </p>
           </div>
-          <div class="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-navy-600">
+          <div class="mt-6 space-y-5 text-[16px] leading-[1.9] text-navy-600 sm:mt-7 sm:text-[16.5px]">
             <p>"내 경우엔 매입 세금계산서를 받아야 하나"라는 질문의 답은 이렇습니다. <strong class="font-semibold text-navy-900">매출 규모와 무관하게, 매입 세금계산서는 받아두는 것이 항상 유리합니다.</strong> 간이과세자는 매입세액공제를 온전히 받지 못하지만, 매입 세금계산서는 종합소득세 신고 시 필요경비를 입증하는 핵심 자료이기 때문입니다.</p>
             <p>"간이는 지출증빙용 현금영수증만 있으면 된다"는 것도 절반만 맞는 말로, 현금영수증이 없는 거래(계좌이체 사입 등)는 세금계산서로 증빙을 대체해야 합니다.</p>
             <p>일반과세 전환이 예상된다면 전환 시점 이전 매입분도 소급 증빙이 되지 않으므로, 미리 세금계산서를 받아두는 편이 종합소득세 필요경비 인정에 유리합니다. 반대로 이제 막 시작해 매출이 거의 없다면, 당장 계산서를 받지 않아도 큰 불이익은 없지만 매입 사실 자체(장끼·이체내역)는 남겨두어야 합니다.</p>
@@ -161,89 +182,89 @@
           </div>
         </article>
 
-        <article id="q04" class="scroll-mt-24 border-t border-slate-200 pt-14">
+        <article id="q04" class="scroll-mt-24 border-t border-slate-200 pt-12 sm:pt-14">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">04</p>
-          <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">세금계산서 발행 타이밍과 누락 복구, 지금이라도 되나요</h2>
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <p class="flex items-start gap-2.5 text-[15.5px] font-bold leading-[1.5] text-navy-900">
+          <h2 class="mt-2 text-[1.375rem] font-extrabold leading-[1.45] tracking-tight sm:text-[1.75rem]">세금계산서 발행 타이밍과 누락 복구, 지금이라도 되나요</h2>
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+            <p class="flex items-start gap-2.5 text-[15px] font-bold leading-[1.55] text-navy-900 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-red-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
               "가산세는 어차피 내 부담이니 괜찮다"
             </p>
-            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15.5px] leading-[1.75] text-navy-700">
+            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15px] leading-[1.8] text-navy-700 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
               <span>가산세는 원칙적으로 <strong class="font-bold text-navy-900">공급자(도매매장)가 부담</strong>합니다. 매입자가 걱정할 것은 가산세가 아니라 매입세액공제를 못 받는 상황입니다.</span>
             </p>
           </div>
-          <div class="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-navy-600">
+          <div class="mt-6 space-y-5 text-[16px] leading-[1.9] text-navy-600 sm:mt-7 sm:text-[16.5px]">
             <p>세금계산서는 원칙적으로 재화·용역을 공급한 날이 속하는 달의 <strong class="font-semibold text-navy-900">다음 달 10일까지</strong> 발급해야 합니다(그 날이 공휴일이면 다음 영업일). 다만 세법은 '지연발급'이라는 구제 절차를 두고 있어, 공급시기가 속한 과세기간(1~6월, 7~12월)의 확정신고 기한(각 1월 25일, 7월 25일)까지는 발급이 가능합니다.</p>
             <p>이 경우 공급자는 지연발급가산세(공급가액의 1%)를, 발급 자체를 하지 않으면 미발급가산세(2%)를 부담하게 됩니다. 매입자 입장에서 지연발급분을 받더라도 그 과세기간 안에만 들어오면 매입세액공제 자체는 받을 수 있습니다.</p>
             <p>매입자인 대표님이 걱정해야 할 것은, 해당 과세기간의 확정신고 기한을 넘겨 세금계산서를 받으면 <strong class="font-semibold text-navy-900">매입세액공제 자체를 받지 못할 수 있다</strong>는 점입니다. 그래서 거래처가 발급을 미루고 있다면 늦어도 과세기간 마감 전에는 발급을 독촉해야 합니다.</p>
           </div>
         </article>
 
-        <article id="q05" class="scroll-mt-24 border-t border-slate-200 pt-14">
+        <article id="q05" class="scroll-mt-24 border-t border-slate-200 pt-12 sm:pt-14">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">05</p>
-          <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">거래처 수십 곳, 부가세 입금은 어떻게 루틴화할까</h2>
-          <div class="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-navy-600">
+          <h2 class="mt-2 text-[1.375rem] font-extrabold leading-[1.45] tracking-tight sm:text-[1.75rem]">거래처 수십 곳, 부가세 입금은 어떻게 루틴화할까</h2>
+          <div class="mt-6 space-y-5 text-[16px] leading-[1.9] text-navy-600 sm:mt-7 sm:text-[16.5px]">
             <p>부가세 입금의 기본 구조는 간단합니다. 매입 시점에 공급가액만 지급하고, 익월 초(통상 5일 전후, 거래처마다 상이) 한 달치 거래금액을 정리해 부가세 10%를 별도로 입금한 뒤 세금계산서 발급을 요청하는 방식입니다. 반대로 매입 시점에 부가세를 포함한 금액(공급가액의 110%)을 바로 입금하고, 월초에는 계산서만 요청하는 방식도 널리 쓰입니다. <strong class="font-semibold text-navy-900">어느 쪽이든 세법상 우열은 없고, 거래처와 사전에 정한 방식을 일관되게 지키는 것이 중요합니다.</strong></p>
             <p>루틴화의 핵심은 '기록의 단위'를 다달이 아니라 <strong class="font-semibold text-navy-900">'건별'로 관리</strong>하는 것입니다. 발주할 때마다 엑셀이나 스프레드시트에 거래처·날짜·공급가액을 즉시 기록해두면, 월말에 거래처별로 집계만 하면 되므로 카톡으로 일일이 계산해 보내는 수고를 줄일 수 있습니다.</p>
             <p>은행에 따라 다건 이체(엑셀 업로드를 통한 일괄 이체)를 지원하는 경우가 많아, 거래처가 많다면 이 기능을 활용하시길 권합니다. 부가세 전용 통장을 따로 두면 실제로 남는 돈과 세금으로 나가야 할 돈이 섞이지 않아 자금 관리가 한결 수월해집니다.</p>
           </div>
         </article>
 
-        <article id="q06" class="scroll-mt-24 border-t border-slate-200 pt-14">
+        <article id="q06" class="scroll-mt-24 border-t border-slate-200 pt-12 sm:pt-14">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">06</p>
-          <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">자사몰 매출은 어디까지 신고해야 할까</h2>
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <p class="flex items-start gap-2.5 text-[15.5px] font-bold leading-[1.5] text-navy-900">
+          <h2 class="mt-2 text-[1.375rem] font-extrabold leading-[1.45] tracking-tight sm:text-[1.75rem]">자사몰 매출은 어디까지 신고해야 할까</h2>
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+            <p class="flex items-start gap-2.5 text-[15px] font-bold leading-[1.55] text-navy-900 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-red-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
               "무통장 건은 따로 안 물어보시니 안 넣어도 되나 보다"
             </p>
-            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15.5px] leading-[1.75] text-navy-700">
+            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15px] leading-[1.8] text-navy-700 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
               <span>세무대리인은 넘겨받은 자료로 신고합니다. <strong class="font-bold text-navy-900">모든 결제수단 매출을 취합해 전달할 책임은 사업자 본인</strong>에게 있습니다.</span>
             </p>
           </div>
-          <div class="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-navy-600">
+          <div class="mt-6 space-y-5 text-[16px] leading-[1.9] text-navy-600 sm:mt-7 sm:text-[16.5px]">
             <p>부가가치세와 소득세 신고에서 매출의 범위는 '실제로 받은 대가'가 아니라 <strong class="font-semibold text-navy-900">'재화·용역의 공급으로 발생한 대가 전체'</strong>입니다. 신용카드·PG사를 통한 결제뿐 아니라 무통장입금, 네이버페이·카카오페이 같은 간편결제, 포인트 사용분까지 모두 매출에 포함되는 것이 원칙입니다. PG사 자료만 뽑아 세무사에게 넘기면 자사몰 무통장입금이나 일부 간편결제 매출이 누락될 수 있어 유의해야 합니다.</p>
             <p>정기적으로(월 단위) 카페24 관리자 페이지에서 전체 결제수단별 매출 집계를 뽑아 세무대리인에게 전달하는 루틴을 만들어 두시길 권합니다.</p>
             <p>반품·교환 건은 확정된(완료 처리된) 반품만 매출에서 차감하는 것이 원칙이며, 에이블리 등 위탁판매형 플랫폼은 실제 판매일이 아니라 <strong class="font-semibold text-navy-900">구매확정일</strong>을 기준으로 정산·매출 인식 시점을 잡는 경우가 많으니 플랫폼별 정산 규정을 확인해 매출 인식 시점의 기준을 통일해 두시기 바랍니다.</p>
           </div>
         </article>
 
-        <article id="q07" class="scroll-mt-24 border-t border-slate-200 pt-14">
+        <article id="q07" class="scroll-mt-24 border-t border-slate-200 pt-12 sm:pt-14">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">07</p>
-          <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">청년창업 세액감면, 나는 몇 % 받을 수 있을까</h2>
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <p class="flex items-start gap-2.5 text-[15.5px] font-bold leading-[1.5] text-navy-900">
+          <h2 class="mt-2 text-[1.375rem] font-extrabold leading-[1.45] tracking-tight sm:text-[1.75rem]">청년창업 세액감면, 나는 몇 % 받을 수 있을까</h2>
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+            <p class="flex items-start gap-2.5 text-[15px] font-bold leading-[1.55] text-navy-900 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-red-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
               "감면율이 100%면 세금계산서를 떼지 않아도 된다"
             </p>
-            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15.5px] leading-[1.75] text-navy-700">
+            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15px] leading-[1.8] text-navy-700 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
               <span>감면은 <strong class="font-bold text-navy-900">산출세액을 줄여주는 제도</strong>일 뿐, 세금계산서 발급·수취 의무나 부가세 신고 의무와는 전혀 별개입니다.</span>
             </p>
           </div>
-          <div class="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-navy-600">
+          <div class="mt-6 space-y-5 text-[16px] leading-[1.9] text-navy-600 sm:mt-7 sm:text-[16.5px]">
             <p>청년창업 중소기업 세액감면(조세특례제한법 제6조)은 창업 당시 만 15세 이상 34세 이하(병역 이행 기간은 최대 6년까지 연령에서 차감)인 청년이, 감면 대상 업종으로 신규 창업한 경우 종합소득세(또는 법인세)를 감면해주는 제도입니다. 정확한 감면율은 <strong class="font-semibold text-navy-900">창업일, 창업지, 업종코드, 최초 창업 여부</strong>를 모두 대입해야 확정되므로 상담 시 이 네 가지를 정리해 오시면 판정이 훨씬 빠릅니다.</p>
             <p>감면율이 100%라 해도 매입 세금계산서를 받아 필요경비를 인정받아야 소득금액 자체가 정확히 계산되고, 이후 감면 한도나 매출 구간 판정에도 영향을 줍니다. 세금계산서를 받지 않으면 국민건강보험료(지역가입자 건보료는 사업소득 기준으로 산정)에도 불리하게 작용할 수 있습니다.</p>
           </div>
         </article>
 
-        <article id="q08" class="scroll-mt-24 border-t border-slate-200 pt-14">
+        <article id="q08" class="scroll-mt-24 border-t border-slate-200 pt-12 sm:pt-14">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">08</p>
-          <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">종합소득세, 왜 매번 예상보다 많이 나올까</h2>
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <p class="flex items-start gap-2.5 text-[15.5px] font-bold leading-[1.5] text-navy-900">
+          <h2 class="mt-2 text-[1.375rem] font-extrabold leading-[1.45] tracking-tight sm:text-[1.75rem]">종합소득세, 왜 매번 예상보다 많이 나올까</h2>
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+            <p class="flex items-start gap-2.5 text-[15px] font-bold leading-[1.55] text-navy-900 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-red-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
               "부가세만 떼어두면 된다"
             </p>
-            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15.5px] leading-[1.75] text-navy-700">
+            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15px] leading-[1.8] text-navy-700 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
               <span>종소세는 <strong class="font-bold text-navy-900">6%에서 최고 45%까지 오르는 누진세</strong>입니다. 매출이 늘면 부가세보다 종소세 부담이 훨씬 가파르게 커집니다.</span>
             </p>
           </div>
-          <div class="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-navy-600">
+          <div class="mt-6 space-y-5 text-[16px] leading-[1.9] text-navy-600 sm:mt-7 sm:text-[16.5px]">
             <p>부가가치세는 매출세액에서 매입세액을 뺀 '거래세' 성격이라 마진과 직접 연결되지 않는 경우가 많지만, 종합소득세는 1년간의 사업소득(매출-필요경비)에 누진세율을 적용하는 세금입니다. "부가세만 떼어두면 된다"는 생각으로 종소세 대비를 놓치면 신고서를 받아보고 놀라는 이유가 바로 이 누진 구조에 있습니다.</p>
             <p>실무적으로는 월 순이익(매출-매입-경비)의 일정 비율을 별도 계좌에 미리 떼어두는 방식을 권합니다. 정확한 비율은 소득 구간과 각종 공제·감면 적용 여부에 따라 달라지므로 일률적인 숫자를 제시하기는 어렵지만, <strong class="font-semibold text-navy-900">연 순이익이 커질수록 대비금 비율도 함께 높여야 한다</strong>는 점은 분명합니다. 전년도 실적을 바탕으로 반기(또는 분기) 단위로 세무대리인에게 예상세액 시뮬레이션을 요청해두면 신고 시즌의 충격을 크게 줄일 수 있습니다.</p>
             <p>직전 과세기간 수입금액이 업종별 기준을 넘어 성실신고확인대상자로 지정되면, 종합소득세 신고 전에 세무사의 성실신고확인 절차와 별도 확인비용이 추가로 발생합니다. 성실신고 대상 지정은 지정된 연도 이후 매출이 줄어도 즉시 해제되지 않고 일정 기간 유지되는 구조이므로, 지정 시점과 해제 요건을 미리 확인해두시는 것이 좋습니다.</p>
@@ -251,90 +272,90 @@
           </div>
         </article>
 
-        <article id="q09" class="scroll-mt-24 border-t border-slate-200 pt-14">
+        <article id="q09" class="scroll-mt-24 border-t border-slate-200 pt-12 sm:pt-14">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">09</p>
-          <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">기장료 시세와 세무대리인을 고르는 기준</h2>
-          <div class="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-navy-600">
+          <h2 class="mt-2 text-[1.375rem] font-extrabold leading-[1.45] tracking-tight sm:text-[1.75rem]">기장료 시세와 세무대리인을 고르는 기준</h2>
+          <div class="mt-6 space-y-5 text-[16px] leading-[1.9] text-navy-600 sm:mt-7 sm:text-[16.5px]">
             <p>기장료는 법으로 정해진 요율이 없고 매출 규모, 거래 건수(전표 수), 업종, 직원 유무, 개인/법인 여부에 따라 세무사무실마다 다르게 책정됩니다. 그래서 같은 '쇼핑몰'이어도 매출 규모와 거래 건수가 다르면 기장료가 크게 벌어지는 것이 자연스럽습니다. 시세를 판단할 때는 <strong class="font-semibold text-navy-900">절대 금액보다, 그 금액에 포함된 서비스 범위</strong>를 먼저 확인하시길 권합니다.</p>
             <p>세무사와 회계사는 둘 다 세무대리 업무(기장, 신고대리)를 수행할 수 있는 자격사이며, 실무에서 개인사업자·법인 기장 대리 업무 범위 자체에는 큰 차이가 없습니다. 다만 회계사는 감사·재무제표 인증 업무까지 겸할 수 있어, 법인 전환 이후 외부감사가 필요해지는 규모라면 회계사가 상대적으로 유리한 측면이 있습니다.</p>
             <p>기장을 언제부터 맡겨야 하는지에 대한 절대적인 매출 기준은 없습니다. 다만 <strong class="font-semibold text-navy-900">거래처 수가 늘어 부가세 자료 취합이 버거워지는 시점, 직원을 채용해 4대보험·급여 신고가 필요해지는 시점, 일반과세로 전환되는 시점</strong> 중 하나에 해당한다면 그때가 기장을 맡길 적기라고 보시면 됩니다. 조정료는 종합소득세·법인세 신고 시 별도로 발생하는 것이 업계 공통이므로, 계약 전 연간 총비용 기준으로 견적을 받아두시길 권합니다.</p>
           </div>
         </article>
 
-        <article id="q10" class="scroll-mt-24 border-t border-slate-200 pt-14">
+        <article id="q10" class="scroll-mt-24 border-t border-slate-200 pt-12 sm:pt-14">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">10</p>
-          <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">법인 전환, '지금'이 맞는 시점일까</h2>
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <p class="flex items-start gap-2.5 text-[15.5px] font-bold leading-[1.5] text-navy-900">
+          <h2 class="mt-2 text-[1.375rem] font-extrabold leading-[1.45] tracking-tight sm:text-[1.75rem]">법인 전환, '지금'이 맞는 시점일까</h2>
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+            <p class="flex items-start gap-2.5 text-[15px] font-bold leading-[1.55] text-navy-900 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-red-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
               "종소세 4천만원 넘으면 법인이 무조건 유리하다"
             </p>
-            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15.5px] leading-[1.75] text-navy-700">
+            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15px] leading-[1.8] text-navy-700 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
               <span>지나친 단순화입니다. 법인은 이익을 대표자가 가져갈 때 <strong class="font-bold text-navy-900">급여(근로소득세)나 배당(이중과세)</strong>으로 다시 세금을 냅니다.</span>
             </p>
           </div>
-          <div class="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-navy-600">
+          <div class="mt-6 space-y-5 text-[16px] leading-[1.9] text-navy-600 sm:mt-7 sm:text-[16.5px]">
             <p>법인 전환을 고려하는 시점에 대한 절대적인 매출·소득 기준은 없습니다. 다만 일반적으로 종합소득세 최고세율 구간에 근접했거나, 성실신고확인대상자 지정이 임박했거나, 투자 유치·거래처 신뢰도 등 사업적 필요가 생겼을 때 검토 대상이 됩니다. 개인사업자와 법인 중 어느 쪽이 유리한지는 <strong class="font-semibold text-navy-900">실제로 얼마를 회사에 유보하고 얼마를 개인이 가져갈 것인지까지 시뮬레이션</strong>해봐야 결론이 납니다.</p>
             <p>법인 전환 이후에도 개인사업자를 폐업하지 않고 병행 운영하며 자금이나 재고를 임의로 이동시키면, 두 사업체 간 자산 이전에 대한 정당한 대가 지급(세금계산서 발행, 적정가 거래)이 없을 경우 부당행위계산부인 대상이 될 수 있습니다.</p>
             <p>법인 전환은 절세 효과 못지않게 지켜야 할 의무(법인세 신고, 외부감사 여부, 이사회·주주총회 운영)도 늘어나는 결정이므로, 단순 세율 비교가 아니라 사업 구조 전체를 놓고 판단하시길 권합니다.</p>
           </div>
         </article>
 
-        <article id="q11" class="scroll-mt-24 border-t border-slate-200 pt-14">
+        <article id="q11" class="scroll-mt-24 border-t border-slate-200 pt-12 sm:pt-14">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">11</p>
-          <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">첫 직원을 뽑을 때, 3.3%와 4대보험은 무엇이 다를까</h2>
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <p class="flex items-start gap-2.5 text-[15.5px] font-bold leading-[1.5] text-navy-900">
+          <h2 class="mt-2 text-[1.375rem] font-extrabold leading-[1.45] tracking-tight sm:text-[1.75rem]">첫 직원을 뽑을 때, 3.3%와 4대보험은 무엇이 다를까</h2>
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+            <p class="flex items-start gap-2.5 text-[15px] font-bold leading-[1.55] text-navy-900 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-red-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
               "3.3%로 계약서만 써두면 되겠지"
             </p>
-            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15.5px] leading-[1.75] text-navy-700">
+            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15px] leading-[1.8] text-navy-700 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
               <span>판단 기준은 계약의 명칭이 아니라 <strong class="font-bold text-navy-900">실제 근무 형태</strong>입니다. 위장 프리랜서로 판단되면 4대보험 소급 가입과 퇴직금 의무가 생깁니다.</span>
             </p>
           </div>
-          <div class="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-navy-600">
+          <div class="mt-6 space-y-5 text-[16px] leading-[1.9] text-navy-600 sm:mt-7 sm:text-[16.5px]">
             <p>3.3% 사업소득 원천징수는 근로계약이 아니라 위탁·용역계약으로 일을 맡기는 프리랜서에게 적용하는 방식이고, 4대보험(국민연금·건강보험·고용보험·산재보험)은 근로계약을 맺은 근로자에게 적용됩니다. 실질이 근로자(정해진 시간·장소에서 대표님의 지휘·감독을 받아 일하는 형태)인데 서류상 3.3%로 처리하면, 추후 4대보험 소급 가입과 퇴직금 지급 의무가 발생할 수 있습니다.</p>
             <p>직원을 채용하면 근로계약서 작성, 4대보험 취득신고, 최저임금 준수, 주휴수당 지급이 기본 의무로 따라옵니다. 시급을 정할 때는 최저임금에 주휴수당·4대보험 사업주 부담분(대략 임금의 10% 내외)을 함께 고려해야 실제 인건비를 가늠할 수 있습니다.</p>
             <p>외주 보정작업처럼 건별로 맡기는 용역은 3.3% 원천징수와 함께 용역계약서를 작성해두는 것이 이후 근로자성 시비를 줄이는 데 도움이 됩니다.</p>
           </div>
         </article>
 
-        <article id="q12" class="scroll-mt-24 border-t border-slate-200 pt-14">
+        <article id="q12" class="scroll-mt-24 border-t border-slate-200 pt-12 sm:pt-14">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">12</p>
-          <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">이것도 비용처리 되나요?</h2>
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <p class="flex items-start gap-2.5 text-[15.5px] font-bold leading-[1.5] text-navy-900">
+          <h2 class="mt-2 text-[1.375rem] font-extrabold leading-[1.45] tracking-tight sm:text-[1.75rem]">이것도 비용처리 되나요?</h2>
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+            <p class="flex items-start gap-2.5 text-[15px] font-bold leading-[1.55] text-navy-900 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-red-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
               "사업자 카드로 긁으면 다 경비 처리되죠"
             </p>
-            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15.5px] leading-[1.75] text-navy-700">
+            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15px] leading-[1.8] text-navy-700 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
               <span>결제 수단이 아니라 <strong class="font-bold text-navy-900">사업 관련성 + 적격증빙</strong> 두 가지를 함께 충족해야 필요경비로 인정됩니다.</span>
             </p>
           </div>
-          <div class="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-navy-600">
+          <div class="mt-6 space-y-5 text-[16px] leading-[1.9] text-navy-600 sm:mt-7 sm:text-[16.5px]">
             <p>업무용 헤드폰, 사무용품, 사업장 월세, 메타·구글 같은 해외 광고비는 모두 사업 관련성이 명확해 필요경비로 인정되는 대표적인 항목입니다. 다만 사업자 카드로 결제했다는 사실만으로 자동 인정되는 것이 아니라, 실제로 업무에 쓰였다는 실질이 뒷받침되어야 합니다. 식사비는 직원 복리후생 또는 거래처 접대(기업업무추진비, 한도 있음) 목적이면 인정되지만, 대표 개인의 사적 식사는 원칙적으로 제외됩니다.</p>
             <p>홈택스에 사업용 신용카드를 등록해두면 매입 내역이 자동으로 집계되어 신고 편의성이 크게 올라갑니다. 다만 자동 집계된다고 해서 그 카드로 결제한 모든 지출이 자동으로 필요경비 처리되는 것은 아니며, 사업 관련성이 낮은 항목은 세무대리인이 신고 시 걸러내는 절차를 거칩니다.</p>
             <p>매출 규모가 6천만원(단순경비율 적용 기준)을 넘어서면 장부 없이 추정경비율로 신고하던 방식에서 벗어나 실제 지출 증빙을 갖추는 것이 유리해지는 경우가 많으므로, 그 시점을 계기로 증빙 관리를 한 단계 정비하시길 권합니다.</p>
           </div>
         </article>
 
-        <article id="q13" class="scroll-mt-24 border-t border-slate-200 pt-14">
+        <article id="q13" class="scroll-mt-24 border-t border-slate-200 pt-12 sm:pt-14">
           <p class="text-[13px] font-bold tracking-[0.18em] text-brand-700">13</p>
-          <h2 class="mt-2 text-2xl font-extrabold leading-[1.35] tracking-tight sm:text-[1.75rem]">매출은 느는데 남는 게 없다, 진짜 순수익 계산법</h2>
-          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <p class="flex items-start gap-2.5 text-[15.5px] font-bold leading-[1.5] text-navy-900">
+          <h2 class="mt-2 text-[1.375rem] font-extrabold leading-[1.45] tracking-tight sm:text-[1.75rem]">매출은 느는데 남는 게 없다, 진짜 순수익 계산법</h2>
+          <div class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+            <p class="flex items-start gap-2.5 text-[15px] font-bold leading-[1.55] text-navy-900 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-red-500" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
               "판매가에서 원가 빼면 그게 마진이죠"
             </p>
-            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15.5px] leading-[1.75] text-navy-700">
+            <p class="mt-3.5 flex items-start gap-2.5 border-t border-slate-200 pt-3.5 text-[15px] leading-[1.8] text-navy-700 sm:text-[15.5px]">
               <svg class="mt-0.5 shrink-0 text-brand-700" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
               <span>여기서 <strong class="font-bold text-navy-900">부가세, 플랫폼 수수료와 그 수수료의 부가세, 결제수수료, 택배비, 판관비</strong>를 순서대로 더 빼야 실제로 손에 남는 돈이 나옵니다.</span>
             </p>
           </div>
-          <div class="mt-7 space-y-5 text-[16.5px] leading-[1.85] text-navy-600">
+          <div class="mt-6 space-y-5 text-[16px] leading-[1.9] text-navy-600 sm:mt-7 sm:text-[16.5px]">
             <p>부가세를 마진 계산에 넣는 방법은 이렇습니다. 매입 시 부가세 포함 금액으로 사입했다면, 매입세액공제를 받는 일반과세자 기준으로는 <strong class="font-semibold text-navy-900">공급가액(부가세 제외 금액)을 원가</strong>로 봐야 실제 원가율이 정확해집니다. 판매가 역시 부가세가 포함된 금액이므로, 매출세액(판매가의 10/110)을 별도로 떼어내 순수 매출로 계산해야 합니다. 플랫폼 수수료에 붙는 부가세(수수료의 10%)도 별도 매입세액공제 대상이 될 수 있으므로 누락하지 않도록 확인이 필요합니다.</p>
             <p>종합소득세는 부가세와 달리 연간 소득 전체에 누진세율로 부과되므로, 상품 하나하나의 마진 계산에 정확한 세율을 넣기는 어렵습니다. 그래서 실무적으로는 예상 소득 구간의 한계세율을 보수적으로 추정해 순수익 계산에 반영하고, 정산이 들어올 때마다 매출의 일정 비율을 별도로 떼어두는 방식이 안전합니다.</p>
           </div>
@@ -353,19 +374,19 @@
   </main>
 
   <div id="cta-bar" class="fixed inset-x-0 bottom-0 z-50 hidden border-t border-white/10 bg-navy-900 shadow-2xl">
-    <div class="mx-auto flex max-w-content items-center justify-between gap-4 px-5 py-3.5 lg:px-8">
+    <div class="mx-auto flex max-w-content items-center justify-between gap-3 px-4 py-3 sm:gap-4 sm:px-5 sm:py-3.5 lg:px-8">
       <div class="min-w-0">
-        <p class="text-[15px] font-bold leading-snug text-white sm:text-[16.5px]">읽다 보니 우리 쇼핑몰은 <span class="text-green-400">어떤지 궁금하신가요?</span></p>
+        <p class="text-[14px] font-bold leading-snug text-white sm:text-[16.5px]">읽다 보니 우리 쇼핑몰은<br class="sm:hidden" /> <span class="text-green-400">어떤지 궁금하신가요?</span></p>
         <p class="mt-1 hidden text-[13.5px] leading-snug text-slate-300 md:block">판매 채널과 매출 구조만 들으면 현재 세무 관리 상태와 놓치고 있는 부분이 보입니다. 상담은 무료입니다.</p>
       </div>
-      <a href="index.html#contact" class="cta-pulse inline-flex shrink-0 items-center gap-2 rounded-lg bg-white px-5 py-3 text-[14.5px] font-semibold text-navy-900 transition-colors hover:bg-slate-100 sm:px-6 sm:text-[15px]">
+      <a href="index.html#contact" class="cta-pulse inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-white px-4 py-2.5 text-[13.5px] font-semibold text-navy-900 transition-colors hover:bg-slate-100 sm:gap-2 sm:px-6 sm:py-3 sm:text-[15px]">
         무료 상담 신청하기
         <svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
       </a>
     </div>
   </div>
 
-  <button id="to-top" class="fixed bottom-24 right-6 z-50 hidden h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-navy-700 shadow-lg transition-colors hover:border-brand-700 hover:text-brand-700" aria-label="맨 위로">
+  <button id="to-top" class="fixed bottom-24 right-4 z-50 hidden h-11 w-11 sm:right-6 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-navy-700 shadow-lg transition-colors hover:border-brand-700 hover:text-brand-700" aria-label="맨 위로">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
   </button>
 
@@ -385,6 +406,28 @@
 
 
   <script>
+
+    // 모바일 메뉴 토글
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+    menuBtn.addEventListener('click', () => {
+      const isOpen = !mobileMenu.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden', isOpen);
+      iconClose.classList.toggle('hidden', !isOpen);
+      menuBtn.setAttribute('aria-expanded', String(isOpen));
+      menuBtn.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
+    });
+    mobileMenu.querySelectorAll('a').forEach((a) =>
+      a.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      })
+    );
+
     // 데스크톱에서는 목차 항상 펼침
     const toc = document.getElementById('toc');
     const syncToc = () => { toc.open = window.innerWidth >= 1024 ? true : toc.open; };
